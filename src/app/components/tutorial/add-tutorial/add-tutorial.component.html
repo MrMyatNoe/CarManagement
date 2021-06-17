@@ -1,0 +1,50 @@
+<div>
+  <div class="submit-form">
+    <h1>Add Tutorial</h1>
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="tutorial.title"
+          name="title"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="tutorial.description"
+          name="description"
+        />
+      </div>
+
+      <button class="btn btn-success" (click)="saveTutorial()">Save</button>
+    </div>
+    <div *ngIf="submitted">
+      <h4>Tutorial was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newTutorial()">Add</button>
+      <a
+        href="#"
+        class="btn btn-secondary active"
+        role="button"
+        aria-pressed="true"
+        style="margin-left: 8px"
+        >List</a
+      >
+    </div>
+    <div *ngIf="alertMessage">
+        <div class="alert alert-warning alert-dismissable fade show" role="alert">
+          {{message}}
+          <button class="btn btn-success" (click)="newTutorial()">Add</button>
+        </div>
+    </div>
+  </div>
+</div>

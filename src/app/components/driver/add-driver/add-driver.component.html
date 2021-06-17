@@ -1,0 +1,174 @@
+<div *ngIf="alert">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Hey Yo!</strong> You data saved successfully below.
+    <button
+      (click)="closeDialog()"
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div *ngIf="errorMessage">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button
+      (click)="closeDialog()"
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div>
+  <form
+    [formGroup]="driverForm"
+    class="submit-form"
+    (ngSubmit)="onSubmitForm()"
+  >
+    <h1>Add Driver</h1>
+    <div class="form-group">
+      <label>Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        id="name"
+        class="form-control"
+        placeholder="John Doe"
+        required
+      />
+      <div
+        *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.name.errors">Driver Name is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>NRC</label>
+      <input
+        type="text"
+        formControlName="nrc"
+        id="nrc"
+        class="form-control"
+        placeholder="12/DaPaNa(C)012345"
+        required
+      />
+      <div
+        *ngIf="f.nrc.invalid && (f.nrc.dirty || f.nrc.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.nrc.errors">NRC is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>License No</label>
+      <input
+        type="text"
+        formControlName="license"
+        id="license"
+        class="form-control"
+      />
+      <div
+        *ngIf="f.license.invalid && (f.license.dirty || f.license.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.license.errors">license is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Gender :</label>
+      <div class="form-check form-check-inline" style="margin-left: 30px">
+        <input
+          id="male"
+          type="radio"
+          class="form-check-input"
+          value="male"
+          name="gender"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="male">Male</label>
+      </div>
+
+      <div class="form-check form-check-inline" style="margin-left: 30px">
+        <input
+          id="female"
+          type="radio"
+          class="form-check-input"
+          value="female"
+          name="gender"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+
+      <div class="form-check form-check-inline" style="margin-left: 30px">
+        <input
+          id="other"
+          type="radio"
+          class="form-check-input"
+          value="other"
+          name="gender"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="other">Other</label>
+      </div>
+      <div
+        *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.gender.errors">gender is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Address</label>
+      <input
+        type="text"
+        formControlName="address"
+        id="address"
+        class="form-control"
+        required
+      />
+      <div
+        *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.address.errors">address is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input
+        type="number"
+        formControlName="phone"
+        id="phone"
+        class="form-control"
+        required
+      />
+      <div
+        *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.phone.errors">address is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Image Upload</label>
+      <input type="file" accept="image/*" (change)="onSelectFile($event)" />
+      <img
+        [src]="imageURL"
+        height="200px"
+        width="200px"
+        *ngIf="imageURL"
+        style="margin-top: 20px"
+      />
+    </div>
+    <button class="btn btn-success">Save</button>
+  </form>
+</div>

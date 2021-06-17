@@ -1,0 +1,43 @@
+<div id="app">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">bezKoder</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item">
+        <a href="/home" class="nav-link" routerLink="home">Home </a>
+      </li>
+      <li class="nav-item" >
+        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+      </li>
+      <li class="nav-item">
+        <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
+      </li>
+      <li class="nav-item">
+        <a href="/user" class="nav-link" routerLink="user">User</a>
+      </li>
+      <li class="nav-item">
+        <a href="/role" class="nav-link" routerLink="role">Role</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile"></a>
+      </li>
+      <li class="nav-item">
+        <a href class="nav-link">LogOut</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container md-3" style="margin-top: 20px;">
+    <router-outlet></router-outlet>
+  </div>
+</div>

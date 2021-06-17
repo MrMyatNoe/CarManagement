@@ -1,0 +1,61 @@
+.list {
+  margin: auto;
+  max-width: 750px;
+  text-align: left;
+}
+
+.inforide {
+  box-shadow: 1px 2px 8px 0px #f1f1f1;
+  background-color: white;
+  border-radius: 8px;
+  height: 125px;
+}
+
+.rideone {
+  background-color: #6cc785;
+  padding-top: 25px;
+  border-radius: 8px 0px 0px 8px;
+  text-align: center;
+  height: 125px;
+  margin: auto;
+}
+
+.ridetwo {
+  background-color: #9A75FE;
+  padding-top: 25px;
+  border-radius: 8px 0px 0px 8px;
+  text-align: center;
+  height: 125px;
+  margin: auto;
+}
+
+.ridethree {
+  background-color: #4EBCE5;
+  padding-top: 25px;
+  border-radius: 8px 0px 0px 8px;
+  text-align: center;
+  height: 125px;
+  margin: auto;
+}
+
+.rideone img {
+  width: 70%;
+}
+
+.ridetwo img {
+    width: 60%;
+}
+
+.ridethree img {
+    width: 50%;
+}
+
+.content-wrapper {
+  margin: auto;
+  max-width: 750px;
+  text-align: left;
+}
+
+.fontsty {
+  margin-right: -15px;
+}
