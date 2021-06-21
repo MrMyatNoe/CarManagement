@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BASE_URL } from 'src/const';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DriverService {
-  private url = BASE_URL + 'drivers';
+  private url = environment.BASE_URL + 'drivers';
 
   constructor(private httpClient: HttpClient) {}
 

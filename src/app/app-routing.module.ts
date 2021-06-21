@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminComponent } from './components/admin/admin.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { AddDriverComponent } from './components/driver/add-driver/add-driver.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path : 'addDriver', component : AddDriverComponent },
   { path : "login", component: LoginComponent },
   { path : "register", component: SignUpComponent},
-  { path : "role", component: RoleComponent}
+  { path : "role", component: RoleComponent},
+  { path : "admin", component: AdminComponent}
 ];
 
 @NgModule({

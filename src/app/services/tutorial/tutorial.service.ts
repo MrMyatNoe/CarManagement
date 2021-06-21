@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BASE_URL } from 'src/const';
 import { Tutorial } from 'src/app/models/tutorial.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TutorialService {
 
-  private url = BASE_URL + "tutorials";
+  private url = environment.BASE_URL + "tutorials";
 
   constructor(private http: HttpClient) {}
 

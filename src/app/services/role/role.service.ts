@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
-import { BASE_URL } from "src/const";
 import { Observable, BehaviorSubject } from "rxjs/index";
 import { Role } from "src/app/models/role.model";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class RoleService {
-  private url = BASE_URL + "roles";
+  private url = environment.BASE_URL + "roles";
 
   roles$ = new BehaviorSubject<Role[]>([]);
 
@@ -25,7 +25,7 @@ export class RoleService {
     });
   }
 
-  loadAllRoles(): Observable<Role> {
+  loadAllRoles() {
     return this.httpClient.get<any>(this.url);
   }
 

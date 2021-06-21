@@ -13,6 +13,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { RoleComponent } from './components/role/role.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminComponent } from './components/admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddDriverComponent,
     LoginComponent,
     SignUpComponent,
-    RoleComponent
+    RoleComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

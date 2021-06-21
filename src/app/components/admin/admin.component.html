@@ -1,0 +1,221 @@
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ modalDialogLabel }} Role
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+      <h1>Admin</h1>
+
+      <div class="row from-row">
+        <input
+          class="col-sm-4 form-control"
+          type="hidden"
+          formControlName="id"
+        />
+
+        <label class="col-sm-4">Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="col-sm-4 form-control"
+        />
+
+        <div
+          *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.name.errors">name is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Phone</label>
+        <input
+          type="phone"
+          formControlName="phone"
+          class="col-sm-4 form-control"
+          placeholder="09*******"
+        />
+
+        <div
+          *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.phone.errors">phone is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="col-sm-4 form-control"
+          placeholder="johndoe@gmail.com"
+        />
+
+        <div
+          *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.email.errors">email is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Password</label>
+        <input
+          type="text"
+          formControlName="password"
+          class="col-sm-4 form-control"
+          placeholder="Enter Password between 6 and 15 characters"
+        />
+
+        <div
+          *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.password.errors">Password is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Address</label>
+        <input
+          type="text"
+          formControlName="address"
+          class="col-sm-4 form-control"
+          placeholder="enter address"
+        />
+
+        <div
+          *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.address.errors">address is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Gender :</label>
+        <div class="form-check form-check-inline" style="margin-left: 30px">
+          <input
+            id="male"
+            type="radio"
+            class="form-check-input"
+            value="male"
+            name="gender"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="male">Male</label>
+        </div>
+
+        <div class="form-check form-check-inline" style="margin-left: 30px">
+          <input
+            id="female"
+            type="radio"
+            class="form-check-input"
+            value="female"
+            name="gender"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="female">Female</label>
+        </div>
+
+        <div class="form-check form-check-inline" style="margin-left: 30px">
+          <input
+            id="other"
+            type="radio"
+            class="form-check-input"
+            value="other"
+            name="gender"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="other">Other</label>
+        </div>
+        <div
+          *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.gender.errors">gender is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4" for="roleId">Role</label>
+        <select formControlName="roleId" class="form-control">
+          <option *ngFor="let role of rolesData | async" value="{{ role.id }}">
+            {{ role.name }}
+          </option>
+        </select>
+
+        <div
+          *ngIf="f.roleId.invalid && (f.roleId.dirty || f.roleId.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.roleId.errors">role is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <button
+        type="submit"
+        [disabled]="!adminForm.valid"
+        class="btn btn-primary"
+      >
+        {{ modalButtonLabel }}
+      </button>
+    </form>
+  </div>
+</ng-template>
+<div class="mx-auto">
+  <button class="btn btn-primary" (click)="newAdmin()">New</button>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let admin of adminsData | async">
+    <td >
+      {{ admin.name }}
+    </td>
+    <td>
+      {{ admin.phone }}
+    </td>
+    <td>
+      {{ admin.email }}
+    </td>
+    <td>
+      {{ admin.password }}
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="editRole(role)">Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="deleteRole(role)">Delete</button>
+    </td>
+  </tr>
+</table>
