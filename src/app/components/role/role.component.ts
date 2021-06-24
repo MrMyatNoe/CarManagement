@@ -8,6 +8,7 @@ import {
   NgbModalOptions,
 } from "@ng-bootstrap/ng-bootstrap";
 import { Role } from "src/app/models/role.model";
+import { AdminService } from "src/app/services/admin/admin.service";
 
 @Component({
   selector: "app-role",
@@ -16,7 +17,7 @@ import { Role } from "src/app/models/role.model";
 })
 export class RoleComponent implements OnInit {
   roleForm: FormGroup;
-  rolesData: Observable<any> | undefined;
+  rolesData: any;
   roleCount = 0;
 
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
@@ -30,7 +31,8 @@ export class RoleComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private adminService: AdminService
   ) {
     this.roleForm = this.formBuilder.group({
       id: null,
@@ -40,17 +42,15 @@ export class RoleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(" loaded");
     this.getRoles();
-    // this.rolesSubscriber$ = this.roleService.roles$.subscribe(data=>{
-    //   console.log('New Role arrived' , this.rolesSubscriber$);
-    //   this.roleCount = data.length;
-    //   console.log(this.roleCount);
-    // });
   }
 
   getRoles() {
-    this.rolesData = this.roleService.loadAllRoles();
+    this.adminService.getRequest("roles").toPromise().then((data) =>{      
+      this.rolesData = data
+    },(error)=>{
+      console.log(error)
+    })
   }
 
   get f() {
@@ -90,20 +90,29 @@ export class RoleComponent implements OnInit {
 
   onSubmit(){
     var model =  this.roleForm.value;
-    console.log('New model ', model);
     if(model.id){
       this.roleService.updateRole(model);
     } else{
-    this.roleService.saveRole(model);
+    this.adminService
+    .postRequest("roles", model)
+    .toPromise()
+    .then(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     }
     this.roleForm.reset();
     this.modalService.dismissAll();
+    this.getRoles();
   }
 
   editRole(role:Role) {
     this.modalDialogLabel = 'Edit';
     this.modalButtonLabel = 'Update';
-    console.log('Edit movie ',role);
     let model = {... role};
     this.roleForm.patchValue(model);
     this.open(this.editModalDlg);
@@ -113,6 +122,7 @@ export class RoleComponent implements OnInit {
     this.roleService.delete(role).subscribe(
       data=>{
         console.log(data.message);
+        this.getRoles();
       }
     );
   }

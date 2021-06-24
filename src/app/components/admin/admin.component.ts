@@ -17,8 +17,10 @@ export class AdminComponent implements OnInit {
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
   closeResult: string;
-  rolesData: Observable<any> | undefined;
+  rolesData: any;
   adminsData: Observable<any> | undefined;
+
+  roleId = "";
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
 
   constructor(
@@ -29,7 +31,7 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getRoles();
+    //this.getRoles();
     this.getAdmins();
     this.adminForm = this.fb.group({
       id: null,
@@ -48,7 +50,13 @@ export class AdminComponent implements OnInit {
   }
 
   getRoles() {
-    this.rolesData = this.roleService.loadAllRoles();
+    this.adminService.getRequest("roles").toPromise().then((data) =>{      
+      this.rolesData = data
+      this.roleId = this.roleId || data[0].id
+      console.log('role id ' + this.rolesData[0].id)
+    },(error)=>{
+      console.log(error)
+    })
   }
 
   getAdmins() {
@@ -71,6 +79,7 @@ export class AdminComponent implements OnInit {
     this.modalDialogLabel = "New";
     this.modalButtonLabel = "Save";
     this.adminForm.reset();
+    this.getRoles();
     this.open(this.editModalDlg);
   }
 
@@ -118,5 +127,6 @@ export class AdminComponent implements OnInit {
     //}
     this.adminForm.reset();
     this.modalService.dismissAll();
+    this.getAdmins();
   }
 }

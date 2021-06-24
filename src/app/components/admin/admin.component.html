@@ -160,8 +160,8 @@
 
       <div class="row from-row">
         <label class="col-sm-4" for="roleId">Role</label>
-        <select formControlName="roleId" class="form-control">
-          <option *ngFor="let role of rolesData | async" value="{{ role.id }}">
+        <select formControlName="roleId" class="form-control" [ngModel]="roleId">
+          <option *ngFor="let role of rolesData" [value]="role.id">
             {{ role.name }}
           </option>
         </select>
