@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable } from "rxjs";
-import { AdminService } from "src/app/services/admin/admin.service";
+import { ApiService } from "src/app/services/api.service";
 import { RoleService } from "src/app/services/role/role.service";
 import { ToastrService } from "ngx-toastr";
+import { Admin } from "src/app/models/admin.model";
 
 @Component({
   selector: "app-admin",
@@ -18,7 +19,7 @@ export class AdminComponent implements OnInit {
   modalButtonLabel: string = "";
   closeResult: string;
   rolesData: any;
-  adminsData: Observable<any> | undefined;
+  adminsData: any;
 
   roleId = "";
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
@@ -27,12 +28,8 @@ export class AdminComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private roleService: RoleService,
-    private adminService: AdminService
-  ) {}
-
-  ngOnInit() {
-    //this.getRoles();
-    this.getAdmins();
+    private apiService: ApiService
+  ) {
     this.adminForm = this.fb.group({
       id: null,
       name: ["", [Validators.required]],
@@ -45,34 +42,44 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    //this.getRoles();
+    this.getAdmins();
+  }
+
   get f() {
     return this.adminForm.controls;
   }
 
   getRoles() {
-    this.adminService.getRequest("roles").toPromise().then((data) =>{      
-      this.rolesData = data
-      this.roleId = this.roleId || data[0].id
-      console.log('role id ' + this.rolesData[0].id)
-    },(error)=>{
-      console.log(error)
-    })
+    this.apiService
+      .getRequest("roles")
+      .toPromise()
+      .then(
+        (data) => {
+          this.rolesData = data;
+          this.roleId = this.roleId || data[0].id;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   getAdmins() {
-    this.adminsData = this.adminService.loadAllAdmins("admins");
-    // this.adminService
-    //   .getRequest("admins")
-    //   .toPromise()
-    //   .then(
-    //     (data) => {
-    //       console.log(data);
-    //       this.adminsData = data;
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
+    //this.adminsData = this.ApiService.loadAllAdmins("admins");
+    this.apiService
+      .getRequest("admins")
+      .toPromise()
+      .then(
+        (data) => {
+          console.log(data);
+          this.adminsData = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   newAdmin() {
@@ -109,24 +116,56 @@ export class AdminComponent implements OnInit {
 
   onSubmit() {
     var model = this.adminForm.value;
-    console.log("New model ", model);
-    // if(model.id){
-    //   this.roleService.updateRole(model);
-    // } else{
-    this.adminService
-      .postRequest("admins", model)
-      .toPromise()
-      .then(
-        (data) => {
-          console.log(data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    //}
+    console.log("model ", model);
+    if (model.id) {
+      this.apiService
+        .putRequest("admins", model)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log(data);
+            this.getAdmins();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    } else {
+      this.apiService
+        .postRequest("admins", model)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log(data);
+            this.getAdmins();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
     this.adminForm.reset();
     this.modalService.dismissAll();
-    this.getAdmins();
+  }
+
+  editAdmin(admin: Admin) {
+    this.modalDialogLabel = "Edit";
+    this.modalButtonLabel = "Update";
+    this.roleId = Object.values(admin.role)[0];
+    this.getRoles();
+    let model = { ...admin };
+    this.adminForm.patchValue(model);
+    this.open(this.editModalDlg);
+  }
+
+  role_change(id) {
+    this.roleId = id;
+  }
+
+  deleteAdmin(admin: Admin) {
+    this.apiService.deleteAdmin("admins", admin).subscribe((data) => {
+      console.log(data.message);
+      this.getAdmins();
+    });
   }
 }

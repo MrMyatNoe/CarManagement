@@ -1,0 +1,35 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Admin } from "src/app/models/admin.model";
+import { environment } from "src/environments/environment";
+
+@Injectable({
+  providedIn: "root",
+})
+export class ApiService {
+  private API_ROUTE = environment.BASE_URL;
+
+  constructor(private httpClient: HttpClient) {}
+
+  public getRequest(url: string) {
+    return this.httpClient.get(this.API_ROUTE + url);
+  }
+
+  public postRequest(url: string, data: any) {
+    return this.httpClient.post(this.API_ROUTE + url, data);
+  }
+
+  loadAllAdmins(url: string) {
+    return this.httpClient.get<any>(this.API_ROUTE + url);
+  }
+
+  public putRequest(url: string, data: any) {
+    return this.httpClient.put(this.API_ROUTE + url, data);
+  }
+
+  deleteAdmin(url: string, admin: Admin): Observable<any> {
+    console.log(this.API_ROUTE + url + "?id=" + admin.id);
+    return this.httpClient.delete(this.API_ROUTE + url + "?id=" + admin.id);
+  }
+}

@@ -8,7 +8,7 @@ import {
   NgbModalOptions,
 } from "@ng-bootstrap/ng-bootstrap";
 import { Role } from "src/app/models/role.model";
-import { AdminService } from "src/app/services/admin/admin.service";
+import { ApiService } from "src/app/services/api.service";
 
 @Component({
   selector: "app-role",
@@ -26,13 +26,11 @@ export class RoleComponent implements OnInit {
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
 
-  rolesSubscriber$;
-
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private roleService: RoleService,
-    private adminService: AdminService
+    private apiService: ApiService
   ) {
     this.roleForm = this.formBuilder.group({
       id: null,
@@ -46,11 +44,17 @@ export class RoleComponent implements OnInit {
   }
 
   getRoles() {
-    this.adminService.getRequest("roles").toPromise().then((data) =>{      
-      this.rolesData = data
-    },(error)=>{
-      console.log(error)
-    })
+    this.apiService
+      .getRequest("roles")
+      .toPromise()
+      .then(
+        (data) => {
+          this.rolesData = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   get f() {
@@ -58,8 +62,8 @@ export class RoleComponent implements OnInit {
   }
 
   newRole() {
-    this.modalDialogLabel = 'New';
-    this.modalButtonLabel = 'Save';
+    this.modalDialogLabel = "New";
+    this.modalButtonLabel = "Save";
     this.roleForm.reset();
     this.open(this.editModalDlg);
   }
@@ -88,42 +92,51 @@ export class RoleComponent implements OnInit {
     }
   }
 
-  onSubmit(){
-    var model =  this.roleForm.value;
-    if(model.id){
-      this.roleService.updateRole(model);
-    } else{
-    this.adminService
-    .postRequest("roles", model)
-    .toPromise()
-    .then(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  onSubmit() {
+    var model = this.roleForm.value;
+    if (model.id) {
+      this.apiService
+        .putRequest("roles", model)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log(data);
+            this.getRoles();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    } else {
+      this.apiService
+        .postRequest("roles", model)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log(data);
+            this.getRoles();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     }
     this.roleForm.reset();
     this.modalService.dismissAll();
-    this.getRoles();
   }
 
-  editRole(role:Role) {
-    this.modalDialogLabel = 'Edit';
-    this.modalButtonLabel = 'Update';
-    let model = {... role};
+  editRole(role: Role) {
+    this.modalDialogLabel = "Edit";
+    this.modalButtonLabel = "Update";
+    let model = { ...role };
     this.roleForm.patchValue(model);
     this.open(this.editModalDlg);
   }
-  
-  deleteRole(role:Role){
-    this.roleService.delete(role).subscribe(
-      data=>{
-        console.log(data.message);
-        this.getRoles();
-      }
-    );
+
+  deleteRole(role: Role) {
+    this.roleService.delete(role).subscribe((data) => {
+      console.log(data.message);
+      this.getRoles();
+    });
   }
 }

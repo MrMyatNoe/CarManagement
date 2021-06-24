@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AdminService } from './admin.service';
+import { ApiService } from './api.service';
 
-describe('AdminService', () => {
+describe('ApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AdminService = TestBed.get(AdminService);
+    const service: ApiService = TestBed.get(ApiService);
     expect(service).toBeTruthy();
   });
 });

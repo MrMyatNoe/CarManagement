@@ -1,7 +1,7 @@
 <ng-template #mymodal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">
-      {{ modalDialogLabel }} Role
+      {{ modalDialogLabel }} Admin
     </h4>
     <button
       type="button"
@@ -122,6 +122,7 @@
             value="male"
             name="gender"
             formControlName="gender"
+            checked
           />
           <label class="form-check-label" for="male">Male</label>
         </div>
@@ -160,8 +161,17 @@
 
       <div class="row from-row">
         <label class="col-sm-4" for="roleId">Role</label>
-        <select formControlName="roleId" class="form-control" [ngModel]="roleId">
-          <option *ngFor="let role of rolesData" [value]="role.id">
+        <select
+          formControlName="roleId"
+          class="form-control"
+          [ngModel]="roleId"
+          (change)="role_change($event.target.value)"
+        >
+          <option
+            *ngFor="let role of rolesData"
+            [selected]="role.id == roleId"
+            value="{{ role.id }}"
+          >
             {{ role.name }}
           </option>
         </select>
@@ -195,11 +205,13 @@
       <th>Phone</th>
       <th>Email</th>
       <th>Password</th>
+      <th>Gender</th>
+      <th>Role</th>
       <th>Action</th>
     </tr>
   </thead>
-  <tr *ngFor="let admin of adminsData | async">
-    <td >
+  <tr *ngFor="let admin of adminsData">
+    <td>
       {{ admin.name }}
     </td>
     <td>
@@ -211,11 +223,15 @@
     <td>
       {{ admin.password }}
     </td>
+    <td>{{ admin.gender }}</td>
     <td>
-      <button class="btn btn-info" (click)="editRole(role)">Edit</button>
+      {{ admin.role.name }}
     </td>
     <td>
-      <button class="btn btn-info" (click)="deleteRole(role)">Delete</button>
+      <button class="btn btn-info" (click)="editAdmin(admin)">Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="deleteAdmin(admin)">Delete</button>
     </td>
   </tr>
 </table>
