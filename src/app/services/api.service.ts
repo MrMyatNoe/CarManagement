@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Admin } from "src/app/models/admin.model";
 import { environment } from "src/environments/environment";
+import { Driver } from "../models/driver.model";
+import { Role } from "../models/role.model";
 
 @Injectable({
   providedIn: "root",
@@ -28,8 +30,15 @@ export class ApiService {
     return this.httpClient.put(this.API_ROUTE + url, data);
   }
 
-  deleteAdmin(url: string, admin: Admin): Observable<any> {
-    console.log(this.API_ROUTE + url + "?id=" + admin.id);
+  deleteAdminByIdRequest(url: string, admin: Admin): Observable<any> {
     return this.httpClient.delete(this.API_ROUTE + url + "?id=" + admin.id);
+  }
+
+  deleteRoleByIdRequest(url: string, role: Role): Observable<any> {
+    return this.httpClient.delete(this.API_ROUTE + url + "?id=" + role.id);
+  }
+
+  deleteDriverByIdRequest(url: string, driver: Driver): Observable<any> {
+    return this.httpClient.delete(this.API_ROUTE + url + "?id=" + driver.id);
   }
 }

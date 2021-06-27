@@ -1,0 +1,41 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>NRC</th>
+      <th>Gender</th>
+      <th>License</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let driver of driversData">
+    <td>
+      {{ driver.name }}
+    </td>
+    <td>
+      {{ driver.phone }}
+    </td>
+    <td>
+      {{ driver.nrc }}
+    </td>
+    <td>
+      {{ driver.gender }}
+    </td>
+    <td>
+      {{ driver.license }}
+    </td>
+    <td>
+      {{ driver.address }}
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="editAdmin(admin)">Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="deleteDriver(driver)">
+        Delete
+      </button>
+    </td>
+  </tr>
+</table>

@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Observable } from "rxjs";
 import { ApiService } from "src/app/services/api.service";
-import { RoleService } from "src/app/services/role/role.service";
-import { ToastrService } from "ngx-toastr";
 import { Admin } from "src/app/models/admin.model";
 
 @Component({
@@ -27,7 +24,6 @@ export class AdminComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private roleService: RoleService,
     private apiService: ApiService
   ) {
     this.adminForm = this.fb.group({
@@ -43,7 +39,6 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.getRoles();
     this.getAdmins();
   }
 
@@ -67,13 +62,11 @@ export class AdminComponent implements OnInit {
   }
 
   getAdmins() {
-    //this.adminsData = this.ApiService.loadAllAdmins("admins");
     this.apiService
       .getRequest("admins")
       .toPromise()
       .then(
         (data) => {
-          console.log(data);
           this.adminsData = data;
         },
         (error) => {
@@ -122,8 +115,7 @@ export class AdminComponent implements OnInit {
         .putRequest("admins", model)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          (_data) => {
             this.getAdmins();
           },
           (error) => {
@@ -135,8 +127,7 @@ export class AdminComponent implements OnInit {
         .postRequest("admins", model)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          (_data) => {
             this.getAdmins();
           },
           (error) => {
@@ -163,9 +154,17 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAdmin(admin: Admin) {
-    this.apiService.deleteAdmin("admins", admin).subscribe((data) => {
-      console.log(data.message);
-      this.getAdmins();
-    });
+    this.apiService
+      .deleteAdminByIdRequest("admins", admin)
+      .toPromise()
+      .then(
+        (data) => {
+          console.log(data.message);
+          this.getAdmins();
+        },
+        (error) => {
+          console.log("error", error);
+        }
+      );
   }
 }

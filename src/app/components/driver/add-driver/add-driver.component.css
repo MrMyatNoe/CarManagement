@@ -1,4 +1,10 @@
 .submit-form {
-    max-width: 400px;
-    margin: auto;
+  max-width: 500px;
+  margin: auto;
+}
+
+.my-img {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
 }

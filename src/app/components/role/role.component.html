@@ -1,12 +1,19 @@
 <ng-template #mymodal let-modal>
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">{{modalDialogLabel}} Role</h4>
-  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-    <span aria-hidden="true">×</span>
-  </button>
-</div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ modalDialogLabel }} Role
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
 
-<div class="modal-body">
+  <div class="modal-body">
     <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
       <h1>Role</h1>
 
@@ -50,13 +57,18 @@
       </div>
       <br />
 
-      <button type="submit" [disabled]="!roleForm.valid" class="btn btn-primary">{{modalButtonLabel}}</button>
+      <button
+        type="submit"
+        [disabled]="!roleForm.valid"
+        class="btn btn-primary"
+      >
+        {{ modalButtonLabel }}
+      </button>
     </form>
-</div>
+  </div>
 </ng-template>
 <div class="mx-auto">
   <button class="btn btn-primary" (click)="newRole()">New</button>
-  
 </div>
 <table class="table table-striped">
   <thead>
@@ -81,4 +93,3 @@
     </td>
   </tr>
 </table>
-

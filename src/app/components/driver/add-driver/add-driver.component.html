@@ -33,7 +33,24 @@
     (ngSubmit)="onSubmitForm()"
   >
     <h1>Add Driver</h1>
-    <div class="form-group">
+    <div class="row from-row">
+      <img
+        [src]="imageURL"
+        class="rounded-circle my-img"
+        *ngIf="imageURL"
+        style="margin-top: 20px"
+      />
+      <input
+        formControlName="img"
+        #myInput
+        type="file"
+        accept="image/*"
+        (change)="onSelectFile($event)"
+      />
+    </div>
+    <br />
+
+    <div class="row from-row">
       <label>Name</label>
       <input
         type="text"
@@ -50,7 +67,9 @@
         <div *ngIf="f.name.errors">Driver Name is required.</div>
       </div>
     </div>
-    <div class="form-group">
+    <br />
+
+    <div class="row from-row">
       <label>NRC</label>
       <input
         type="text"
@@ -67,7 +86,9 @@
         <div *ngIf="f.nrc.errors">NRC is required.</div>
       </div>
     </div>
-    <div class="form-group">
+    <br />
+
+    <div class="row from-row">
       <label>License No</label>
       <input
         type="text"
@@ -82,7 +103,9 @@
         <div *ngIf="f.license.errors">license is required.</div>
       </div>
     </div>
-    <div class="form-group">
+    <br />
+
+    <div class="row from-row">
       <label>Gender :</label>
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
@@ -95,6 +118,7 @@
         />
         <label class="form-check-label" for="male">Male</label>
       </div>
+      <br />
 
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
@@ -107,6 +131,25 @@
         />
         <label class="form-check-label" for="female">Female</label>
       </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Password</label>
+        <input
+          type="text"
+          formControlName="password"
+          class="col-sm-4 form-control"
+          placeholder="Enter Password between 6 and 15 characters"
+        />
+
+        <div
+          *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.password.errors">Password is required.</div>
+        </div>
+      </div>
+      <br />
 
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
@@ -126,7 +169,9 @@
         <div *ngIf="f.gender.errors">gender is required.</div>
       </div>
     </div>
-    <div class="form-group">
+    <br />
+
+    <div class="row from-row">
       <label>Address</label>
       <input
         type="text"
@@ -142,7 +187,9 @@
         <div *ngIf="f.address.errors">address is required.</div>
       </div>
     </div>
-    <div class="form-group">
+    <br />
+
+    <div class="row from-row">
       <label>Phone</label>
       <input
         type="number"
@@ -158,17 +205,9 @@
         <div *ngIf="f.phone.errors">address is required.</div>
       </div>
     </div>
-    <div class="form-group">
-      <label>Image Upload</label>
-      <input type="file" accept="image/*" (change)="onSelectFile($event)" />
-      <img
-        [src]="imageURL"
-        height="200px"
-        width="200px"
-        *ngIf="imageURL"
-        style="margin-top: 20px"
-      />
+    <br />
+    <div class="mx-auto">
+      <button class="btn btn-success">Save</button>
     </div>
-    <button class="btn btn-success">Save</button>
   </form>
 </div>

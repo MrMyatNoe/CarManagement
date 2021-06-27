@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
-import { RoleService } from "src/app/services/role/role.service";
 import {
   NgbModal,
   ModalDismissReasons,
@@ -9,6 +8,7 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import { Role } from "src/app/models/role.model";
 import { ApiService } from "src/app/services/api.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-role",
@@ -25,12 +25,13 @@ export class RoleComponent implements OnInit {
 
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
+  private url: string = "roles";
 
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private roleService: RoleService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastService: ToastrService
   ) {
     this.roleForm = this.formBuilder.group({
       id: null,
@@ -45,7 +46,7 @@ export class RoleComponent implements OnInit {
 
   getRoles() {
     this.apiService
-      .getRequest("roles")
+      .getRequest(this.url)
       .toPromise()
       .then(
         (data) => {
@@ -96,11 +97,10 @@ export class RoleComponent implements OnInit {
     var model = this.roleForm.value;
     if (model.id) {
       this.apiService
-        .putRequest("roles", model)
+        .putRequest(this.url, model)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          (_data) => {
             this.getRoles();
           },
           (error) => {
@@ -109,11 +109,10 @@ export class RoleComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("roles", model)
+        .postRequest(this.url, model)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          (_data) => {
             this.getRoles();
           },
           (error) => {
@@ -134,9 +133,18 @@ export class RoleComponent implements OnInit {
   }
 
   deleteRole(role: Role) {
-    this.roleService.delete(role).subscribe((data) => {
-      console.log(data.message);
-      this.getRoles();
-    });
+    this.apiService
+      .deleteRoleByIdRequest(this.url, role)
+      .toPromise()
+      .then(
+        (_data) => {
+          this.getRoles();
+          this.toastService.success("delete");
+        },
+        (error) => {
+          this.toastService.error(error.error.message);
+          console.log(error.error.message);
+        }
+      );
   }
 }
