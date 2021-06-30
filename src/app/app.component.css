@@ -3,3 +3,14 @@
     max-width: 500px;
   }
 }
+
+h1 {
+  text-decoration-color: aqua;
+}
+
+.form-control {
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+
+  border-radius: 50px;
+}

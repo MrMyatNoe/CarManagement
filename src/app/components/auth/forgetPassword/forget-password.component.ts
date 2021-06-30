@@ -4,58 +4,50 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/services/api/api.service";
-import { LocalStorageService } from "src/app/services/localStorage/local-storage.service";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: "app-forget-password",
+  templateUrl: "./forget-password.component.html",
+  styleUrls: ["./forget-password.component.css"],
 })
-export class LoginComponent implements OnInit {
+export class ForgetPasswordComponent implements OnInit {
+  updatePasswordFrom: FormGroup;
   imageURL: string = "assets/drivers/myPP.jpg";
-  loginForm: FormGroup;
 
   constructor(
     public fb: FormBuilder,
     private apiService: ApiService,
     private toastService: ToastrService,
-    private router: Router,
-    private localStorageService: LocalStorageService
+    private router: Router
   ) {
-    this.loginForm = this.fb.group({
-      email: ["", Validators.required],
-      password: ["", Validators.required],
+    this.updatePasswordFrom = this.fb.group({
+      email: ["", [Validators.required]],
+      password: ["", [Validators.required]],
     });
   }
 
-  ngOnInit(): void {}
-
   get f() {
-    return this.loginForm.controls;
+    return this.updatePasswordFrom.controls;
   }
 
-  onSubmit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
+  ngOnInit() {}
 
+  onSubmit() {
     let params = new HttpParams();
     params = params.append("email", this.f.email.value);
     params = params.append("password", this.f.password.value);
-
     this.apiService
-      .postRequest("admins/login", params)
+      .postRequest("admins/resetpassword", params)
       .toPromise()
       .then(
         (data) => {
           console.log(data);
-          this.toastService.success("Login successfully");
-          this.localStorageService.saveAdminData(data);
-          this.router.navigateByUrl("/admin");
+          this.toastService.success("Password Reset Successfully");
+          this.router.navigateByUrl("/login");
         },
         (error) => {
-          this.toastService.error(error.error.message);
           console.log(error);
+          this.toastService.error(error.error.message);
         }
       );
   }

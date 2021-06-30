@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminComponent } from "./components/admin/admin.component";
+import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget-password.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { SignUpComponent } from "./components/auth/sign-up/sign-up.component";
 import { AddDriverComponent } from "./components/driver/add-driver/add-driver.component";
@@ -11,7 +12,7 @@ import { TutorialDetailsComponent } from "./components/tutorial/tutorial-details
 import { TutorialListsComponent } from "./components/tutorial/tutorial-lists/tutorial-lists.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "", redirectTo: "tutorials", pathMatch: "full" },
   { path: "tutorials", component: TutorialListsComponent },
   { path: "tutorials/:id", component: TutorialDetailsComponent },
   { path: "addTutorial", component: AddTutorialComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: "role", component: RoleComponent },
   { path: "admin", component: AdminComponent },
   { path: "drivers", component: DriverListComponent },
+  { path: "forgetpassword", component: ForgetPasswordComponent },
 ];
 
 @NgModule({

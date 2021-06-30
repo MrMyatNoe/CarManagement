@@ -7,7 +7,7 @@ import {
   NgbModalOptions,
 } from "@ng-bootstrap/ng-bootstrap";
 import { Role } from "src/app/models/role.model";
-import { ApiService } from "src/app/services/api.service";
+import { ApiService } from "src/app/services/api/api.service";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -139,7 +139,7 @@ export class RoleComponent implements OnInit {
       .then(
         (_data) => {
           this.getRoles();
-          this.toastService.success("delete");
+          this.toastService.success("delete successfully");
         },
         (error) => {
           this.toastService.error(error.error.message);

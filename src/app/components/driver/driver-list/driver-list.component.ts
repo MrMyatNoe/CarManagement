@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Driver } from "src/app/models/driver.model";
-import { ApiService } from "src/app/services/api.service";
+import { ApiService } from "src/app/services/api/api.service";
 
 @Component({
   selector: "app-driver-list",
