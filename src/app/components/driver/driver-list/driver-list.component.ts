@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { Driver } from "src/app/models/driver.model";
 import { ApiService } from "src/app/services/api/api.service";
 
@@ -10,7 +12,11 @@ import { ApiService } from "src/app/services/api/api.service";
 export class DriverListComponent implements OnInit {
   driversData: any;
   private url: string = "drivers";
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private toastService: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getDrivers();
@@ -22,8 +28,13 @@ export class DriverListComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
-          console.log(data);
           this.driversData = data;
+          console.log(data);
+          if (this.driversData.length === 0) {
+            this.toastService.success("no data");
+          } else {
+            this.toastService.success("Driver list is here");
+          }
         },
         (error) => {
           console.log(error);

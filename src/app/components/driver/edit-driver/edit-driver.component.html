@@ -1,3 +1,31 @@
+<div *ngIf="alert">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Hey Yo!</strong> You data saved successfully below.
+    <button
+      (click)="closeDialog()"
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div *ngIf="errorMessage">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button
+      (click)="closeDialog()"
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
 <div>
   <form
     [formGroup]="driverForm"
@@ -86,6 +114,7 @@
           value="male"
           name="gender"
           formControlName="gender"
+          checked
         />
         <label class="form-check-label" for="male">Male</label>
       </div>
@@ -156,24 +185,6 @@
         class="alert alert-danger"
       >
         <div *ngIf="f.phone.errors">address is required.</div>
-      </div>
-    </div>
-    <br />
-
-    <div class="row from-row">
-      <label class="col-sm-4">Password</label>
-      <input
-        type="text"
-        formControlName="password"
-        class="col-sm-4 form-control"
-        placeholder="Enter Password between 6 and 15 characters"
-      />
-
-      <div
-        *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.password.errors">Password is required.</div>
       </div>
     </div>
     <br />

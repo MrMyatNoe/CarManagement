@@ -6,6 +6,7 @@ import { LoginComponent } from "./components/auth/login/login.component";
 import { SignUpComponent } from "./components/auth/sign-up/sign-up.component";
 import { AddDriverComponent } from "./components/driver/add-driver/add-driver.component";
 import { DriverListComponent } from "./components/driver/driver-list/driver-list.component";
+import { EditDriverComponent } from "./components/driver/edit-driver/edit-driver.component";
 import { RoleComponent } from "./components/role/role.component";
 import { AddTutorialComponent } from "./components/tutorial/add-tutorial/add-tutorial.component";
 import { TutorialDetailsComponent } from "./components/tutorial/tutorial-details/tutorial-details.component";
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: "admin", component: AdminComponent },
   { path: "drivers", component: DriverListComponent },
   { path: "forgetpassword", component: ForgetPasswordComponent },
+  { path: "drivers/:id", component: EditDriverComponent },
 ];
 
 @NgModule({

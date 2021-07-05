@@ -19,6 +19,7 @@ import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget-password.component";
+import { EditDriverComponent } from './components/driver/edit-driver/edit-driver.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget
     AdminComponent,
     DriverListComponent,
     ForgetPasswordComponent,
+    EditDriverComponent,
   ],
   imports: [
     BrowserModule,

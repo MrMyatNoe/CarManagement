@@ -1,26 +1,28 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute } from "@angular/router";
+import { ApiService } from "src/app/services/api/api.service";
 import { DriverService } from "src/app/services/driver/driver.service";
 
 @Component({
-  selector: "app-add-driver",
-  templateUrl: "./add-driver.component.html",
-  styleUrls: ["./add-driver.component.css"],
+  selector: "app-edit-driver",
+  templateUrl: "./edit-driver.component.html",
+  styleUrls: ["./edit-driver.component.css"],
 })
-export class AddDriverComponent implements OnInit {
+export class EditDriverComponent implements OnInit {
   userFile: any;
   public message: string = "";
   public imagePath: any;
   imageURL: string = "assets/drivers/myPP.jpg";
   driverForm: FormGroup;
+  alert = false;
+  errorMessage = false;
 
   constructor(
     public fb: FormBuilder,
     private driverService: DriverService,
-    private toastService: ToastrService,
-    private router: Router
+    private apiService: ApiService,
+    private route: ActivatedRoute
   ) {
     this.driverForm = this.fb.group({
       id: null,
@@ -35,8 +37,13 @@ export class AddDriverComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getDriverById();
+  }
 
+  getDriverById() {
+    this.apiService.getRequest("drivers/" + this.route.snapshot.params.id);
+  }
   get f() {
     return this.driverForm.controls;
   }
@@ -87,14 +94,28 @@ export class AddDriverComponent implements OnInit {
     formData.append("file", this.userFile);
     console.log(driver);
     this.driverService.createData(formData).subscribe(
-      (_data) => {
-        this.toastService.success("Successfully");
-        this.router.navigate(["/src/app/components/driver/driver-list"]);
+      (data) => {
+        console.log("successfully", data);
+        this.alert = true;
+        this.driverForm.reset({});
+
+        this.userFile = null;
+        this.imageURL = "assets/drivers/myPP.jpg";
       },
       (error) => {
+        this.alert = false;
+        this.errorMessage = true;
+        console.log(error);
         this.message = error.error.message;
-        this.toastService.error(this.message);
       }
     );
+  }
+
+  /*
+   * close dialog
+   */
+  closeDialog() {
+    this.alert = false;
+    this.errorMessage = false;
   }
 }

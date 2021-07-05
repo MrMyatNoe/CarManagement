@@ -30,7 +30,9 @@
       {{ driver.address }}
     </td>
     <td>
-      <button class="btn btn-info" (click)="editAdmin(admin)">Edit</button>
+      <button class="btn btn-info" routerLink="/drivers/{{ driver.id }}">
+        Edit
+      </button>
     </td>
     <td>
       <button class="btn btn-info" (click)="deleteDriver(driver)">
