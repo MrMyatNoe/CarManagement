@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import { Driver } from "src/app/models/driver.model";
 import { ApiService } from "src/app/services/api/api.service";
 import { DriverService } from "src/app/services/driver/driver.service";
 
@@ -11,12 +12,21 @@ import { DriverService } from "src/app/services/driver/driver.service";
 })
 export class EditDriverComponent implements OnInit {
   userFile: any;
-  public message: string = "";
   public imagePath: any;
-  imageURL: string = "assets/drivers/myPP.jpg";
+  imageURL: any;
   driverForm: FormGroup;
   alert = false;
-  errorMessage = false;
+  message = "";
+
+  currentDriver: any = {
+    id: "",
+    name: "",
+    nrc: "",
+    gender: "",
+    license: "",
+    address: "",
+    imageName: "",
+  };
 
   constructor(
     public fb: FormBuilder,
@@ -42,8 +52,20 @@ export class EditDriverComponent implements OnInit {
   }
 
   getDriverById() {
-    this.apiService.getRequest("drivers/" + this.route.snapshot.params.id);
+    this.apiService
+      .getRequest("drivers/" + this.route.snapshot.params.id)
+      .toPromise()
+      .then(
+        (data) => {
+          let model = { ...data };
+          this.driverForm.patchValue(model);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
+
   get f() {
     return this.driverForm.controls;
   }
@@ -96,26 +118,27 @@ export class EditDriverComponent implements OnInit {
     this.driverService.createData(formData).subscribe(
       (data) => {
         console.log("successfully", data);
-        this.alert = true;
         this.driverForm.reset({});
 
         this.userFile = null;
-        this.imageURL = "assets/drivers/myPP.jpg";
       },
       (error) => {
-        this.alert = false;
-        this.errorMessage = true;
         console.log(error);
-        this.message = error.error.message;
       }
     );
   }
 
-  /*
-   * close dialog
-   */
-  closeDialog() {
-    this.alert = false;
-    this.errorMessage = false;
+  public driverImage() {
+    console.log("this is ", this.imageURL);
+    if (
+      this.imageURL === undefined ||
+      this.imageURL === null ||
+      this.imageURL === undefined ||
+      this.imageURL.length < 5
+    ) {
+      return "assets/drivers/myPP.jpg";
+    } else {
+      return this.imageURL;
+    }
   }
 }

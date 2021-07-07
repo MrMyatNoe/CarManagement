@@ -31,7 +31,7 @@ export class AddDriverComponent implements OnInit {
       address: ["", [Validators.required]],
       phone: ["", [Validators.required]],
       password: ["", [Validators.required]],
-      img: [""],
+      imageName: [""],
     });
   }
 
@@ -82,10 +82,8 @@ export class AddDriverComponent implements OnInit {
     };
 
     // console.log(driver1);
-    const driver = this.driverForm.value;
     formData.append("driver", JSON.stringify(driver1));
     formData.append("file", this.userFile);
-    console.log(driver);
     this.driverService.createData(formData).subscribe(
       (_data) => {
         this.toastService.success("Successfully");

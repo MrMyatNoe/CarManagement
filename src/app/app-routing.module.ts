@@ -13,7 +13,7 @@ import { TutorialDetailsComponent } from "./components/tutorial/tutorial-details
 import { TutorialListsComponent } from "./components/tutorial/tutorial-lists/tutorial-lists.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "tutorials", pathMatch: "full" },
+  { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "tutorials", component: TutorialListsComponent },
   { path: "tutorials/:id", component: TutorialDetailsComponent },
   { path: "addTutorial", component: AddTutorialComponent },

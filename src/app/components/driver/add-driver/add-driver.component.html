@@ -13,7 +13,7 @@
         style="margin-top: 20px"
       />
       <input
-        formControlName="img"
+        formControlName="imageName"
         type="file"
         accept="image/*"
         (change)="onSelectFile($event)"
@@ -89,7 +89,6 @@
         />
         <label class="form-check-label" for="male">Male</label>
       </div>
-      <br />
 
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
@@ -99,10 +98,10 @@
           value="female"
           name="gender"
           formControlName="gender"
+          checked
         />
         <label class="form-check-label" for="female">Female</label>
       </div>
-      <br />
 
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input

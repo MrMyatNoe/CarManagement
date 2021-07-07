@@ -1,45 +1,12 @@
-<div *ngIf="alert">
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Hey Yo!</strong> You data saved successfully below.
-    <button
-      (click)="closeDialog()"
-      type="button"
-      class="close"
-      data-dismiss="alert"
-      aria-label="Close"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-</div>
-<div *ngIf="errorMessage">
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>{{ message }}</strong>
-    <button
-      (click)="closeDialog()"
-      type="button"
-      class="close"
-      data-dismiss="alert"
-      aria-label="Close"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-</div>
 <div>
   <form
     [formGroup]="driverForm"
     class="submit-form"
     (ngSubmit)="onSubmitForm()"
   >
-    <h1>Add Driver</h1>
+    <h1>Edit Driver</h1>
     <div class="row from-row">
-      <img
-        [src]="imageURL"
-        class="rounded-circle my-img"
-        *ngIf="imageURL"
-        style="margin-top: 20px"
-      />
+      <img [src]="driverImage()" class="rounded-circle my-img" />
       <input
         formControlName="img"
         type="file"
@@ -56,8 +23,8 @@
         formControlName="name"
         id="name"
         class="form-control"
-        placeholder="John Doe"
         required
+        [(ngModel)]="currentDriver.name"
       />
       <div
         *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)"
@@ -75,8 +42,8 @@
         formControlName="nrc"
         id="nrc"
         class="form-control"
-        placeholder="12/DaPaNa(C)012345"
         required
+        [(ngModel)]="currentDriver.nrc"
       />
       <div
         *ngIf="f.nrc.invalid && (f.nrc.dirty || f.nrc.touched)"
@@ -94,6 +61,7 @@
         formControlName="license"
         id="license"
         class="form-control"
+        [(ngModel)]="currentDriver.license"
       />
       <div
         *ngIf="f.license.invalid && (f.license.dirty || f.license.touched)"
@@ -105,7 +73,7 @@
     <br />
 
     <div class="row from-row">
-      <label>Gender :</label>
+      <label class="col-sm-4">Gender :</label>
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
           id="male"
@@ -118,7 +86,6 @@
         />
         <label class="form-check-label" for="male">Male</label>
       </div>
-      <br />
 
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
@@ -131,7 +98,6 @@
         />
         <label class="form-check-label" for="female">Female</label>
       </div>
-      <br />
 
       <div class="form-check form-check-inline" style="margin-left: 30px">
         <input
@@ -161,6 +127,7 @@
         id="address"
         class="form-control"
         required
+        [(ngModel)]="currentDriver.address"
       />
       <div
         *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
@@ -179,6 +146,7 @@
         id="phone"
         class="form-control"
         required
+        [(ngModel)]="currentDriver.phone"
       />
       <div
         *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)"

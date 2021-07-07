@@ -15,6 +15,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   public getRequest(url: string) {
+    console.log(url);
     return this.httpClient.get(this.API_ROUTE + url);
   }
 
@@ -23,6 +24,7 @@ export class ApiService {
   }
 
   public postRequest(url: string, data: any) {
+    console.log(url + " : " + data);
     return this.httpClient.post(this.API_ROUTE + url, data);
   }
 

@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ["", Validators.required],
       password: ["", Validators.required],
+      driverCheck: [""],
     });
   }
 
@@ -40,23 +41,45 @@ export class LoginComponent implements OnInit {
     }
 
     let params = new HttpParams();
-    params = params.append("email", this.f.email.value);
+
     params = params.append("password", this.f.password.value);
 
-    this.apiService
-      .postRequest("admins/login", params)
-      .toPromise()
-      .then(
-        (data) => {
-          console.log(data);
-          this.toastService.success("Login successfully");
-          this.localStorageService.saveAdminData(data);
-          this.router.navigateByUrl("/admin");
-        },
-        (error) => {
-          this.toastService.error(error.error.message);
-          console.log(error);
-        }
-      );
+    if (this.f.driverCheck.value) {
+      params = params.append("phone", this.f.email.value);
+      console.log("in if ");
+      this.apiService
+        .postRequest("drivers/login", params)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log(data);
+            this.toastService.success("Login successfully");
+            this.localStorageService.saveAdminData(data);
+            this.router.navigateByUrl("/drivers");
+          },
+          (error) => {
+            this.toastService.error(error.error.message);
+            console.log(error);
+          }
+        );
+    } else {
+      console.log("in else ");
+      params = params.append("email", this.f.email.value);
+      this.apiService
+        .postRequest("admins/login", params)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log(data);
+            this.toastService.success("Login successfully");
+            this.localStorageService.saveAdminData(data);
+            this.router.navigateByUrl("/admin");
+          },
+          (error) => {
+            this.toastService.error(error.error.message);
+            console.log(error);
+          }
+        );
+    }
   }
 }
