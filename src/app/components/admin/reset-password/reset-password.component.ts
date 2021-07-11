@@ -3,29 +3,25 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { Driver } from "src/app/models/driver.model";
 import { ApiService } from "src/app/services/api/api.service";
-import { DriverService } from "src/app/services/driver/driver.service";
 
 @Component({
-  selector: "app-forget-password",
-  templateUrl: "./forget-password.component.html",
-  styleUrls: ["./forget-password.component.css"],
+  selector: "app-reset-password",
+  templateUrl: "./reset-password.component.html",
+  styleUrls: ["./reset-password.component.css"],
 })
-export class ForgetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
   updatePasswordFrom: FormGroup;
   imageURL: string = "assets/drivers/myPP.jpg";
-  public driver: Driver = {};
 
   constructor(
     public fb: FormBuilder,
     private apiService: ApiService,
     private toastService: ToastrService,
-    private router: Router,
-    private driverService: DriverService
+    private router: Router
   ) {
     this.updatePasswordFrom = this.fb.group({
-      phone: ["", [Validators.required]],
+      email: ["", [Validators.required]],
       password: ["", [Validators.required]],
     });
   }
@@ -35,15 +31,15 @@ export class ForgetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.driver = this.driverService.getLoginDriver();
+    // /this.driver = this.driverService.getLoginDriver();
   }
 
   onSubmit() {
     let params = new HttpParams();
-    params = params.append("phone", this.driver.phone);
+    params = params.append("email", this.f.email.value);
     params = params.append("password", this.f.password.value);
     this.apiService
-      .postRequest("drivers/resetpassword", params)
+      .postRequest("admins/resetpassword", params)
       .toPromise()
       .then(
         (data) => {

@@ -11,20 +11,22 @@ import { RoleComponent } from "./components/role/role.component";
 import { AddTutorialComponent } from "./components/tutorial/add-tutorial/add-tutorial.component";
 import { TutorialDetailsComponent } from "./components/tutorial/tutorial-details/tutorial-details.component";
 import { TutorialListsComponent } from "./components/tutorial/tutorial-lists/tutorial-lists.component";
+import { ResetPasswordComponent } from "./components/admin/reset-password/reset-password.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "tutorials", component: TutorialListsComponent },
   { path: "tutorials/:id", component: TutorialDetailsComponent },
   { path: "addTutorial", component: AddTutorialComponent },
-  { path: "addDriver", component: AddDriverComponent },
+  { path: "drivers/addDriver", component: AddDriverComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: SignUpComponent },
-  { path: "role", component: RoleComponent },
-  { path: "admin", component: AdminComponent },
-  { path: "drivers", component: DriverListComponent },
+  { path: "admins/role", component: RoleComponent },
+  { path: "admins/admin", component: AdminComponent },
+  { path: "drivers/drivers", component: DriverListComponent },
   { path: "forgetpassword", component: ForgetPasswordComponent },
-  { path: "drivers/:id", component: EditDriverComponent },
+  { path: "drivers/drivers/:id", component: EditDriverComponent },
+  { path: "resetpassword", component: ResetPasswordComponent },
 ];
 
 @NgModule({

@@ -20,6 +20,7 @@ import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget-password.component";
 import { EditDriverComponent } from './components/driver/edit-driver/edit-driver.component';
+import { ResetPasswordComponent } from './components/admin/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EditDriverComponent } from './components/driver/edit-driver/edit-driver
     DriverListComponent,
     ForgetPasswordComponent,
     EditDriverComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
           (data) => {
             console.log(data);
             this.toastService.success("Login successfully");
-            this.localStorageService.saveAdminData(data);
-            this.router.navigateByUrl("/drivers");
+            this.localStorageService.saveDriverData(data);
+            this.router.navigateByUrl("drivers/drivers");
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
             console.log(data);
             this.toastService.success("Login successfully");
             this.localStorageService.saveAdminData(data);
-            this.router.navigateByUrl("/admin");
+            this.router.navigateByUrl("admins/admin");
           },
           (error) => {
             this.toastService.error(error.error.message);

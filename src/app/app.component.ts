@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { LocalStorageService } from "./services/localStorage/local-storage.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-root",
@@ -9,11 +10,18 @@ import { LocalStorageService } from "./services/localStorage/local-storage.servi
 })
 export class AppComponent {
   title = "Carmanagement";
+  route;
 
   constructor(
     private localStorageService: LocalStorageService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private location: Location
+  ) {
+    //alert("in app component.ts : " + this.router.url);
+    this.route = localStorage.getItem("role");
+    console.log(this.route);
+  }
 
   logout() {
     this.localStorageService.removeAdminData();

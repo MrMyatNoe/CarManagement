@@ -1,21 +1,28 @@
 <div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
+  <nav
+    class="navbar navbar-expand navbar-dark bg-dark"
+    *ngIf="route == 'driver'"
+  >
     <a href="#" class="navbar-brand">bezKoder</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="/addDriver" class="nav-link" routerLink="addDriver">Driver </a>
+        <a href="drivers/addDriver" class="nav-link" routerLink="addDriver"
+          >Driver
+        </a>
       </li>
       <li class="nav-item">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin</a>
+        <a href="admins/admin" class="nav-link" routerLink="admin">Admin</a>
       </li>
       <li class="nav-item">
-        <a href="/drivers" class="nav-link" routerLink="drivers">Drivers</a>
+        <a href="drivers/drivers" class="nav-link" routerLink="drivers/drivers"
+          >Drivers</a
+        >
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" routerLink="user">User</a>
+        <a href="admins/user" class="nav-link" routerLink="user">User</a>
       </li>
       <li class="nav-item">
-        <a href="/role" class="nav-link" routerLink="role">Role</a>
+        <a href="admins/role" class="nav-link" routerLink="role">Role</a>
       </li>
     </ul>
 
@@ -25,6 +32,68 @@
       </li>
       <li class="nav-item">
         <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a href="/reset" class="nav-link" routerLink="Reset">Reset</a>
+      </li>
+      <li class="nav-item">
+        <a href="/forgetpassword" class="nav-link" routerLink="forgetpassword"
+          >forgetpassword</a
+        >
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile"></a>
+      </li>
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+    </ul>
+  </nav>
+
+  <nav
+    class="navbar navbar-expand navbar-dark bg-dark"
+    *ngIf="route == 'admin'"
+  >
+    <a href="#" class="navbar-brand">Thet</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item">
+        <a href="drivers/addDriver" class="nav-link" routerLink="addDriver"
+          >Driver
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="admins/admin" class="nav-link" routerLink="admin">Admin</a>
+      </li>
+      <li class="nav-item">
+        <a href="drivers/drivers" class="nav-link" routerLink="drivers/drivers"
+          >Drivers</a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="admins/user" class="nav-link" routerLink="user">User</a>
+      </li>
+      <li class="nav-item">
+        <a href="admins/role" class="nav-link" routerLink="role">Role</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a href="/reset" class="nav-link" routerLink="Reset">Reset</a>
+      </li>
+      <li class="nav-item">
+        <a href="/forgetpassword" class="nav-link" routerLink="forgetpassword"
+          >forgetpassword</a
+        >
       </li>
     </ul>
 
