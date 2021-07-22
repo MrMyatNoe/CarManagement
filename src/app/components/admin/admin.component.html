@@ -76,23 +76,27 @@
       </div>
       <br />
 
-      <div class="row from-row">
-        <label class="col-sm-4">Password</label>
-        <input
-          type="text"
-          formControlName="password"
-          class="col-sm-4 form-control"
-          placeholder="Enter Password between 6 and 15 characters"
-        />
+      <div *ngIf="!id">
+        <div class="row from-row">
+          <label class="col-sm-4">Password</label>
+          <input
+            type="text"
+            formControlName="password"
+            class="col-sm-4 form-control"
+            placeholder="Enter Password between 6 and 15 characters"
+          />
 
-        <div
-          *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="f.password.errors">Password is required.</div>
+          <div
+            *ngIf="
+              f.password.invalid && (f.password.dirty || f.password.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="f.password.errors">Password is required.</div>
+          </div>
         </div>
+        <br />
       </div>
-      <br />
 
       <div class="row from-row">
         <label class="col-sm-4">Address</label>

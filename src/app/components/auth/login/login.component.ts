@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/services/api/api.service";
+import { AuthServiceService } from "src/app/services/auth/auth-service.service";
 import { LocalStorageService } from "src/app/services/localStorage/local-storage.service";
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private apiService: ApiService,
     private toastService: ToastrService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private authService: AuthServiceService
   ) {
     this.loginForm = this.fb.group({
       email: ["", Validators.required],
@@ -51,11 +53,11 @@ export class LoginComponent implements OnInit {
         .postRequest("drivers/login", params)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          (data: any) => {
             this.toastService.success("Login successfully");
             this.localStorageService.saveDriverData(data);
-            this.router.navigateByUrl("drivers/drivers");
+            this.authService.setAuth(data.token);
+            this.router.navigateByUrl("drivers");
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -63,17 +65,17 @@ export class LoginComponent implements OnInit {
           }
         );
     } else {
-      console.log("in else ");
       params = params.append("email", this.f.email.value);
       this.apiService
         .postRequest("admins/login", params)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          (data: any) => {
+            console.log(data.roles[0]);
             this.toastService.success("Login successfully");
             this.localStorageService.saveAdminData(data);
-            this.router.navigateByUrl("admins/admin");
+            this.authService.setAuth(data.token);
+            this.router.navigateByUrl("daily");
           },
           (error) => {
             this.toastService.error(error.error.message);

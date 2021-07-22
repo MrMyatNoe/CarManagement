@@ -6,38 +6,21 @@
     <a href="#" class="navbar-brand">bezKoder</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="drivers/addDriver" class="nav-link" routerLink="addDriver"
-          >Driver
-        </a>
+        <a href="addDriver" class="nav-link" routerLink="addDriver">Driver </a>
       </li>
       <li class="nav-item">
-        <a href="admins/admin" class="nav-link" routerLink="admin">Admin</a>
-      </li>
-      <li class="nav-item">
-        <a href="drivers/drivers" class="nav-link" routerLink="drivers/drivers"
+        <a href="drivers" class="nav-link" routerLink="drivers/drivers"
           >Drivers</a
         >
       </li>
       <li class="nav-item">
-        <a href="admins/user" class="nav-link" routerLink="user">User</a>
-      </li>
-      <li class="nav-item">
-        <a href="admins/role" class="nav-link" routerLink="role">Role</a>
+        <a href="user" class="nav-link" routerLink="user">User</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-      </li>
-      <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a href="/reset" class="nav-link" routerLink="Reset">Reset</a>
-      </li>
-      <li class="nav-item">
-        <a href="/forgetpassword" class="nav-link" routerLink="forgetpassword"
+        <a href="forgetpassword" class="nav-link" routerLink="forgetpassword"
           >forgetpassword</a
         >
       </li>
@@ -55,41 +38,30 @@
 
   <nav
     class="navbar navbar-expand navbar-dark bg-dark"
-    *ngIf="route == 'admin'"
+    *ngIf="route == 'admin' || route == 'Trainee'"
   >
     <a href="#" class="navbar-brand">Thet</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="drivers/addDriver" class="nav-link" routerLink="addDriver"
+        <a
+          href="drivers/addDriver"
+          class="nav-link"
+          routerLink="drivers/addDriver"
           >Driver
         </a>
       </li>
       <li class="nav-item">
-        <a href="admins/admin" class="nav-link" routerLink="admin">Admin</a>
+        <a href="/drivers" class="nav-link" routerLink="drivers">Drivers</a>
       </li>
       <li class="nav-item">
-        <a href="drivers/drivers" class="nav-link" routerLink="drivers/drivers"
-          >Drivers</a
-        >
+        <a href="/user" class="nav-link" routerLink="user">User</a>
       </li>
       <li class="nav-item">
-        <a href="admins/user" class="nav-link" routerLink="user">User</a>
-      </li>
-      <li class="nav-item">
-        <a href="admins/role" class="nav-link" routerLink="role">Role</a>
+        <a href="roles" class="nav-link" routerLink="roles">Role</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-      </li>
-      <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a href="/reset" class="nav-link" routerLink="Reset">Reset</a>
-      </li>
       <li class="nav-item">
         <a href="/forgetpassword" class="nav-link" routerLink="forgetpassword"
           >forgetpassword</a

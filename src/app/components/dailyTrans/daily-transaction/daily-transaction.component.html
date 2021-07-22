@@ -1,0 +1,66 @@
+<div>
+  <form>
+    <h1><strong>Daily Transaction List</strong></h1>
+    <div class="row from-row">
+      <label><strong>Car No.</strong></label>
+      <select>
+        <option *ngFor="let car of carsData">
+          {{ car.name }}
+        </option>
+      </select>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label><strong>Driver</strong></label>
+      <select>
+        <option *ngFor="let driver of driversData">
+          {{ driver.name }}
+        </option>
+      </select>
+    </div>
+  </form>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Driver Name</th>
+      <th>Car No.</th>
+      <th>Transaction Code</th>
+      <th>Status</th>
+      <th>Amount</th>
+      <th>Fee</th>
+      <th>Total Amount</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let dailyData of dailyTransactionsData">
+    <td>
+      {{ dailyData.car.carNo }}
+    </td>
+    <td>
+      {{ dailyData.driver.name }}
+    </td>
+    <td>
+      {{ dailyData.transactionCode }}
+    </td>
+    <td>
+      {{ dailyData.status }}
+    </td>
+    <td>
+      {{ dailyData.amount }}
+    </td>
+    <td>
+      {{ dailyData.fee }}
+    </td>
+    <td>
+      {{ dailyData.totalAmount }}
+    </td>
+    <td>
+      <button class="btn btn-info">Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-info">Delete</button>
+    </td>
+  </tr>
+</table>

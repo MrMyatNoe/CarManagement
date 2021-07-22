@@ -40,7 +40,7 @@ export class ForgetPasswordComponent implements OnInit {
 
   onSubmit() {
     let params = new HttpParams();
-    params = params.append("phone", this.driver.phone);
+    params = params.append("phone", this.f.phone.value);
     params = params.append("password", this.f.password.value);
     this.apiService
       .postRequest("drivers/resetpassword", params)

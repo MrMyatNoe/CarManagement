@@ -10,7 +10,6 @@ import { TutorialListsComponent } from "./components/tutorial/tutorial-lists/tut
 import { NgxPaginationModule } from "ngx-pagination";
 import { AddDriverComponent } from "./components/driver/add-driver/add-driver.component";
 import { LoginComponent } from "./components/auth/login/login.component";
-import { SignUpComponent } from "./components/auth/sign-up/sign-up.component";
 import { RoleComponent } from "./components/role/role.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AdminComponent } from "./components/admin/admin.component";
@@ -19,8 +18,9 @@ import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget-password.component";
-import { EditDriverComponent } from './components/driver/edit-driver/edit-driver.component';
-import { ResetPasswordComponent } from './components/admin/reset-password/reset-password.component';
+import { EditDriverComponent } from "./components/driver/edit-driver/edit-driver.component";
+import { ResetPasswordComponent } from "./components/admin/reset-password/reset-password.component";
+import { DailyTransactionComponent } from './components/dailyTrans/daily-transaction/daily-transaction.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +30,13 @@ import { ResetPasswordComponent } from './components/admin/reset-password/reset-
     TutorialListsComponent,
     AddDriverComponent,
     LoginComponent,
-    SignUpComponent,
     RoleComponent,
     AdminComponent,
     DriverListComponent,
     ForgetPasswordComponent,
     EditDriverComponent,
     ResetPasswordComponent,
+    DailyTransactionComponent,
   ],
   imports: [
     BrowserModule,

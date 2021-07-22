@@ -8,7 +8,7 @@ export class LocalStorageService {
 
   saveAdminData(data: any) {
     localStorage.setItem("admindata", JSON.stringify(data));
-    localStorage.setItem("role", "admin");
+    localStorage.setItem("role", data.roles[0]);
   }
 
   saveDriverData(data: any) {
@@ -24,5 +24,10 @@ export class LocalStorageService {
   removeDriverData() {
     localStorage.removeItem("driverdata");
     localStorage.removeItem("role");
+  }
+
+  getItem() {
+    localStorage.getItem("role");
+    console.log("local service : ", localStorage.getItem("role"));
   }
 }

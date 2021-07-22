@@ -10,7 +10,7 @@ import { Location } from "@angular/common";
 })
 export class AppComponent {
   title = "Carmanagement";
-  route;
+  route: any;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -18,9 +18,8 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
     private location: Location
   ) {
-    //alert("in app component.ts : " + this.router.url);
-    this.route = localStorage.getItem("role");
-    console.log(this.route);
+    this.route = localStorageService.getItem();
+    console.log("app component :", localStorageService.getItem());
   }
 
   logout() {

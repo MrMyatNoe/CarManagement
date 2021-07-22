@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ApiService } from "src/app/services/api/api.service";
 import { Admin } from "src/app/models/admin.model";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-admin",
@@ -17,6 +18,7 @@ export class AdminComponent implements OnInit {
   closeResult: string;
   rolesData: any;
   adminsData: any;
+  id: boolean;
 
   roleId = "";
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
@@ -24,7 +26,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastService: ToastrService
   ) {
     this.adminForm = this.fb.group({
       id: null,
@@ -52,10 +55,12 @@ export class AdminComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
+          console.log("roles : ", data);
           this.rolesData = data;
           this.roleId = this.roleId || data[0].id;
         },
         (error) => {
+          this.toastService.error(error.error.message);
           console.log(error);
         }
       );
@@ -68,8 +73,10 @@ export class AdminComponent implements OnInit {
       .then(
         (data) => {
           this.adminsData = data;
+          console.log("Admins data ", this.adminsData);
         },
         (error) => {
+          this.toastService.error(error.error.message);
           console.log(error);
         }
       );
@@ -80,6 +87,7 @@ export class AdminComponent implements OnInit {
     this.modalButtonLabel = "Save";
     this.adminForm.reset();
     this.getRoles();
+    this.id = false;
     this.open(this.editModalDlg);
   }
 
@@ -119,6 +127,7 @@ export class AdminComponent implements OnInit {
             this.getAdmins();
           },
           (error) => {
+            this.toastService.error(error.error.message);
             console.log(error);
           }
         );
@@ -131,6 +140,7 @@ export class AdminComponent implements OnInit {
             this.getAdmins();
           },
           (error) => {
+            this.toastService.error(error.error.message);
             console.log(error);
           }
         );
@@ -145,6 +155,7 @@ export class AdminComponent implements OnInit {
     this.roleId = Object.values(admin.role)[0];
     this.getRoles();
     let model = { ...admin };
+    this.id = true;
     this.adminForm.patchValue(model);
     this.open(this.editModalDlg);
   }
@@ -163,6 +174,7 @@ export class AdminComponent implements OnInit {
           this.getAdmins();
         },
         (error) => {
+          this.toastService.error(error.error.message);
           console.log("error", error);
         }
       );
