@@ -27,7 +27,6 @@ export class LocalStorageService {
   }
 
   getItem() {
-    localStorage.getItem("role");
-    console.log("local service : ", localStorage.getItem("role"));
+    return localStorage.getItem("role");
   }
 }

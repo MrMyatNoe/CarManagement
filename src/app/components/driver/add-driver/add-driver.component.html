@@ -5,20 +5,17 @@
     (ngSubmit)="onSubmitForm()"
   >
     <h1>Add Driver</h1>
-    <div class="row from-row">
-      <img
-        [src]="imageURL"
-        class="rounded-circle my-img"
-        *ngIf="imageURL"
-        style="margin-top: 20px"
-      />
-      <input
-        formControlName="imageName"
-        type="file"
-        accept="image/*"
-        (change)="onSelectFile($event)"
-      />
+
+    <div class="cover">
+      <img [src]="imageURL" class="cover-img" *ngIf="imageURL" />
     </div>
+    <br />
+    <input
+      formControlName="imageName"
+      type="file"
+      accept="image/*"
+      (change)="onSelectFile($event)"
+    />
     <br />
 
     <div class="row from-row">
@@ -86,6 +83,7 @@
           value="male"
           name="gender"
           formControlName="gender"
+          [checked]="true"
         />
         <label class="form-check-label" for="male">Male</label>
       </div>
@@ -98,7 +96,6 @@
           value="female"
           name="gender"
           formControlName="gender"
-          checked
         />
         <label class="form-check-label" for="female">Female</label>
       </div>

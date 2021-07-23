@@ -4,7 +4,7 @@
     <div class="row from-row">
       <label><strong>Car No.</strong></label>
       <select>
-        <option *ngFor="let car of carsData">
+        <option *ngFor="let car of carsData; trackBy: trackByCar">
           {{ car.name }}
         </option>
       </select>
@@ -14,7 +14,7 @@
     <div class="row from-row">
       <label><strong>Driver</strong></label>
       <select>
-        <option *ngFor="let driver of driversData">
+        <option *ngFor="let driver of driversData; trackBy: trackByDriver">
           {{ driver.name }}
         </option>
       </select>
@@ -34,7 +34,7 @@
       <th>Action</th>
     </tr>
   </thead>
-  <tr *ngFor="let dailyData of dailyTransactionsData">
+  <tr *ngFor="let dailyData of dailyTransactionsData; trackBy: trackByDaily">
     <td>
       {{ dailyData.car.carNo }}
     </td>

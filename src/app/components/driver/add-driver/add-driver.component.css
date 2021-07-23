@@ -3,8 +3,14 @@
   margin: auto;
 }
 
-.my-img {
-  width: 50%;
-  height: 50%;
+.cover {
+  width: 128px;
+  height: 128px;
+}
+
+.cover-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
   object-fit: cover;
 }

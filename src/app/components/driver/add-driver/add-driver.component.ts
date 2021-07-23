@@ -87,7 +87,9 @@ export class AddDriverComponent implements OnInit {
     this.driverService.createData(formData).subscribe(
       (_data) => {
         this.toastService.success("Successfully");
-        this.router.navigate(["/src/app/components/driver/driver-list"]);
+        //this.router.navigate(["/src/app/components/driver-list"]);
+        this.imageURL = "assets/drivers/myPP.jpg";
+        this.userFile.name = "";
       },
       (error) => {
         this.message = error.error.message;

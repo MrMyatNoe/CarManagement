@@ -75,4 +75,19 @@ export class DailyTransactionComponent implements OnInit {
         }
       );
   }
+
+  trackByDaily(index, item) {
+    console.log(" Daily : ", index, ": ", item);
+    return index;
+  }
+
+  trackByCar(index, item) {
+    console.log(" Car : ", index, ": ", item);
+    return index;
+  }
+
+  trackByDriver(index, item) {
+    console.log(" Driver : ", index, ": ", item);
+    return index;
+  }
 }
