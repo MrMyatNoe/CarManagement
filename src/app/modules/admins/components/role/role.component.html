@@ -1,0 +1,96 @@
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ modalDialogLabel }} Role
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <h1>Role</h1>
+
+      <div class="row from-row">
+        <input
+          class="col-sm-4 form-control"
+          type="hidden"
+          formControlName="id"
+        />
+
+        <label class="col-sm-4">Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="col-sm-4 form-control"
+        />
+
+        <div
+          *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.name.errors">name is required.</div>
+        </div>
+      </div>
+      <br />
+      <div class="row from-row">
+        <label class="col-sm-4">Level</label>
+        <input
+          type="text"
+          formControlName="level"
+          class="col-sm-4 form-control"
+          placeholder="enter between 1 and 10"
+        />
+
+        <div
+          *ngIf="f.level.invalid && (f.level.dirty || f.level.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.level.errors">level is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <button
+        type="submit"
+        [disabled]="!roleForm.valid"
+        class="btn btn-primary"
+      >
+        {{ modalButtonLabel }}
+      </button>
+    </form>
+  </div>
+</ng-template>
+<div class="mx-auto">
+  <button class="btn btn-primary" (click)="newRole()">New</button>
+</div>
+<!-- <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Level</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let role of rolesData">
+    <td>
+      {{ role.name }}
+    </td>
+    <td>
+      {{ role.level }}
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="editRole(role)">Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="deleteRole(role)">Delete</button>
+    </td>
+  </tr>
+</table> -->
+<ng2-smart-table [settings]="settings" [source]="roleSource"></ng2-smart-table>

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { LocalStorageService } from "./services/localStorage/local-storage.service";
+import { LocalStorageService } from "./core/services/localStorage/local-storage.service";
 import { Location } from "@angular/common";
 
 @Component({

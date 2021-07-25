@@ -1,17 +1,17 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AdminComponent } from "./components/admin/admin.component";
-import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget-password.component";
-import { LoginComponent } from "./components/auth/login/login.component";
-import { AddDriverComponent } from "./components/driver/add-driver/add-driver.component";
-import { DriverListComponent } from "./components/driver/driver-list/driver-list.component";
-import { EditDriverComponent } from "./components/driver/edit-driver/edit-driver.component";
-import { RoleComponent } from "./components/role/role.component";
-import { AddTutorialComponent } from "./components/tutorial/add-tutorial/add-tutorial.component";
-import { TutorialDetailsComponent } from "./components/tutorial/tutorial-details/tutorial-details.component";
-import { TutorialListsComponent } from "./components/tutorial/tutorial-lists/tutorial-lists.component";
-import { ResetPasswordComponent } from "./components/admin/reset-password/reset-password.component";
-import { DailyTransactionComponent } from "./components/dailyTrans/daily-transaction/daily-transaction.component";
+import { AddTutorialComponent } from "src/app/modules/tutorials/components/tutorial/add-tutorial/add-tutorial.component";
+import { TutorialDetailsComponent } from "src/app/modules/tutorials/components/tutorial/tutorial-details/tutorial-details.component";
+import { TutorialListsComponent } from "src/app/modules/tutorials/components/tutorial/tutorial-lists/tutorial-lists.component";
+import { AddDriverComponent } from "src/app/modules/drivers/components/add-driver/add-driver.component";
+import { LoginComponent } from "src/app/core/authentication/login/login.component";
+import { RoleComponent } from "src/app/modules/admins/components/role/role.component";
+import { AdminComponent } from "src/app/modules/admins/components/admin/admin.component";
+import { DriverListComponent } from "src/app/modules/drivers/components/driver-list/driver-list.component";
+import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forgetPassword/forget-password.component";
+import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
+import { ResetPasswordComponent } from "src/app/modules/admins/components/admin/reset-password/reset-password.component";
+import { DailyTransactionComponent } from "src/app/modules/admins/components/admin/daily-transaction/daily-transaction.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },

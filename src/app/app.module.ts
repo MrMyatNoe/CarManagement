@@ -4,23 +4,24 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AddTutorialComponent } from "./components/tutorial/add-tutorial/add-tutorial.component";
-import { TutorialDetailsComponent } from "./components/tutorial/tutorial-details/tutorial-details.component";
-import { TutorialListsComponent } from "./components/tutorial/tutorial-lists/tutorial-lists.component";
+import { AddTutorialComponent } from "src/app/modules/tutorials/components/tutorial/add-tutorial/add-tutorial.component";
+import { TutorialDetailsComponent } from "src/app/modules/tutorials/components/tutorial/tutorial-details/tutorial-details.component";
+import { TutorialListsComponent } from "src/app/modules/tutorials/components/tutorial/tutorial-lists/tutorial-lists.component";
 import { NgxPaginationModule } from "ngx-pagination";
-import { AddDriverComponent } from "./components/driver/add-driver/add-driver.component";
-import { LoginComponent } from "./components/auth/login/login.component";
-import { RoleComponent } from "./components/role/role.component";
+import { AddDriverComponent } from "src/app/modules/drivers/components/add-driver/add-driver.component";
+import { LoginComponent } from "src/app/core/authentication/login/login.component";
+import { RoleComponent } from "src/app/modules/admins/components/role/role.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AdminComponent } from "./components/admin/admin.component";
-import { DriverListComponent } from "./components/driver/driver-list/driver-list.component";
+import { AdminComponent } from "src/app/modules/admins/components/admin/admin.component";
+import { DriverListComponent } from "src/app/modules/drivers/components/driver-list/driver-list.component";
 import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ForgetPasswordComponent } from "./components/auth/forgetPassword/forget-password.component";
-import { EditDriverComponent } from "./components/driver/edit-driver/edit-driver.component";
-import { ResetPasswordComponent } from "./components/admin/reset-password/reset-password.component";
-import { DailyTransactionComponent } from './components/dailyTrans/daily-transaction/daily-transaction.component';
+import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forgetPassword/forget-password.component";
+import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
+import { ResetPasswordComponent } from "src/app/modules/admins/components/admin/reset-password/reset-password.component";
+import { DailyTransactionComponent } from "src/app/modules/admins/components/admin/daily-transaction/daily-transaction.component";
+import { Ng2SmartTableModule } from "ng2-smart-table";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { DailyTransactionComponent } from './components/dailyTrans/daily-transac
     NgbModule,
     CommonModule,
     BrowserAnimationsModule,
+    Ng2SmartTableModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

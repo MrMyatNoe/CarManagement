@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@akveo/ng2-completer": "^9.0.1",
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
@@ -21,6 +22,7 @@
     "@angular/router": "~8.2.14",
     "@ng-bootstrap/ng-bootstrap": "^5.2.1",
     "bootstrap": "^5.0.1",
+    "ng2-smart-table": "^1.5.0",
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^11.3.3",
     "rxjs": "~6.4.0",
