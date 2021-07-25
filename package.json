@@ -22,6 +22,7 @@
     "@angular/router": "~8.2.14",
     "@ng-bootstrap/ng-bootstrap": "^5.2.1",
     "bootstrap": "^5.0.1",
+    "ng2-completer": "^3.0.2",
     "ng2-smart-table": "^1.5.0",
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^11.3.3",

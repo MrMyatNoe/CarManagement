@@ -1,25 +1,82 @@
-<div>
-  <form>
-    <h1><strong>Daily Transaction List</strong></h1>
-    <div class="row from-row">
-      <label><strong>Car No.</strong></label>
-      <select>
-        <option *ngFor="let car of carsData; trackBy: trackByCar">
-          {{ car.name }}
-        </option>
-      </select>
-    </div>
-    <br />
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ modalDialogLabel }} Daily Transaction
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
 
-    <div class="row from-row">
-      <label><strong>Driver</strong></label>
-      <select>
-        <option *ngFor="let driver of driversData; trackBy: trackByDriver">
-          {{ driver.name }}
-        </option>
-      </select>
-    </div>
-  </form>
+  <div class="modal-body">
+    <form [formGroup]="dailyForm">
+      <h1>Daily Form</h1>
+
+      <div class="row from-row">
+        <input
+          class="col-sm-4 form-control"
+          type="hidden"
+          formControlName="id"
+        />
+
+        <label class="col-sm-4">Amount</label>
+        <input
+          type="number"
+          formControlName="amount"
+          class="col-sm-4 form-control"
+          (change)="sum()" 
+        />
+
+        <div
+          *ngIf="f.amount.invalid && (f.amount.dirty || f.amount.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.amount.errors">Amount is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Fee</label>
+        <input
+          type="number"
+          formControlName="fee"
+          class="col-sm-4 form-control"
+          (change)="sum()" 
+        />
+
+        <div
+          *ngIf="f.fee.invalid && (f.fee.dirty || f.fee.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.fee.errors">Fee is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Total Amount</label>
+        <p>{{totalAmount}}</p>
+      </div>
+      <br />
+
+      <button
+        type="submit"
+        [disabled]="!dailyForm.valid"
+        class="btn btn-primary"
+      >
+        {{ modalButtonLabel }}
+      </button>
+    </form>
+  </div>
+</ng-template>
+<div class="mx-auto">
+  <button class="btn btn-primary" (click)="newDaily()">New</button>
 </div>
 <table class="table table-striped">
   <thead>

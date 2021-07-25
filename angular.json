@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Carmanagement"
+    }
+  },
+  "defaultProject": "Carmanagement",
+  "cli": {
+    "analytics": false
+  }
 }

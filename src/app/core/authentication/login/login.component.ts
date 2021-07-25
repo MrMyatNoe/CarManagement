@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
         .toPromise()
         .then(
           (data: any) => {
-            console.log(data.roles[0]);
+            console.log(data.roles);
             this.toastService.success("Login successfully");
             this.localStorageService.saveAdminData(data);
             this.authService.setAuth(data.token);
