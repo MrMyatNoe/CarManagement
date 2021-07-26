@@ -24,6 +24,6 @@ export class AppComponent {
 
   logout() {
     this.localStorageService.removeAdminData();
-    this.router.navigate(["/"]);
+    this.router.navigate(["/login"]);
   }
 }

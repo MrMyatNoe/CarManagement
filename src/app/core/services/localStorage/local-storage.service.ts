@@ -7,6 +7,7 @@ export class LocalStorageService {
   constructor() {}
 
   saveAdminData(data: any) {
+    console.log("login admin storage", data.roles[0]);
     localStorage.setItem("admindata", JSON.stringify(data));
     localStorage.setItem("role", data.roles[0]);
   }

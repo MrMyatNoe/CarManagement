@@ -4,7 +4,6 @@ import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { Role } from "src/app/modules/admins/models/role.model";
 import { ApiService } from "src/app/core/services/api/api.service";
 import { ToastrService } from "ngx-toastr";
-import { LocalDataSource } from "ng2-smart-table";
 
 @Component({
   selector: "app-role",
@@ -22,18 +21,6 @@ export class RoleComponent implements OnInit {
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
   private url: string = "roles";
-  roleSource: LocalDataSource;
-
-  settings = {
-    columns: {
-      name: {
-        title: "name",
-      },
-      level: {
-        title: "level",
-      },
-    },
-  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,8 +45,8 @@ export class RoleComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
+          console.log(data);
           this.rolesData = data;
-          this.roleSource = new LocalDataSource(this.rolesData);
         },
         (error) => {
           console.log(error);
@@ -155,23 +142,5 @@ export class RoleComponent implements OnInit {
           console.log(error.error.message);
         }
       );
-  }
-
-  onSearch(query: string = "") {
-    this.roleSource.setFilter(
-      [
-        // fields we want to include in the search
-
-        {
-          field: "name",
-          search: query,
-        },
-        {
-          field: "level",
-          search: query,
-        },
-      ],
-      false
-    );
   }
 }

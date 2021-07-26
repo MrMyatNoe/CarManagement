@@ -12,17 +12,17 @@ import { ApiService } from "src/app/core/services/api/api.service";
 })
 export class DailyTransactionComponent implements OnInit {
   carsData: any;
-  carId: any;
+  carId: "";
   driversData: any;
-  driverId: any;
+  driverId: "";
   dailyTransactionsData: any;
   dailyForm: FormGroup;
   // @Input('amount') amount:number
   // @Input('fee') fee:number
   // @Input('totalAmount') totalAmount:number;
-  amount:number = 0;
-  fee:number = 0;
-  totalAmount:number= 0;
+  amount: number = 0;
+  fee: number = 0;
+  totalAmount: number = 0;
 
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
@@ -40,12 +40,14 @@ export class DailyTransactionComponent implements OnInit {
       id: null,
       amount: [0, [Validators.required]],
       fee: [0, [Validators.required]],
-      total: [0, [Validators.required]]
+      total: [0, [Validators.required]],
+      driverId: ["", [Validators.required]],
+      carId: ["", [Validators.required]],
     });
   }
 
-  get f(){
-    return this.dailyForm.controls
+  get f() {
+    return this.dailyForm.controls;
   }
   ngOnInit() {
     this.getDailyTransactions();
@@ -61,7 +63,7 @@ export class DailyTransactionComponent implements OnInit {
         (data) => {
           console.log("cars ", data);
           this.carsData = data;
-          this.carId = this.carId;
+          this.carId = this.carId || data[0].id;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -78,7 +80,7 @@ export class DailyTransactionComponent implements OnInit {
         (data) => {
           console.log("drivers", data);
           this.driversData = data;
-          this.driverId = this.driverId;
+          this.driverId = this.driverId || data[0].id;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -118,8 +120,8 @@ export class DailyTransactionComponent implements OnInit {
     return index;
   }
 
-  sum(){
-    this.totalAmount = this.f.amount.value - this.f.fee.value
+  sum() {
+    this.totalAmount = this.f.amount.value - this.f.fee.value;
   }
 
   newDaily() {
@@ -151,5 +153,47 @@ export class DailyTransactionComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  driver_change(id) {
+    this.driverId = id;
+  }
+
+  car_change(id) {
+    this.carId = id;
+  }
+
+  onSubmit() {
+    var model = this.dailyForm.value;
+    console.log("model ", model);
+    if (model.id) {
+      this.apiService
+        .putRequest("daily", model)
+        .toPromise()
+        .then(
+          (_data) => {
+            this.getDailyTransactions();
+          },
+          (error) => {
+            this.toastService.error(error.error.message);
+            console.log(error);
+          }
+        );
+    } else {
+      this.apiService
+        .postRequest("daily", model)
+        .toPromise()
+        .then(
+          (_data) => {
+            this.getDailyTransactions();
+          },
+          (error) => {
+            this.toastService.error(error.error.message);
+            console.log(error);
+          }
+        );
+    }
+    this.dailyForm.reset();
+    this.modalService.dismissAll();
   }
 }

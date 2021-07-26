@@ -18,6 +18,9 @@ export class ApiService {
     console.log(url);
     return this.httpClient.get(this.API_ROUTE + url);
   }
+  public getRequestWithParams(url: string, params: HttpParams) {
+    return this.httpClient.get(this.API_ROUTE + url, { params: params });
+  }
 
   loadAllAdmins(url: string) {
     return this.httpClient.get<any>(this.API_ROUTE + url);

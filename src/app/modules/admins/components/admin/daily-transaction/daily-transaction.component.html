@@ -14,7 +14,7 @@
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="dailyForm">
+    <form [formGroup]="dailyForm" (ngSubmit)="onSubmit()">
       <h1>Daily Form</h1>
 
       <div class="row from-row">
@@ -29,7 +29,7 @@
           type="number"
           formControlName="amount"
           class="col-sm-4 form-control"
-          (change)="sum()" 
+          (change)="sum()"
         />
 
         <div
@@ -47,7 +47,7 @@
           type="number"
           formControlName="fee"
           class="col-sm-4 form-control"
-          (change)="sum()" 
+          (change)="sum()"
         />
 
         <div
@@ -61,7 +61,59 @@
 
       <div class="row from-row">
         <label class="col-sm-4">Total Amount</label>
-        <p>{{totalAmount}}</p>
+        <p>{{ totalAmount }}</p>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4" for="driverId">Driver</label>
+        <select
+          formControlName="driverId"
+          class="form-control"
+          [ngModel]="driverId"
+          (change)="driver_change($event.target.value)"
+        >
+          <option
+            *ngFor="let driver of driversData; trackBy: trackByDriver"
+            [selected]="driver.id == driverId"
+            value="{{ driver.id }}"
+          >
+            {{ driver.name }}
+          </option>
+        </select>
+
+        <div
+          *ngIf="f.driverId.invalid && (f.driverId.dirty || f.driverId.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.driverId.errors">driver is required.</div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4" for="carId">Car</label>
+        <select
+          formControlName="carId"
+          class="form-control"
+          [ngModel]="carId"
+          (change)="car_change($event.target.value)"
+        >
+          <option
+            *ngFor="let car of carsData; trackBy: trackByCar"
+            [selected]="car.id == carId"
+            value="{{ car.id }}"
+          >
+            {{ car.carNo }}
+          </option>
+        </select>
+
+        <div
+          *ngIf="f.driverId.invalid && (f.driverId.dirty || f.driverId.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f.driverId.errors">driver is required.</div>
+        </div>
       </div>
       <br />
 
@@ -78,46 +130,11 @@
 <div class="mx-auto">
   <button class="btn btn-primary" (click)="newDaily()">New</button>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Driver Name</th>
-      <th>Car No.</th>
-      <th>Transaction Code</th>
-      <th>Status</th>
-      <th>Amount</th>
-      <th>Fee</th>
-      <th>Total Amount</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tr *ngFor="let dailyData of dailyTransactionsData; trackBy: trackByDaily">
-    <td>
-      {{ dailyData.car.carNo }}
-    </td>
-    <td>
-      {{ dailyData.driver.name }}
-    </td>
-    <td>
-      {{ dailyData.transactionCode }}
-    </td>
-    <td>
-      {{ dailyData.status }}
-    </td>
-    <td>
-      {{ dailyData.amount }}
-    </td>
-    <td>
-      {{ dailyData.fee }}
-    </td>
-    <td>
-      {{ dailyData.totalAmount }}
-    </td>
-    <td>
-      <button class="btn btn-info">Edit</button>
-    </td>
-    <td>
-      <button class="btn btn-info">Delete</button>
-    </td>
-  </tr>
-</table>
+<div>
+  <h4>Daily Transaction List</h4>
+  <ul>
+    <li
+      *ngFor="let dailyData of dailyTransactionsData; trackBy: trackByDaily"
+    ></li>
+  </ul>
+</div>
