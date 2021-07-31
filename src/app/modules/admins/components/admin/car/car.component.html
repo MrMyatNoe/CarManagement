@@ -1,0 +1,188 @@
+<div>
+  <form
+    [formGroup]="carForm"
+    class="submit-form"
+    (ngSubmit)="onSubmitForm()"
+  >
+    <h1>Add Car</h1>
+
+    <div class="cover">
+      <img [src]="imageURL" class="cover-img" *ngIf="imageURL" />
+    </div>
+    <br />
+    <input
+      formControlName="photo"
+      type="file"
+      accept="image/*"
+      (change)="onSelectFile($event)"
+    />
+    <br />
+    
+    <div class="row from-row">
+      <label>Car No</label>
+      <input
+        type="text"
+        formControlName="carNo"
+        id="carNo"
+        class="form-control"
+        placeholder="AA/5416"
+        required
+      />
+      <div
+        *ngIf="f.carNo.invalid && (f.carNo.dirty || f.carNo.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.carNo.errors">Car No is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Brand</label>
+      <input
+        type="text"
+        formControlName="brand"
+        id="brand"
+        class="form-control"
+        placeholder="Toyota"
+        required
+      />
+      <div
+        *ngIf="f.brand.invalid && (f.brand.dirty || f.brand.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.brand.errors">Brand is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        id="name"
+        class="form-control"
+        placeholder="Fielder"
+        required
+      />
+      <div
+        *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.name.errors">Name is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Model Year</label>
+      <input
+        type="text"
+        formControlName="modelYear"
+        id="modelYear"
+        class="form-control"
+        placeholder="1996"
+      />
+      <div
+        *ngIf="f.modelYear.invalid && (f.modelYear.dirty || f.modelYear.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.modelYear.errors">Model Year is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Start Date</label>
+      <input
+        type="date"
+        formControlName="startedDate"
+        id="startedDate"
+        class="form-control"
+      />
+      <div
+        *ngIf="f.startedDate.invalid && (f.startedDate.dirty || f.startedDate.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.startedDate.errors">Start Date is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Color</label>
+      <input
+        type="text"
+        formControlName="color"
+        id="color"
+        class="form-control"
+        required
+        placeholder="gray"
+      />
+      <div
+        *ngIf="f.color.invalid && (f.color.dirty || f.color.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.color.errors">Color is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Taxi Number</label>
+      <input
+        type="text"
+        formControlName="taxiNo"
+        id="taxiNo"
+        class="form-control"
+        placeholder="W-1111"
+      />
+      <div
+        *ngIf="f.taxiNo.invalid && (f.taxiNo.dirty || f.taxiNo.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.taxiNo.errors">Taxi Number is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label>Daily Amount</label>
+      <input
+        type="number"
+        formControlName="dailyAmount"
+        id="dailyAmount"
+        class="form-control"
+        placeholder="10000"
+      />
+      <div
+        *ngIf="f.dailyAmount.invalid && (f.dailyAmount.dirty || f.dailyAmount.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.dailyAmount.errors">Daily Amount is required.</div>
+      </div>
+    </div>
+    <br />
+
+    <div class="row from-row">
+      <label class="col-sm-4">License Date</label>
+      <input
+        type="date"
+        formControlName="licenseDate"
+        id="licenseDate"
+        class="form-control"
+      />
+      <div
+        *ngIf="f.licenseDate.invalid && (f.licenseDate.dirty || f.licenseDate.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="f.licenseDate.errors">License Date is required.</div>
+      </div>
+    </div>
+    <br />
+    <div class="mx-auto">
+      <button class="btn btn-success">Save</button>
+    </div>
+  </form>
+</div>

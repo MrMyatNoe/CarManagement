@@ -22,6 +22,9 @@ import { EditDriverComponent } from "src/app/modules/drivers/components/edit-dri
 import { ResetPasswordComponent } from "src/app/modules/admins/components/admin/reset-password/reset-password.component";
 import { DailyTransactionComponent } from "src/app/modules/admins/components/admin/daily-transaction/daily-transaction.component";
 import { Ng2SmartTableModule } from "ng2-smart-table";
+import { MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRippleModule, MatTableModule } from "@angular/material";
+import { CarComponent } from './modules/admins/components/admin/car/car.component';
+import { CarListComponent } from './modules/admins/components/admin/car-list/car-list.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     EditDriverComponent,
     ResetPasswordComponent,
     DailyTransactionComponent,
+    CarComponent,
+    CarListComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,13 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     CommonModule,
     BrowserAnimationsModule,
     Ng2SmartTableModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatNativeDateModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

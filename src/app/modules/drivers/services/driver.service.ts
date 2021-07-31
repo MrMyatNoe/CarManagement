@@ -19,10 +19,6 @@ export class DriverService {
     this.driver = state.driver as Driver;
   }
 
-  createData(formData: FormData) {
-    return this.httpClient.post(`${this.url}`, formData);
-  }
-
   getLoginDriver() {
     return this.driver;
   }

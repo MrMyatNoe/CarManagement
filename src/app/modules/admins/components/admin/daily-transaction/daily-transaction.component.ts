@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: "app-daily-transaction",
@@ -30,6 +31,10 @@ export class DailyTransactionComponent implements OnInit {
 
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
 
+  dataSource :MatTableDataSource<any>;
+  dailyAmount: any;
+  carsDataById: any;
+
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
@@ -38,9 +43,9 @@ export class DailyTransactionComponent implements OnInit {
   ) {
     this.dailyForm = this.formBuilder.group({
       id: null,
-      amount: [0, [Validators.required]],
-      fee: [0, [Validators.required]],
-      total: [0, [Validators.required]],
+      //amount: [0, [Validators.required]],
+      //fee: [0, [Validators.required]],
+      //total: [0, [Validators.required]],
       driverId: ["", [Validators.required]],
       carId: ["", [Validators.required]],
     });
@@ -49,6 +54,7 @@ export class DailyTransactionComponent implements OnInit {
   get f() {
     return this.dailyForm.controls;
   }
+
   ngOnInit() {
     this.getDailyTransactions();
     this.getCars();
@@ -81,6 +87,7 @@ export class DailyTransactionComponent implements OnInit {
           console.log("drivers", data);
           this.driversData = data;
           this.driverId = this.driverId || data[0].id;
+          this.dataSource = this.dailyTransactionsData;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -100,7 +107,7 @@ export class DailyTransactionComponent implements OnInit {
         },
         (error) => {
           this.toastService.error(error.error.message);
-          console.log(error);
+          console.log('this is ',error);
         }
       );
   }
@@ -159,8 +166,13 @@ export class DailyTransactionComponent implements OnInit {
     this.driverId = id;
   }
 
-  car_change(id) {
+  car_change(id,index,item) {
     this.carId = id;
+    for (let index = 0; index < this.carsData.length; index++) {
+      const element = this.carsData[index];
+      console.log('elemtent ' ,element.id)
+      
+    }
   }
 
   onSubmit() {
@@ -196,4 +208,5 @@ export class DailyTransactionComponent implements OnInit {
     this.dailyForm.reset();
     this.modalService.dismissAll();
   }
+
 }

@@ -12,6 +12,8 @@ import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forg
 import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
 import { ResetPasswordComponent } from "src/app/modules/admins/components/admin/reset-password/reset-password.component";
 import { DailyTransactionComponent } from "src/app/modules/admins/components/admin/daily-transaction/daily-transaction.component";
+import { CarComponent } from "./modules/admins/components/admin/car/car.component";
+import { CarListComponent } from "./modules/admins/components/admin/car-list/car-list.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: "drivers/:id", component: EditDriverComponent },
   { path: "resetpassword", component: ResetPasswordComponent },
   { path: "daily", component: DailyTransactionComponent },
+  { path: "car", component: CarComponent },
+  { path: "cars", component: CarListComponent },
 ];
 
 @NgModule({

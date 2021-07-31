@@ -1,0 +1,51 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Car No</th>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Model Year</th>
+        <th>Start Date</th>
+        <th>Color</th>
+        <th>Taxi Number</th>
+        <th>License Month</th>
+        <th>Daily</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let car of carsData">
+      <td>
+        {{ car.carNo }}
+      </td>
+      <td>
+        {{ car.brand }}
+      </td>
+      <td>
+        {{ car.name }}
+      </td>
+      <td>
+        {{ car.modelYear }}
+      </td>
+      <td>
+        {{ car.startedDate }}
+        </td>
+      <td>
+        {{ car.color }}
+      </td>
+      <td>
+        {{ car.taxiNo }}
+      </td>
+      <td>
+        {{ car.licenseDate }}
+      </td>
+      <td>
+        {{ car.dailyAmount }}
+      </td>
+      <td>
+        <button class="btn btn-info" routerLink="">Edit</button>
+      </td>
+      <td>
+        <button class="btn btn-info" (click)="deleteCar(car)">Delete</button>
+      </td>
+    </tr>
+  </table>

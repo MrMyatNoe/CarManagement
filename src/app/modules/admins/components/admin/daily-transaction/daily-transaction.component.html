@@ -23,8 +23,8 @@
           type="hidden"
           formControlName="id"
         />
-
-        <label class="col-sm-4">Amount</label>
+</div>
+        <!-- <label class="col-sm-4">Amount</label>
         <input
           type="number"
           formControlName="amount"
@@ -39,9 +39,9 @@
           <div *ngIf="f.amount.errors">Amount is required.</div>
         </div>
       </div>
-      <br />
+      <br /> -->
 
-      <div class="row from-row">
+      <!-- <div class="row from-row">
         <label class="col-sm-4">Fee</label>
         <input
           type="number"
@@ -57,13 +57,13 @@
           <div *ngIf="f.fee.errors">Fee is required.</div>
         </div>
       </div>
-      <br />
+      <br /> -->
 
-      <div class="row from-row">
+      <!-- <div class="row from-row">
         <label class="col-sm-4">Total Amount</label>
         <p>{{ totalAmount }}</p>
       </div>
-      <br />
+      <br /> -->
 
       <div class="row from-row">
         <label class="col-sm-4" for="driverId">Driver</label>
@@ -109,13 +109,19 @@
         </select>
 
         <div
-          *ngIf="f.driverId.invalid && (f.driverId.dirty || f.driverId.touched)"
+          *ngIf="f.carId.invalid && (f.carId.dirty || f.carId.touched)"
           class="alert alert-danger"
         >
-          <div *ngIf="f.driverId.errors">driver is required.</div>
+          <div *ngIf="f.carId.errors">Car is required.</div>
         </div>
       </div>
       <br />
+
+      <div class="row from-row">
+        <label class="col-sm-4">Daily Amount</label>
+        <p >{{ dailyAmount }}</p>
+      </div>
+      <br/>
 
       <button
         type="submit"
@@ -130,11 +136,15 @@
 <div class="mx-auto">
   <button class="btn btn-primary" (click)="newDaily()">New</button>
 </div>
-<div>
-  <h4>Daily Transaction List</h4>
-  <ul>
-    <li
-      *ngFor="let dailyData of dailyTransactionsData; trackBy: trackByDaily"
-    ></li>
-  </ul>
-</div>
+
+<!-- <div class="mat-elevaton-28">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="CarNo">
+      <th mat-header-cell *matColumnDef>CarNo</th>
+      <td mat-cell *matCellDef="let element">{{element.carNo}}</td>
+    </ng-container>
+   
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div> -->

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { DriverService } from "src/app/modules/drivers/services/driver.service";
+import { ApiService } from "src/app/core/services/api/api.service";
 
 @Component({
   selector: "app-add-driver",
@@ -18,7 +18,7 @@ export class AddDriverComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    private driverService: DriverService,
+    private apiService: ApiService,
     private toastService: ToastrService,
     private router: Router
   ) {
@@ -27,7 +27,7 @@ export class AddDriverComponent implements OnInit {
       name: ["", [Validators.required]],
       nrc: ["", [Validators.required]],
       license: ["", [Validators.required]],
-      gender: ["", [Validators.required]],
+      gender: ["male", [Validators.required]],
       address: ["", [Validators.required]],
       phone: ["", [Validators.required]],
       password: ["", [Validators.required]],
@@ -50,6 +50,7 @@ export class AddDriverComponent implements OnInit {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.userFile = file;
+      console.log('user file',this.userFile)
       var mimeType = event.target.files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         this.message = "Only images are avaliable";
@@ -69,7 +70,7 @@ export class AddDriverComponent implements OnInit {
    * add data
    */
   onSubmitForm() {
-    const formData = new FormData();
+    var formData = new FormData();
     let driver1 = {
       name: this.driverForm.controls["name"].value,
       nrc: this.driverForm.controls["nrc"].value,
@@ -81,15 +82,18 @@ export class AddDriverComponent implements OnInit {
       imageName: this.userFile.name,
     };
 
-    // console.log(driver1);
     formData.append("driver", JSON.stringify(driver1));
     formData.append("file", this.userFile);
-    this.driverService.createData(formData).subscribe(
+    formData.forEach((value,key) => {
+      console.log("key ", key+" ", "value"+value," user file" , this.userFile)
+    });
+   
+    this.apiService.createData("drivers",formData).subscribe(
       (_data) => {
         this.toastService.success("Successfully");
-        //this.router.navigate(["/src/app/components/driver-list"]);
+       // this.router.navigate(["/src/app/components/driver-list"]);
         this.imageURL = "assets/drivers/myPP.jpg";
-        this.userFile.name = "";
+       // this.userFile.name = "";
       },
       (error) => {
         this.message = error.error.message;

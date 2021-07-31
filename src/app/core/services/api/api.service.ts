@@ -18,6 +18,7 @@ export class ApiService {
     console.log(url);
     return this.httpClient.get(this.API_ROUTE + url);
   }
+
   public getRequestWithParams(url: string, params: HttpParams) {
     return this.httpClient.get(this.API_ROUTE + url, { params: params });
   }
@@ -29,6 +30,11 @@ export class ApiService {
   public postRequest(url: string, data: any) {
     console.log(url + " : " + data);
     return this.httpClient.post(this.API_ROUTE + url, data);
+  }
+
+  createData(url: string,formData: FormData) {
+    console.log("form data",formData.get('file')," url",url)
+    return this.httpClient.post(this.API_ROUTE + url, formData);
   }
 
   public putRequest(url: string, data: any) {

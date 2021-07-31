@@ -1,5 +1,10 @@
 <div id="app">
   <nav
+  class="navbar navbar-expand navbar-dark bg-dark"
+  *ngIf="route == 'null'"
+>
+</nav>
+  <nav
     class="navbar navbar-expand navbar-dark bg-dark"
     *ngIf="route == 'driver'"
   >
@@ -51,7 +56,21 @@
         <a href="drivers" class="nav-link" routerLink="drivers">Drivers</a>
       </li>
       <li class="nav-item">
+        <a
+          href="car"
+          class="nav-link"
+          routerLink="car"
+          >Car
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="cars" class="nav-link" routerLink="cars">Cars</a>
+      </li>
+      <li class="nav-item">
         <a href="daily" class="nav-link" routerLink="daily">Daily</a>
+      </li>
+      <li class="nav-item">
+        <a href="admins" class="nav-link" routerLink="admins">Admins</a>
       </li>
       <li class="nav-item">
         <a href="roles" class="nav-link" routerLink="roles">Role</a>

@@ -29,7 +29,6 @@ export class EditDriverComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    private driverService: DriverService,
     private apiService: ApiService,
     private route: ActivatedRoute
   ) {
@@ -114,7 +113,7 @@ export class EditDriverComponent implements OnInit {
     formData.append("driver", JSON.stringify(driver1));
     formData.append("file", this.userFile);
     console.log(driver);
-    this.driverService.createData(formData).subscribe(
+    this.apiService.createData("drivers",formData).subscribe(
       (data) => {
         console.log("successfully", data);
         this.driverForm.reset({});
