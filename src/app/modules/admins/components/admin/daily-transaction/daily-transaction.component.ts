@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
-import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: "app-daily-transaction",
@@ -31,7 +30,6 @@ export class DailyTransactionComponent implements OnInit {
 
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
 
-  dataSource :MatTableDataSource<any>;
   dailyAmount: any;
   carsDataById: any;
 
@@ -87,7 +85,6 @@ export class DailyTransactionComponent implements OnInit {
           console.log("drivers", data);
           this.driversData = data;
           this.driverId = this.driverId || data[0].id;
-          this.dataSource = this.dailyTransactionsData;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -166,13 +163,17 @@ export class DailyTransactionComponent implements OnInit {
     this.driverId = id;
   }
 
-  car_change(id,index,item) {
+  car_change(id) {
     this.carId = id;
-    for (let index = 0; index < this.carsData.length; index++) {
-      const element = this.carsData[index];
-      console.log('elemtent ' ,element.id)
-      
-    }
+    this.apiService.getRequest("cars/"+ id).toPromise().then(
+      (data)=>{
+        console.log("car by id", data);
+        this.carsData = data;
+    },
+      (error)=>{
+        this.toastService.error(error.error.message);
+        console.log(error);
+      })
   }
 
   onSubmit() {
