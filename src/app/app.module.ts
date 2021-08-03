@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AddTutorialComponent } from "src/app/modules/tutorials/components/tutorial/add-tutorial/add-tutorial.component";
@@ -24,6 +24,8 @@ import { DailyTransactionComponent } from "src/app/modules/admins/components/adm
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { CarComponent } from './modules/admins/components/admin/car/car.component';
 import { CarListComponent } from './modules/admins/components/admin/car-list/car-list.component';
+import { HttpConfigInterceptor } from "./core/services/httpConfig.interceptor";
+import { AuthServiceService } from "./core/services/auth/auth-service.service";
 
 @NgModule({
   declarations: [
@@ -54,9 +56,16 @@ import { CarListComponent } from './modules/admins/components/admin/car-list/car
     CommonModule,
     BrowserAnimationsModule,
     Ng2SmartTableModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      progressBar: false,
+      enableHtml: true,
+    }),
   ],
-  providers: [],
+  providers: [
+    AuthServiceService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

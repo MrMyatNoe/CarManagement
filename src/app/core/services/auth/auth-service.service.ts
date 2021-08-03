@@ -12,13 +12,17 @@ export class AuthServiceService {
   ) {
     this.webToken = localStorage.getItem('webToken')
     this.authState = this.webToken ? true : false 
+    console.log('set constructor', this.webToken, " : ", this.authState)
+ 
   }
 
   setAuth(token: string) {
+    console.log('set auth', this.webToken)
     this.webToken = token;
   }
 
   get getToken() {
+    console.log('get token', this.webToken)
     return this.webToken;
   }
 
@@ -26,8 +30,8 @@ export class AuthServiceService {
     this.webToken = "";
     this.authState = false
     localStorage.removeItem('webToken');
-
-
-    this._router.navigateByUrl("/auth")
+    localStorage.removeItem('driverData')
+    localStorage.removeItem('adminData')
+    this._router.navigateByUrl("/login")
 }
 }

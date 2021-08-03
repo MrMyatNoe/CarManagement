@@ -20,20 +20,21 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     // req = req.clone({ headers: req.headers.set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Tenant-ID, Content-Type") })
     if (this._auth.getToken)
       req = req.clone({ headers: req.headers.set("Authorization", this._auth.getToken) })
+    
     req = req.clone({ body: req.body });
 
-    //console.log("Request Body", JSON.stringify(req.body))
-    //console.log("Request Params", req.urlWithParams)
+    console.log("Request Body", JSON.stringify(req.body))
+    console.log("Request Params", req.urlWithParams)
     if (!req.urlWithParams)
       return EMPTY
     return next.handle(req).pipe(
       map((event: HttpEvent<any>) => {
-        //console.log("API Data", event);
+        console.log("API Data", event);
 
         return event
       }),
       catchError((error: HttpErrorResponse) => {
-        //console.log("HTTP ERROR", error);
+        console.log("HTTP ERROR", error);
         if (error.error){
           if(typeof error.error == 'string'){
             this.toastrService.error(error.error)
@@ -47,7 +48,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         if(error.status === 190){
           this._auth.logout()
           localStorage.removeItem('driverData')
-          localStorage.removeItem('admindata')
+          localStorage.removeItem('adminData')
         }
         return throwError(error)
       })
