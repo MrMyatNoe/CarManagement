@@ -7,9 +7,9 @@ export class LocalStorageService {
   constructor() {}
 
   saveAdminData(data: any) {
-    console.log("login admin storage", data.roles[0]);
-    localStorage.setItem("admindata", JSON.stringify(data));
-    localStorage.setItem("role", data.roles[0]);
+    localStorage.setItem("admindata", JSON.stringify(data))
+    localStorage.setItem("role", data.roles[0])
+    localStorage.setItem("username",data.username)
   }
 
   saveDriverData(data: any) {
@@ -18,8 +18,9 @@ export class LocalStorageService {
   }
 
   removeAdminData() {
-    localStorage.removeItem("admindata");
-    localStorage.removeItem("role");
+    localStorage.removeItem("admindata")
+    localStorage.removeItem("role")
+    localStorage.removeItem("username")
   }
 
   removeDriverData() {
@@ -27,7 +28,12 @@ export class LocalStorageService {
     localStorage.removeItem("role");
   }
 
-  getItem() {
-    return localStorage.getItem("role");
+  getItemRole() {
+    return localStorage.getItem("role")
   }
+
+  getItemUserName() {
+    return localStorage.getItem("username")
+  }
+
 }

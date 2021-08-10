@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { LocalStorageService } from "./core/services/localStorage/local-storage.service";
 
 @Component({
@@ -10,13 +10,15 @@ import { LocalStorageService } from "./core/services/localStorage/local-storage.
 export class AppComponent {
   title = "Carmanagement";
   route: any;
+  userName: any;
 
   constructor(
     private localStorageService: LocalStorageService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
-    this.route = localStorageService.getItem();
+    this.route = localStorageService.getItemRole();
+    this.userName = localStorageService.getItemUserName();
+    console.warn(this.userName, ' ', this.route)
   }
 
   logout() {

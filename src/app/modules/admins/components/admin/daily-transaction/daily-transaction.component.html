@@ -154,12 +154,13 @@
   <thead>
     <tr>
       <th>transaction Code</th>
-      <th>Daily</th>
-      <th>Paid</th>
-      <th>Reamin</th>
-      <th>Total</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th>Daily</th>
+      <th>Days</th>
+      <th>Total</th>
+      <th>Paid</th>
+      <th>Remain</th>
     </tr>
   </thead>
 <tr *ngFor="let daily of dailyTransactionsData">
@@ -167,22 +168,25 @@
     {{ daily.transactionCode }}
   </td>
   <td>
+    {{ daily.startedDate }}
+  </td>
+  <td>
+    {{ daily.endDate }}
+  </td>
+  <td>
     {{ daily.daily }}
+  </td>
+  <td>
+    {{ daily.days }}
+  </td>
+  <td>
+    {{ daily.total }}
   </td>
   <td>
     {{ daily.paid }}
   </td>
   <td>
     {{ daily.remain }}
-  </td>
-  <td>
-    {{ daily.total }}
-  </td>
-  <td>
-    {{ daily.startedDate }}
-  </td>
-  <td>
-    {{ daily.endDate }}
   </td>
   <!-- <td>
     <button class="btn btn-info" routerLink="/drivers/{{ driver.id }}">

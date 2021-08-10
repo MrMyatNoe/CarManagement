@@ -194,7 +194,8 @@ export class DailyTransactionComponent implements OnInit {
     startedDate: this.dailyForm.controls["startedDate"].value,
     endDate: this.dailyForm.controls["endDate"].value,
     paid:this.dailyForm.controls["paid"].value,
-    total:this.totalAmount
+    total:this.totalAmount,
+    day:this.days,
     }
     console.log(daily1)
     if (daily1.id) {
