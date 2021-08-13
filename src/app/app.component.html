@@ -5,13 +5,13 @@
 >
 </nav> -->
   <nav
-    class="navbar navbar-expand navbar-dark bg-dark"
+    class="navbar navbar-expand navbar-dark bg-dark "
     *ngIf="route == 'driver'"
   >
     <a href="#" class="navbar-brand">bezKoder</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="addDriver" class="nav-link" routerLink="addDriver">Driver </a>
+        <a href="daily" class="nav-link" routerLink="daily">Daily</a>
       </li>
       <li class="nav-item">
         <a href="drivers" class="nav-link" routerLink="drivers/drivers"
@@ -65,7 +65,7 @@
           <li ngbDropdownItem><a class="dropdown-item" href="car"
             routerLink="car"
             >Add Car</a></li>
-          <li ngbDropdownItem><a class="dropdown-item" href="cars" class="nav-link" routerLink="cars">Cars</a></li>
+          <li ngbDropdownItem><a class="dropdown-item" href="cars" routerLink="cars">Cars</a></li>
         </ul>
       </li>
     </ul>

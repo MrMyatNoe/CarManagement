@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/core/services/api/api.service';
-import { Car } from '../../../models/car.model';
+import { Car } from '../../models/car.model';
 
 @Component({
   selector: 'app-car-list',

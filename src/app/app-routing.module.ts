@@ -10,10 +10,11 @@ import { AdminComponent } from "src/app/modules/admins/components/admin/admin.co
 import { DriverListComponent } from "src/app/modules/drivers/components/driver-list/driver-list.component";
 import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forgetPassword/forget-password.component";
 import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
-import { ResetPasswordComponent } from "src/app/modules/admins/components/admin/reset-password/reset-password.component";
-import { DailyTransactionComponent } from "src/app/modules/admins/components/admin/daily-transaction/daily-transaction.component";
-import { CarComponent } from "./modules/admins/components/admin/car/car.component";
-import { CarListComponent } from "./modules/admins/components/admin/car-list/car-list.component";
+import { ResetPasswordComponent } from "src/app/modules/admins/components/reset-password/reset-password.component";
+import { DailyTransactionComponent } from "src/app/modules/admins/components/daily-transaction/daily-transaction.component";
+import { CarComponent } from "./modules/admins/components/car/car.component";
+import { CarListComponent } from "./modules/admins/components/car-list/car-list.component";
+import { CarEditComponent } from "./modules/admins/components/car-edit/car-edit.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: "daily", component: DailyTransactionComponent },
   { path: "car", component: CarComponent },
   { path: "cars", component: CarListComponent },
+  { path: "cars/:id", component: CarEditComponent },
 ];
 
 @NgModule({

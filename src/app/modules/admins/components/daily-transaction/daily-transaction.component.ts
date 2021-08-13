@@ -1,4 +1,5 @@
 import { formatDate } from "@angular/common";
+import { HttpParams } from "@angular/common/http";
 import { ThrowStmt } from "@angular/compiler";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -31,6 +32,10 @@ export class DailyTransactionComponent implements OnInit {
   carsDataById: any;
   days: number = 0;
 
+  // pagination
+  page:any= 1;
+  size:any=5;
+  pageSizes = [5, 10, 15];
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
@@ -52,7 +57,7 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDailyTransactions();
+    this.getDailyTransactionsByPageAndSize();
     this.getCars();
     this.getDrivers();
   }
@@ -63,23 +68,19 @@ export class DailyTransactionComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
-          console.log("cars ", data);
           this.carsData = data;
           this.carId = this.carId || data[0].id;
           this.apiService.getRequest("cars/"+ this.carId).toPromise().then(
             (data)=>{
-              console.log("car by id", data)
               this.carsDataById = data
               this.dailyAmount = this.carsDataById.dailyAmount
           },
             (error)=>{
               this.toastService.error(error.error.message);
-              console.log(error);
             })
         },
         (error) => {
           this.toastService.error(error.error.message);
-          console.log(error);
         }
       );
   }
@@ -90,50 +91,34 @@ export class DailyTransactionComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
-          console.log("drivers", data);
           this.driversData = data;
           this.driverId = this.driverId || data[0].id;
         },
         (error) => {
           this.toastService.error(error.error.message);
-          console.log(error);
         }
       );
   }
 
-  getDailyTransactions() {
+  getDailyTransactionsByPageAndSize() {
+    let params = new HttpParams();
+    this.page -= 1;
+    params = params.append('page',this.page);
+    params = params.append('size',this.size);
     this.apiService
-      .getRequest("dailyTransactions")
+      .getRequestWithParams("dailyTransactions",params)
       .toPromise()
       .then(
         (data) => {
-          console.log("daily", data);
           this.dailyTransactionsData = data;
         },
         (error) => {
           this.toastService.error(error.error.message);
-          console.log('this is ',error);
         }
       );
   }
 
-  // trackByDaily(index, item) {
-  //   console.log(" Daily : ", index, ": ", item);
-  //   return index;
-  // }
-
-  // trackByCar(index, item) {
-  //   console.log(" Car : ", index, ": ", item);
-  //   return index;
-  // }
-
-  // trackByDriver(index, item) {
-  //   console.log(" Driver : ", index, ": ", item);
-  //   return index;
-  // }
-
   total() {
-    console.log('total', this.days)
     this.totalAmount = this.days * this.dailyAmount
   }
 
@@ -158,7 +143,6 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   private getDismissReason(reason: any) {
-    console.log("dismissed reason " + reason);
     if (reason == ModalDismissReasons.ESC) {
       return "by pressing ESC";
     } else if (reason == ModalDismissReasons.BACKDROP_CLICK) {
@@ -176,39 +160,35 @@ export class DailyTransactionComponent implements OnInit {
     this.carId = id;
     this.apiService.getRequest("cars/"+ id).toPromise().then(
       (data)=>{
-        console.log("car by id", data)
         this.carsDataById = data
         this.dailyAmount = this.carsDataById.dailyAmount
     },
       (error)=>{
         this.toastService.error(error.error.message);
-        console.log(error);
       })
   }
 
   onSubmit() {
     let daily1 = { 
       id: null,
-    driverId: this.dailyForm.controls["driverId"].value,
-    carId: this.dailyForm.controls["carId"].value,
-    startedDate: this.dailyForm.controls["startedDate"].value,
-    endDate: this.dailyForm.controls["endDate"].value,
-    paid:this.dailyForm.controls["paid"].value,
-    total:this.totalAmount,
-    day:this.days,
+      driverId: this.dailyForm.controls["driverId"].value,
+      carId: this.dailyForm.controls["carId"].value,
+      startedDate: this.dailyForm.controls["startedDate"].value,
+      endDate: this.dailyForm.controls["endDate"].value,
+      paid:this.dailyForm.controls["paid"].value,
+      total:this.totalAmount,
+      day:this.days,
     }
-    console.log(daily1)
     if (daily1.id) {
       this.apiService
         .putRequest("daily", daily1)
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactions();
+            this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
-            console.log(error);
           }
         );
     } else {
@@ -217,11 +197,10 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactions();
+            this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
-            console.log(error);
           }
         );
     }
@@ -230,12 +209,21 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   getDateDifference(){
-    console.log(this.f.startedDate.value, " : ", this.f.endDate.value)
     var startDate = moment(this.f.startedDate.value)
     var endDate = moment(this.f.endDate.value);
     this.days = endDate.diff(startDate, 'days')
     this.days +=1;
-    console.log(endDate.diff(startDate, 'days'))
     this.total();
+  }
+
+  handlePageSizeChange(event: any){
+    this.size = event.target.value;
+    this.page = 1;
+    this.getDailyTransactionsByPageAndSize();
+  }
+
+  handlePageChange(event: number): void {
+    this.page = event;
+    this.getDailyTransactionsByPageAndSize();
   }
 }

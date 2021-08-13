@@ -42,7 +42,7 @@
         {{ car.dailyAmount }}
       </td>
       <td>
-        <button class="btn btn-info" routerLink="">Edit</button>
+        <button class="btn btn-info" routerLink="/cars/{{ car.id }}">Edit</button>
       </td>
       <td>
         <button class="btn btn-info" (click)="deleteCar(car)">Delete</button>

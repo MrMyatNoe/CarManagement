@@ -19,13 +19,14 @@ import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forgetPassword/forget-password.component";
 import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
-import { ResetPasswordComponent } from "src/app/modules/admins/components/admin/reset-password/reset-password.component";
-import { DailyTransactionComponent } from "src/app/modules/admins/components/admin/daily-transaction/daily-transaction.component";
+import { ResetPasswordComponent } from "src/app/modules/admins/components/reset-password/reset-password.component";
+import { DailyTransactionComponent } from "src/app/modules/admins/components/daily-transaction/daily-transaction.component";
 import { Ng2SmartTableModule } from "ng2-smart-table";
-import { CarComponent } from './modules/admins/components/admin/car/car.component';
-import { CarListComponent } from './modules/admins/components/admin/car-list/car-list.component';
+import { CarComponent } from './modules/admins/components/car/car.component';
+import { CarListComponent } from './modules/admins/components/car-list/car-list.component';
 import { HttpConfigInterceptor } from "./core/services/httpConfig.interceptor";
 import { AuthServiceService } from "./core/services/auth/auth-service.service";
+import { CarEditComponent } from './modules/admins/components/car-edit/car-edit.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AuthServiceService } from "./core/services/auth/auth-service.service";
     DailyTransactionComponent,
     CarComponent,
     CarListComponent,
+    CarEditComponent,
   ],
   imports: [
     BrowserModule,
