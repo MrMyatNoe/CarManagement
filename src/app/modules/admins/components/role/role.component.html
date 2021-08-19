@@ -15,7 +15,7 @@
 
   <div class="modal-body">
     <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
-      <h1>Role</h1>
+      <h1>{{ 'Role' | translate:param }} </h1>
 
       <div class="row from-row">
         <input
@@ -24,7 +24,7 @@
           formControlName="id"
         />
 
-        <label class="col-sm-4">Name</label>
+        <label class="col-sm-4">{{ 'Name' | translate:param }} </label>
         <input
           type="text"
           formControlName="name"
@@ -40,7 +40,7 @@
       </div>
       <br />
       <div class="row from-row">
-        <label class="col-sm-4">Level</label>
+        <label class="col-sm-4">{{ 'Level' | translate:param }} </label>
         <input
           type="text"
           formControlName="level"
@@ -68,14 +68,14 @@
   </div>
 </ng-template>
 <div class="mx-auto">
-  <button class="btn btn-primary" (click)="newRole()">New</button>
+  <button class="btn btn-primary" (click)="newRole()">{{ 'New' | translate:param }} </button>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Level</th>
-      <th>Action</th>
+      <th>{{ 'Name' | translate:param }}</th>
+      <th>{{ 'Level' | translate:param }}</th>
+      <th>{{ 'Action' | translate:param }}</th>
     </tr>
   </thead>
   <tr *ngFor="let role of rolesData">
@@ -86,10 +86,10 @@
       {{ role.level }}
     </td>
     <td>
-      <button class="btn btn-info" (click)="editRole(role)">Edit</button>
+      <button class="btn btn-info" (click)="editRole(role)">{{ 'Edit' | translate:param }} </button>
     </td>
     <td>
-      <button class="btn btn-info" (click)="deleteRole(role)">Delete</button>
+      <button class="btn btn-info" (click)="deleteRole(role)">{{ 'Delete' | translate:param }} </button>
     </td>
   </tr>
 </table>

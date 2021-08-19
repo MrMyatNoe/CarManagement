@@ -161,16 +161,17 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Transaction Code</th>
-      <th>Driver</th>
-      <th>Car</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Daily</th>
-      <th>Days</th>
-      <th>Total</th>
-      <th>Paid</th>
-      <th>Remain</th>
+      <th>{{ 'Transaction Code' | translate:param }}</th>
+      <th>{{ 'Driver' | translate:param }}</th>
+      <th>{{ 'Car' | translate:param }}</th>
+      <th>{{ 'Start Date' | translate:param }}</th>
+      <th>{{ 'End Date' | translate:param }}</th>
+      <th>{{ 'Daily' | translate:param }}</th>
+      <th>{{ 'Days' | translate:param }}</th>
+      <th>{{ 'Total' | translate:param }}</th>
+      <th>{{ 'Paid' | translate:param }}</th>
+      <th>{{ 'Remain' | translate:param }}</th>
+      <th>{{ 'Remark' | translate:param }}</th>
     </tr>
   </thead>
 <tr *ngFor="let daily of dailyTransactionsData">
@@ -203,6 +204,9 @@
   </td>
   <td>
     {{ daily.remain }}
+  </td>
+  <td>
+    {{ daily.remark }}
   </td>
   <!-- <td>
     <button class="btn btn-info" routerLink="/drivers/{{ driver.id }}">

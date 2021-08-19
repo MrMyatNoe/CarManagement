@@ -1,16 +1,16 @@
 <table class="table table-striped">
     <thead>
       <tr>
-        <th>Car No</th>
-        <th>Brand</th>
-        <th>Name</th>
-        <th>Model Year</th>
-        <th>Start Date</th>
-        <th>Color</th>
-        <th>Taxi Number</th>
-        <th>License Month</th>
-        <th>Daily</th>
-        <th>Action</th>
+        <th>{{ 'Car No' | translate:param }}</th>
+        <th>{{ 'Brand' | translate:param }}</th>
+        <th>{{ 'Name' | translate:param }}</th>
+        <th>{{ 'Model Year' | translate:param }}</th>
+        <th>{{ 'Start Date' | translate:param }}</th>
+        <th>{{ 'Color' | translate:param }}</th>
+        <th>{{ 'Taxi Number' | translate:param }}</th>
+        <th>{{ 'License Month' | translate:param }}</th>
+        <th>{{ 'Daily' | translate:param }}</th>
+        <th>{{ 'Action' | translate:param }}</th>
       </tr>
     </thead>
     <tr *ngFor="let car of carsData">

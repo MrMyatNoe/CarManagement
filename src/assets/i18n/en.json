@@ -1,0 +1,51 @@
+{
+    "Driver": "Driver",
+    "Add Driver": "Add Driver",
+    "Drivers": "Drivers",
+
+    "Car": "Car",
+    "Add Car": "Add Car",
+    "Cars": "Cars",
+
+    "Roles": "Roles",
+
+    "Admins": "Admins",
+
+    "Daily": "Daily",
+
+    "My Profile": "My Profile",
+    "Update Password": "Update Password",
+    "Logout": "Logout",
+
+    "Transaction Code": "Transaction Code",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Days": "Days",
+    "Total": "Total",
+    "Paid": "Paid",
+    "Remain": "Remain",
+    "Remark": "Remark",
+
+    "Car No": "Car No",
+    "Brand": "Brand",
+    "Name": "Name",
+    "Model Year": "Model Year",
+    "Color": "Color",
+    "Taxi Number": "Taxi Number",
+    "License Month": "License Month",
+    "Action": "Action",
+
+    "Level": "Level",
+
+    "Phone": "Phone",
+    "Email": "Email",
+    "Gender": "Gender",
+
+    "New": "New",
+    "Edit": "Edit",
+    "Delete": "Delete",
+
+    "Admin": "Admin",
+    "Password": "Password",
+    "Address": "Address"
+}

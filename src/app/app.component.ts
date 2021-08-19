@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "./core/services/localStorage/local-storage.service";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: "app-root",
@@ -14,11 +15,16 @@ export class AppComponent {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) {
+    translateService.setDefaultLang('en');
     this.route = localStorageService.getItemRole();
     this.userName = localStorageService.getItemUserName();
-    console.warn(this.userName, ' ', this.route)
+  }
+
+  switchLanguage(language:string){
+    this.translateService.use(language)
   }
 
   logout() {

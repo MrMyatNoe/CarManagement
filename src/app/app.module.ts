@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AddTutorialComponent } from "src/app/modules/tutorials/components/tutorial/add-tutorial/add-tutorial.component";
@@ -27,6 +27,12 @@ import { CarListComponent } from './modules/admins/components/car-list/car-list.
 import { HttpConfigInterceptor } from "./core/services/httpConfig.interceptor";
 import { AuthServiceService } from "./core/services/auth/auth-service.service";
 import { CarEditComponent } from './modules/admins/components/car-edit/car-edit.component';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http , './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -63,6 +69,13 @@ import { CarEditComponent } from './modules/admins/components/car-edit/car-edit.
       progressBar: false,
       enableHtml: true,
     }),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [
     AuthServiceService,
