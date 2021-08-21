@@ -37,39 +37,39 @@ export class DailyTransactionComponent implements OnInit {
   size:any=5;
   pageSizes = [5, 10, 15];
 
-  //
-  public settings = {
-    actions: {
-      add: false,
-      edit: false,
-      delete: false,
-      position: 'right',
-      custom: [
-        {
-          name: 'view',
-          title: 'View ',
-        },
-      ]
-    },
-    columns: {
-      carNo: {
-        title: 'Car No',
-        filter: false,
-      },
-      driverName: {
-        title: 'Driver Name',
-        filter: false,
-      },
-      paid: {
-        title: 'Paid',
-        filter: false,
-      },
-      total: {
-        title: 'Total',
-        filter: false,
-      }
-    },
-  };
+  // ng2table
+  // public settings = {
+  //   actions: {
+  //     add: false,
+  //     edit: false,
+  //     delete: false,
+  //     position: 'right',
+  //     custom: [
+  //       {
+  //         name: 'view',
+  //         title: 'View ',
+  //       },
+  //     ]
+  //   },
+  //   columns: {
+  //     carNo: {
+  //       title: 'Car No',
+  //       filter: false,
+  //     },
+  //     driverName: {
+  //       title: 'Driver Name',
+  //       filter: false,
+  //     },
+  //     paid: {
+  //       title: 'Paid',
+  //       filter: false,
+  //     },
+  //     total: {
+  //       title: 'Total',
+  //       filter: false,
+  //     }
+  //   },
+  // };
 
   dailySource: LocalDataSource
   constructor(
@@ -77,7 +77,7 @@ export class DailyTransactionComponent implements OnInit {
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
   ) {
     this.dailyForm = this.formBuilder.group({
       id: null,
@@ -94,7 +94,7 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDailyTransactions();
+    this.getDailyTransactionsByPageAndSize();
     this.getCars();
     this.getDrivers();
   }
@@ -137,12 +137,12 @@ export class DailyTransactionComponent implements OnInit {
       );
   }
 
-  getDailyTransactions() {
-    this.apiService.getRequest('dailyTransactions').subscribe((response:any) => {
-      console.log(response)
-      this.dailySource = new LocalDataSource(response);
-    });
-  }
+  // getDailyTransactions() {
+  //   this.apiService.getRequest('dailyTransactions').subscribe((response:any) => {
+  //     console.log(response)
+  //     this.dailySource = new LocalDataSource(response);
+  //   });
+  // }
 
   getDailyTransactionsByPageAndSize() {
     let params = new HttpParams();
@@ -229,7 +229,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactions();
+            this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -241,7 +241,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactions();
+            this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -269,9 +269,5 @@ export class DailyTransactionComponent implements OnInit {
   handlePageChange(event: number): void {
     this.page = event;
     this.getDailyTransactionsByPageAndSize();
-  }
-
-  goDetail(id) {
-    this.router.navigate(["/mbcadmin/ads-and-promotions/update", id]);
   }
 }

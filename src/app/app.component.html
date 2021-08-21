@@ -94,7 +94,7 @@
         <ul class="dropdown-menu"  ngbDropdownMenu aria-labelledby="navbarScrollingDropdown">
           <li ngbDropdownItem><a class="dropdown-item" href="#">{{ 'My Profile' | translate:param }}</a></li>
           <li ngbDropdownItem><a class="dropdown-item" href="forgetpassword" routerLink="updatepassword">{{ 'Update Password' | translate:param }}</a></li>
-          <li ngbDropdownItem><a class="dropdown-item" href="#">{{ 'Logout' | translate:param }}</a></li>
+          <li ngbDropdownItem><a class="dropdown-item" href="#" (click)="logout()">{{ 'Logout' | translate:param }}</a></li>
         </ul>
       </li>
     </ul>
