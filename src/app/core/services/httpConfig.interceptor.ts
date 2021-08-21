@@ -23,18 +23,18 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     
     req = req.clone({ body: req.body });
 
-    console.log("Request Body", JSON.stringify(req.body))
-    console.log("Request Params", req.urlWithParams)
+    //console.log("Request Body", JSON.stringify(req.body))
+    //console.log("Request Params", req.urlWithParams)
     if (!req.urlWithParams)
       return EMPTY
     return next.handle(req).pipe(
       map((event: HttpEvent<any>) => {
-        console.log("API Data", event);
+        //console.log("API Data", event);
 
         return event
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("HTTP ERROR", error);
+        //console.log("HTTP ERROR", error);
         if (error.error){
           if(typeof error.error == 'string'){
             this.toastrService.error(error.error)
@@ -46,6 +46,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           this.toastrService.error(error.error.message || "Sorry!, Try again later");
 
         if(error.status === 190){
+          console.log('error event',error.status)
           this._auth.logout()
           localStorage.removeItem('driverData')
           localStorage.removeItem('adminData')

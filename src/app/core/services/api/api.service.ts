@@ -23,10 +23,6 @@ export class ApiService {
     return this.httpClient.get(this.API_ROUTE + url, { params: params });
   }
 
-  loadAllAdmins(url: string) {
-    return this.httpClient.get<any>(this.API_ROUTE + url);
-  }
-
   public postRequest(url: string, data: any) {
     console.log(url + " : " + data);
     return this.httpClient.post(this.API_ROUTE + url, data);

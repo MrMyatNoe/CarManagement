@@ -1,10 +1,8 @@
 import { HttpParams } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
-import { LocalDataSource } from "ng2-smart-table";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
 
@@ -36,48 +34,11 @@ export class DailyTransactionComponent implements OnInit {
   page:any= 1;
   size:any=5;
   pageSizes = [5, 10, 15];
-
-  //
-  public settings = {
-    actions: {
-      add: false,
-      edit: false,
-      delete: false,
-      position: 'right',
-      custom: [
-        {
-          name: 'view',
-          title: 'View ',
-        },
-      ]
-    },
-    columns: {
-      carNo: {
-        title: 'Car No',
-        filter: false,
-      },
-      driverName: {
-        title: 'Driver Name',
-        filter: false,
-      },
-      paid: {
-        title: 'Paid',
-        filter: false,
-      },
-      total: {
-        title: 'Total',
-        filter: false,
-      }
-    },
-  };
-
-  dailySource: LocalDataSource
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal,
-    private router: Router
+    private modalService: NgbModal
   ) {
     this.dailyForm = this.formBuilder.group({
       id: null,
@@ -94,7 +55,7 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDailyTransactions();
+    this.getDailyTransactionsByPageAndSize();
     this.getCars();
     this.getDrivers();
   }
@@ -135,13 +96,6 @@ export class DailyTransactionComponent implements OnInit {
           this.toastService.error(error.error.message);
         }
       );
-  }
-
-  getDailyTransactions() {
-    this.apiService.getRequest('dailyTransactions').subscribe((response:any) => {
-      console.log(response)
-      this.dailySource = new LocalDataSource(response);
-    });
   }
 
   getDailyTransactionsByPageAndSize() {
@@ -229,7 +183,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactions();
+            this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -241,7 +195,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactions();
+            this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -269,9 +223,5 @@ export class DailyTransactionComponent implements OnInit {
   handlePageChange(event: number): void {
     this.page = event;
     this.getDailyTransactionsByPageAndSize();
-  }
-
-  goDetail(id) {
-    this.router.navigate(["/mbcadmin/ads-and-promotions/update", id]);
   }
 }
