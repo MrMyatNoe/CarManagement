@@ -4,11 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## This project is dashboard for Admins and Drivers according to role, using backend project communicated by using token https://github.com/MrMyatNoe/Ecommerce.git
 
-## Flow
-### Driver can check up daily transactions, his profile, leave
-### Admin can perform according to user role
+## UI Flow
+* Driver can check up daily transactions, his profile, leave
+* Admin can perform according to user role
 
-#### Technical Assests
+## Technical Assests
+
 Tool | Usage
 ------------ | -------------
 UI | HTML,CSS,
