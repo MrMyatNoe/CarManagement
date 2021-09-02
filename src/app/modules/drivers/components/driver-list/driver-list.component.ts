@@ -48,7 +48,6 @@ export class DriverListComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
-          console.log(data.message);
           this.getDrivers();
         },
         (error) => {

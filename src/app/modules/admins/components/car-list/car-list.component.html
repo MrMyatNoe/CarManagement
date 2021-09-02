@@ -1,51 +1,51 @@
 <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>{{ 'Car No' | translate:param }}</th>
-        <th>{{ 'Brand' | translate:param }}</th>
-        <th>{{ 'Name' | translate:param }}</th>
-        <th>{{ 'Model Year' | translate:param }}</th>
-        <th>{{ 'Start Date' | translate:param }}</th>
-        <th>{{ 'Color' | translate:param }}</th>
-        <th>{{ 'Taxi Number' | translate:param }}</th>
-        <th>{{ 'License Month' | translate:param }}</th>
-        <th>{{ 'Daily' | translate:param }}</th>
-        <th>{{ 'Action' | translate:param }}</th>
-      </tr>
-    </thead>
-    <tr *ngFor="let car of carsData">
-      <td>
-        {{ car.carNo }}
-      </td>
-      <td>
-        {{ car.brand }}
-      </td>
-      <td>
-        {{ car.name }}
-      </td>
-      <td>
-        {{ car.modelYear }}
-      </td>
-      <td>
-        {{ car.startedDate }}
-        </td>
-      <td>
-        {{ car.color }}
-      </td>
-      <td>
-        {{ car.taxiNo }}
-      </td>
-      <td>
-        {{ car.licenseDate }}
-      </td>
-      <td>
-        {{ car.dailyAmount }}
-      </td>
-      <td>
-        <button class="btn btn-info" routerLink="/cars/{{ car.id }}">Edit</button>
-      </td>
-      <td>
-        <button class="btn btn-info" (click)="deleteCar(car)">Delete</button>
-      </td>
+  <thead>
+    <tr>
+      <th>{{ "Car No" | translate: param }}</th>
+      <th>{{ "Brand" | translate: param }}</th>
+      <th>{{ "Name" | translate: param }}</th>
+      <th>{{ "Model Year" | translate: param }}</th>
+      <th>{{ "Start Date" | translate: param }}</th>
+      <th>{{ "Color" | translate: param }}</th>
+      <th>{{ "Taxi Number" | translate: param }}</th>
+      <th>{{ "License Month" | translate: param }}</th>
+      <th>{{ "Daily" | translate: param }}</th>
+      <th>{{ "Action" | translate: param }}</th>
     </tr>
-  </table>
+  </thead>
+  <tr *ngFor="let car of carsData">
+    <td>
+      {{ car.carNo }}
+    </td>
+    <td>
+      {{ car.brand }}
+    </td>
+    <td>
+      {{ car.name }}
+    </td>
+    <td>
+      {{ car.modelYear }}
+    </td>
+    <td>
+      {{ car.startedDate }}
+    </td>
+    <td>
+      {{ car.color }}
+    </td>
+    <td>
+      {{ car.taxiNo }}
+    </td>
+    <td>
+      {{ car.licenseDate }}
+    </td>
+    <td>
+      {{ car.dailyAmount }}
+    </td>
+    <td>
+      <button class="btn btn-info" routerLink="/cars/{{ car.id }}">Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-info" (click)="deleteCar(car)">Delete</button>
+    </td>
+  </tr>
+</table>

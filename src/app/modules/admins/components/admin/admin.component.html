@@ -15,7 +15,7 @@
 
   <div class="modal-body">
     <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
-      <h1>{{ 'Admin' | translate:param }}</h1>
+      <h1>{{ "Admin" | translate: param }}</h1>
 
       <div class="row from-row">
         <input
@@ -24,7 +24,7 @@
           formControlName="id"
         />
 
-        <label class="col-sm-4">{{ 'Name' | translate:param }}</label>
+        <label class="col-sm-4">{{ "Name" | translate: param }}</label>
         <input
           type="text"
           formControlName="name"
@@ -41,7 +41,7 @@
       <br />
 
       <div class="row from-row">
-        <label class="col-sm-4">{{ 'Phone' | translate:param }}</label>
+        <label class="col-sm-4">{{ "Phone" | translate: param }}</label>
         <input
           type="phone"
           formControlName="phone"
@@ -59,7 +59,7 @@
       <br />
 
       <div class="row from-row">
-        <label class="col-sm-4">{{ 'Email' | translate:param }}</label>
+        <label class="col-sm-4">{{ "Email" | translate: param }}</label>
         <input
           type="email"
           formControlName="email"
@@ -78,7 +78,7 @@
 
       <div *ngIf="!id">
         <div class="row from-row">
-          <label class="col-sm-4">{{ 'Password' | translate:param }}</label>
+          <label class="col-sm-4">{{ "Password" | translate: param }}</label>
           <input
             type="text"
             formControlName="password"
@@ -99,7 +99,7 @@
       </div>
 
       <div class="row from-row">
-        <label class="col-sm-4">{{ 'Address' | translate:param }}</label>
+        <label class="col-sm-4">{{ "Address" | translate: param }}</label>
         <input
           type="text"
           formControlName="address"
@@ -117,7 +117,7 @@
       <br />
 
       <div class="row from-row">
-        <label class="col-sm-4">{{ 'Gender' | translate:param }} :</label>
+        <label class="col-sm-4">{{ "Gender" | translate: param }} :</label>
         <div class="form-check form-check-inline" style="margin-left: 30px">
           <input
             id="male"
@@ -128,7 +128,9 @@
             formControlName="gender"
             [checked]="true"
           />
-          <label class="form-check-label" for="male">{{ 'Male' | translate:param }}</label>
+          <label class="form-check-label" for="male">{{
+            "Male" | translate: param
+          }}</label>
         </div>
 
         <div class="form-check form-check-inline" style="margin-left: 30px">
@@ -140,7 +142,9 @@
             name="gender"
             formControlName="gender"
           />
-          <label class="form-check-label" for="female">{{ 'Female' | translate:param }}</label>
+          <label class="form-check-label" for="female">{{
+            "Female" | translate: param
+          }}</label>
         </div>
 
         <div class="form-check form-check-inline" style="margin-left: 30px">
@@ -152,7 +156,9 @@
             name="gender"
             formControlName="gender"
           />
-          <label class="form-check-label" for="other">{{ 'Other' | translate:param }}</label>
+          <label class="form-check-label" for="other">{{
+            "Other" | translate: param
+          }}</label>
         </div>
         <div
           *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)"
@@ -164,7 +170,9 @@
       <br />
 
       <div class="row from-row">
-        <label class="col-sm-4" for="roleId">{{ 'Role' | translate:param }}</label>
+        <label class="col-sm-4" for="roleId">{{
+          "Role" | translate: param
+        }}</label>
         <select
           formControlName="roleId"
           class="form-control"
@@ -200,17 +208,19 @@
   </div>
 </ng-template>
 <div class="mx-auto">
-  <button class="btn btn-primary" (click)="newAdmin()">{{ 'New' | translate:param }}</button>
+  <button class="btn btn-primary" (click)="newAdmin()">
+    {{ "New" | translate: param }}
+  </button>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>{{ 'Name' | translate:param }}</th>
-      <th>{{ 'Phone' | translate:param }}</th>
-      <th>{{ 'Email' | translate:param }}</th>
-      <th>{{ 'Gender' | translate:param }}</th>
-      <th>{{ 'Role' | translate:param }}</th>
-      <th>{{ 'Action' | translate:param }}</th>
+      <th>{{ "Name" | translate: param }}</th>
+      <th>{{ "Phone" | translate: param }}</th>
+      <th>{{ "Email" | translate: param }}</th>
+      <th>{{ "Gender" | translate: param }}</th>
+      <th>{{ "Role" | translate: param }}</th>
+      <th>{{ "Action" | translate: param }}</th>
     </tr>
   </thead>
   <tr *ngFor="let admin of adminsData">
@@ -228,10 +238,14 @@
       {{ admin.role.name }}
     </td>
     <td>
-      <button class="btn btn-info" (click)="editAdmin(admin)">{{ 'Edit' | translate:param }}</button>
+      <button class="btn btn-info" (click)="editAdmin(admin)">
+        {{ "Edit" | translate: param }}
+      </button>
     </td>
     <td>
-      <button class="btn btn-info" (click)="deleteAdmin(admin)">{{ 'Delete' | translate:param }}</button>
+      <button class="btn btn-info" (click)="deleteAdmin(admin)">
+        {{ "Delete" | translate: param }}
+      </button>
     </td>
   </tr>
 </table>

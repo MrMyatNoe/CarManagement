@@ -1,7 +1,11 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AddTutorialComponent } from "src/app/modules/tutorials/components/tutorial/add-tutorial/add-tutorial.component";
@@ -22,16 +26,17 @@ import { EditDriverComponent } from "src/app/modules/drivers/components/edit-dri
 import { ResetPasswordComponent } from "src/app/modules/admins/components/reset-password/reset-password.component";
 import { DailyTransactionComponent } from "src/app/modules/admins/components/daily-transaction/daily-transaction.component";
 import { Ng2SmartTableModule } from "ng2-smart-table";
-import { CarComponent } from './modules/admins/components/car/car.component';
-import { CarListComponent } from './modules/admins/components/car-list/car-list.component';
+import { CarComponent } from "./modules/admins/components/car/car.component";
+import { CarListComponent } from "./modules/admins/components/car-list/car-list.component";
 import { HttpConfigInterceptor } from "./core/services/httpConfig.interceptor";
 import { AuthServiceService } from "./core/services/auth/auth-service.service";
-import { CarEditComponent } from './modules/admins/components/car-edit/car-edit.component';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { CarEditComponent } from "./modules/admins/components/car-edit/car-edit.component";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { NavbarComponent } from "./core/navbar/navbar.component";
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http , './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 @NgModule({
@@ -52,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CarComponent,
     CarListComponent,
     CarEditComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,15 +77,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-      }
-  })
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     AuthServiceService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -12,10 +12,13 @@ import { DriverService } from "src/app/modules/drivers/services/driver.service";
 export class EditDriverComponent implements OnInit {
   userFile: any;
   public imagePath: any;
-  imageURL: any;
+  imageName: any;
   driverForm: FormGroup;
   alert = false;
   message = "";
+  driverById: any;
+  name: any;
+  image: any;
 
   currentDriver: any = {
     id: "",
@@ -56,7 +59,12 @@ export class EditDriverComponent implements OnInit {
       .then(
         (data) => {
           let model = { ...data };
+          this.driverById = data;
           this.driverForm.patchValue(model);
+          console.log(model);
+          this.name = this.driverById.name;
+          this.imageName = this.driverById.imageName;
+          console.log("in api call", this.driverById.imageName);
         },
         (error) => {
           console.log(error);
@@ -87,7 +95,7 @@ export class EditDriverComponent implements OnInit {
       this.imagePath = file;
       reader.readAsDataURL(file);
       reader.onload = (onLoadevent: any) => {
-        this.imageURL = onLoadevent.target.result;
+        this.imageName = onLoadevent.target.result;
       };
     }
   }
@@ -113,7 +121,7 @@ export class EditDriverComponent implements OnInit {
     formData.append("driver", JSON.stringify(driver1));
     formData.append("file", this.userFile);
     console.log(driver);
-    this.apiService.createData("drivers",formData).subscribe(
+    this.apiService.createData("drivers", formData).subscribe(
       (data) => {
         console.log("successfully", data);
         this.driverForm.reset({});
@@ -127,16 +135,16 @@ export class EditDriverComponent implements OnInit {
   }
 
   public driverImage() {
-    console.log("this is ", this.imageURL);
+    console.log("in method", this.imageName);
     if (
-      this.imageURL === undefined ||
-      this.imageURL === null ||
-      this.imageURL === undefined ||
-      this.imageURL.length < 5
+      this.imageName === undefined ||
+      this.imageName === null ||
+      this.imageName === undefined ||
+      this.imageName.length < 5
     ) {
       return "assets/drivers/myPP.jpg";
     } else {
-      return this.imageURL;
+      return this.imageName;
     }
   }
 }

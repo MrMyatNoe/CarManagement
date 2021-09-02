@@ -33,8 +33,8 @@ export class DailyTransactionComponent implements OnInit {
   days: number = 0;
 
   // pagination
-  page:any= 1;
-  size:any=5;
+  page: any = 1;
+  size: any = 5;
   pageSizes = [5, 10, 15];
 
   // ng2table
@@ -71,13 +71,13 @@ export class DailyTransactionComponent implements OnInit {
   //   },
   // };
 
-  dailySource: LocalDataSource
+  dailySource: LocalDataSource;
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private router: Router,
+    private router: Router
   ) {
     this.dailyForm = this.formBuilder.group({
       id: null,
@@ -85,7 +85,8 @@ export class DailyTransactionComponent implements OnInit {
       carId: ["", [Validators.required]],
       startedDate: [""],
       endDate: [""],
-      paid:[""],
+      paid: [""],
+      remark: [""],
     });
   }
 
@@ -107,14 +108,18 @@ export class DailyTransactionComponent implements OnInit {
         (data) => {
           this.carsData = data;
           this.carId = this.carId || data[0].id;
-          this.apiService.getRequest("cars/"+ this.carId).toPromise().then(
-            (data)=>{
-              this.carsDataById = data
-              this.dailyAmount = this.carsDataById.dailyAmount
-          },
-            (error)=>{
-              this.toastService.error(error.error.message);
-            })
+          this.apiService
+            .getRequest("cars/" + this.carId)
+            .toPromise()
+            .then(
+              (data) => {
+                this.carsDataById = data;
+                this.dailyAmount = this.carsDataById.dailyAmount;
+              },
+              (error) => {
+                this.toastService.error(error.error.message);
+              }
+            );
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -146,11 +151,13 @@ export class DailyTransactionComponent implements OnInit {
 
   getDailyTransactionsByPageAndSize() {
     let params = new HttpParams();
-    this.page -= 1;
-    params = params.append('page',this.page);
-    params = params.append('size',this.size);
+    if (this.page !== 0) {
+      this.page -= 1;
+    }
+    params = params.append("page", this.page);
+    params = params.append("size", this.size);
     this.apiService
-      .getRequestWithParams("dailyTransactions",params)
+      .getRequestWithParams("dailyTransactions", params)
       .toPromise()
       .then(
         (data) => {
@@ -163,7 +170,7 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   total() {
-    this.totalAmount = this.days * this.dailyAmount
+    this.totalAmount = this.days * this.dailyAmount;
   }
 
   newDaily() {
@@ -202,33 +209,39 @@ export class DailyTransactionComponent implements OnInit {
 
   car_change(id) {
     this.carId = id;
-    this.apiService.getRequest("cars/"+ id).toPromise().then(
-      (data)=>{
-        this.carsDataById = data
-        this.dailyAmount = this.carsDataById.dailyAmount
-    },
-      (error)=>{
-        this.toastService.error(error.error.message);
-      })
+    this.apiService
+      .getRequest("cars/" + id)
+      .toPromise()
+      .then(
+        (data) => {
+          this.carsDataById = data;
+          this.dailyAmount = this.carsDataById.dailyAmount;
+        },
+        (error) => {
+          this.toastService.error(error.error.message);
+        }
+      );
   }
 
   onSubmit() {
-    let daily1 = { 
+    let daily1 = {
       id: null,
       driverId: this.dailyForm.controls["driverId"].value,
       carId: this.dailyForm.controls["carId"].value,
       startedDate: this.dailyForm.controls["startedDate"].value,
       endDate: this.dailyForm.controls["endDate"].value,
-      paid:this.dailyForm.controls["paid"].value,
-      total:this.totalAmount,
-      day:this.days,
-    }
+      paid: this.dailyForm.controls["paid"].value,
+      total: this.totalAmount,
+      day: this.days,
+      remark: this.dailyForm.controls["remark"].value,
+    };
     if (daily1.id) {
       this.apiService
         .putRequest("daily", daily1)
         .toPromise()
         .then(
           (_data) => {
+            this.page = 1;
             this.getDailyTransactionsByPageAndSize();
           },
           (error) => {
@@ -252,15 +265,15 @@ export class DailyTransactionComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  getDateDifference(){
-    var startDate = moment(this.f.startedDate.value)
+  getDateDifference() {
+    var startDate = moment(this.f.startedDate.value);
     var endDate = moment(this.f.endDate.value);
-    this.days = endDate.diff(startDate, 'days')
-    this.days +=1;
+    this.days = endDate.diff(startDate, "days");
+    this.days += 1;
     this.total();
   }
 
-  handlePageSizeChange(event: any){
+  handlePageSizeChange(event: any) {
     this.size = event.target.value;
     this.page = 1;
     this.getDailyTransactionsByPageAndSize();

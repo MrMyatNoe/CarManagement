@@ -117,7 +117,6 @@ export class AdminComponent implements OnInit {
 
   onSubmit() {
     var model = this.adminForm.value;
-    console.log("model ", model);
     if (model.id) {
       this.apiService
         .putRequest("admins", model)
@@ -138,10 +137,10 @@ export class AdminComponent implements OnInit {
         .then(
           (_data) => {
             this.getAdmins();
+            this.toastService.success("Data Saved successfully");
           },
           (error) => {
             this.toastService.error(error.error.message);
-            console.log(error);
           }
         );
     }

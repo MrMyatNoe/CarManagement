@@ -1,117 +1,12 @@
-<div id="app">
-  <!-- <nav
+<!-- <nav
   class="navbar navbar-expand navbar-dark bg-dark"
   *ngIf="route == 'null'"
 >
 </nav> -->
-  <nav
-    class="navbar navbar-expand navbar-dark bg-dark "
-    *ngIf="route == 'driver'"
-  >
-    <a href="#" class="navbar-brand">bezKoder</a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
-      <li class="nav-item">
-        <a href="daily" class="nav-link" routerLink="daily">{{ 'Daily' | translate:param }}</a>
-      </li>
-      <li class="nav-item">
-        <a href="drivers" class="nav-link" routerLink="drivers/drivers"
-          >{{ 'Driver' | translate:param }}</a
-        >
-      </li>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="forgetpassword" class="nav-link" routerLink="forgetpassword"
-          >forgetpassword</a
-        >
-      </li>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="profile" class="nav-link" routerLink="profile"></a>
-      </li>
-      <li class="nav-item">
-        <a href class="nav-link" (click)="logout()">LogOut</a>
-      </li>
-    </ul>
-  </nav>
-
-  <nav
-    class="navbar navbar-expand navbar-dark bg-dark"
-    *ngIf="route == 'Admin' || route == 'Trainee'"
-  >
-    <a href="#" class="navbar-brand">Thet</a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
-      <li class="nav-item">
-        <a href="daily" class="nav-link" routerLink="daily">{{ 'Daily' | translate:param }}</a>
-      </li>
-      <li class="nav-item">
-        <a href="admins" class="nav-link" routerLink="admins">{{ 'Admins' | translate:param }}</a>
-      </li>
-      <li class="nav-item">
-        <a href="roles" class="nav-link" routerLink="roles">{{ 'Roles' | translate:param }}</a>
-      </li>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
-          <i class="fa fa-user"></i>
-          {{ 'Car' | translate:param }}
-        </a>
-        <ul class="dropdown-menu"  ngbDropdownMenu aria-labelledby="navbarScrollingDropdown">
-          <li ngbDropdownItem><a class="dropdown-item" href="car"
-            routerLink="car"
-            >{{ 'Add Car' | translate:param }}</a></li>
-          <li ngbDropdownItem><a class="dropdown-item" href="cars" routerLink="cars">{{ 'Cars' | translate:param }}</a></li>
-        </ul>
-      </li>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
-          <i class="fa fa-user"></i>
-          {{ 'Driver' | translate:param }}
-        </a>
-        <ul class="dropdown-menu"  ngbDropdownMenu aria-labelledby="navbarScrollingDropdown">
-          <li ngbDropdownItem><a class="dropdown-item" href="drivers/addDriver"
-            routerLink="drivers/addDriver"
-            >{{ 'Add Driver' | translate:param }}</a></li>
-          <li ngbDropdownItem><a class="dropdown-item" href="drivers" routerLink="drivers">{{ 'Drivers' | translate:param }}</a></li>
-        </ul>
-      </li>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
-          <i class="fa fa-user"></i>
-          {{userName}}
-        </a>
-        <ul class="dropdown-menu"  ngbDropdownMenu aria-labelledby="navbarScrollingDropdown">
-          <li ngbDropdownItem><a class="dropdown-item" href="#">{{ 'My Profile' | translate:param }}</a></li>
-          <li ngbDropdownItem><a class="dropdown-item" href="forgetpassword" routerLink="updatepassword">{{ 'Update Password' | translate:param }}</a></li>
-          <li ngbDropdownItem><a class="dropdown-item" href="#" (click)="logout()">{{ 'Logout' | translate:param }}</a></li>
-        </ul>
-      </li>
-    </ul>
-    <ul>
-      <button (click)="switchLanguage('mm')">Myanmar</button>
-      <button (click)="switchLanguage('en')">English</button>
-    </ul>
-  </nav>
-  <div class="container md-3" style="margin-top: 20px; width: 100%; height: 400px;">
-    <router-outlet></router-outlet>
-  </div>
-
-  <footer>
-    <div>
-      <div class="container text-center">
-        <p style="margin-bottom: 0;"> Copyright © Car Management 2021</p>
-      </div>
-    </div>
-  </footer>
+<app-navbar></app-navbar>
+<div
+  class="container md-3"
+  style="margin-top: 20px; width: 100%; height: 400px"
+>
+  <router-outlet></router-outlet>
 </div>

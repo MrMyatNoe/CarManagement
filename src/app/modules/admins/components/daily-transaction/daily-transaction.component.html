@@ -60,7 +60,7 @@
           (change)="car_change($event.target.value)"
         >
           <option
-            *ngFor="let car of carsData;"
+            *ngFor="let car of carsData"
             [selected]="car.id == carId"
             value="{{ car.id }}"
           >
@@ -81,7 +81,7 @@
         <label class="col-sm-4">Daily Amount</label>
         <p>{{ dailyAmount }}</p>
       </div>
-      <br/>
+      <br />
 
       <div class="row from-row">
         <label>Start Date</label>
@@ -89,7 +89,6 @@
           type="date"
           formControlName="startedDate"
           class="form-control"
-          
           (change)="getDateDifference()"
         />
       </div>
@@ -109,15 +108,15 @@
 
       <div class="row from-row">
         <label class="col-sm-4">Days</label>
-        <p>{{days}}</p>
+        <p>{{ days }}</p>
       </div>
-      <br/>
+      <br />
 
       <div class="row from-row">
         <label class="col-sm-4">Total Amount</label>
-        <p>{{totalAmount}}</p>
+        <p>{{ totalAmount }}</p>
       </div>
-      <br/>
+      <br />
 
       <div class="row from-row">
         <label class="col-sm-4">Paid</label>
@@ -134,6 +133,16 @@
         >
           <div *ngIf="f.paid.errors">Paid is required.</div>
         </div>
+      </div>
+      <br />
+      <div class="row from-row">
+        <label class="col-sm-4">Remark</label>
+        <input
+          type="text"
+          formControlName="remark"
+          class="col-sm-4 form-control"
+          placeholder="Remark if you need"
+        />
       </div>
       <br />
 
@@ -161,54 +170,54 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>{{ 'Transaction Code' | translate:param }}</th>
-      <th>{{ 'Driver' | translate:param }}</th>
-      <th>{{ 'Car' | translate:param }}</th>
-      <th>{{ 'Start Date' | translate:param }}</th>
-      <th>{{ 'End Date' | translate:param }}</th>
-      <th>{{ 'Daily' | translate:param }}</th>
-      <th>{{ 'Days' | translate:param }}</th>
-      <th>{{ 'Total' | translate:param }}</th>
-      <th>{{ 'Paid' | translate:param }}</th>
-      <th>{{ 'Remain' | translate:param }}</th>
-      <th>{{ 'Remark' | translate:param }}</th>
+      <th>{{ "Transaction Code" | translate: param }}</th>
+      <th>{{ "Driver" | translate: param }}</th>
+      <th>{{ "Car" | translate: param }}</th>
+      <th>{{ "Start Date" | translate: param }}</th>
+      <th>{{ "End Date" | translate: param }}</th>
+      <th>{{ "Daily" | translate: param }}</th>
+      <th>{{ "Days" | translate: param }}</th>
+      <th>{{ "Total" | translate: param }}</th>
+      <th>{{ "Paid" | translate: param }}</th>
+      <th>{{ "Remain" | translate: param }}</th>
+      <th>{{ "Remark" | translate: param }}</th>
     </tr>
   </thead>
-<tr *ngFor="let daily of dailyTransactionsData">
-  <td>
-    {{ daily.transactionCode }}
-  </td>
-  <td>
-    {{ daily.driverName }}
-  </td>
-  <td>
-    {{ daily.carNo }}
-  </td>
-  <td>
-    {{ daily.startedDate }}
-  </td>
-  <td>
-    {{ daily.endDate }}
-  </td>
-  <td>
-    {{ daily.daily }}
-  </td>
-  <td>
-    {{ daily.days }}
-  </td>
-  <td>
-    {{ daily.total }}
-  </td>
-  <td>
-    {{ daily.paid }}
-  </td>
-  <td>
-    {{ daily.remain }}
-  </td>
-  <td>
-    {{ daily.remark }}
-  </td> 
-  <!-- <td>
+  <tr *ngFor="let daily of dailyTransactionsData">
+    <td>
+      {{ daily.transactionCode }}
+    </td>
+    <td>
+      {{ daily.driverName }}
+    </td>
+    <td>
+      {{ daily.carNo }}
+    </td>
+    <td>
+      {{ daily.startedDate }}
+    </td>
+    <td>
+      {{ daily.endDate }}
+    </td>
+    <td>
+      {{ daily.daily }}
+    </td>
+    <td>
+      {{ daily.days }}
+    </td>
+    <td>
+      {{ daily.total }}
+    </td>
+    <td>
+      {{ daily.paid }}
+    </td>
+    <td>
+      {{ daily.remain }}
+    </td>
+    <td>
+      {{ daily.remark }}
+    </td>
+    <!-- <td>
     <button class="btn btn-info" routerLink="/drivers/{{ driver.id }}">
       Edit
     </button>
@@ -218,7 +227,7 @@
       Delete
     </button>
   </td> -->
-</tr>
+  </tr>
 </table>
 <div class="mt-3 col-md-6">
   Items per page :
@@ -227,5 +236,5 @@
       {{ pageSize }}
     </option>
   </select>
-</div> 
+</div>
 <!--<ng2-smart-table [settings]="settings" [source]="dailySource"></ng2-smart-table>-->
