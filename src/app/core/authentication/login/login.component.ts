@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
         .toPromise()
         .then(
           (data: any) => {
-            console.log(data.roles);
+            console.log(data);
             this.toastService.success("Login successfully");
             this.localStorageService.saveAdminData(data);
             this.authService.setAuth(data.token);
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
           },
           (error) => {
             this.toastService.error(error.error.message);
-            console.log(error);
+            console.log(error.error.message);
           }
         );
     }

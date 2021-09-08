@@ -4,10 +4,13 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class LocalStorageService {
-  constructor() {}
+  constructor() {
+    this.getItemRole();
+    this.getItemUserName();
+  }
 
   saveAdminData(data: any) {
-    localStorage.setItem("admindata", JSON.stringify(data));
+    localStorage.setItem("adminData", JSON.stringify(data));
     localStorage.setItem("role", data.roles[0]);
     localStorage.setItem("username", data.username);
     localStorage.setItem("webToken", data.token);
@@ -21,24 +24,26 @@ export class LocalStorageService {
   }
 
   removeAdminData() {
-    localStorage.removeItem("admindata");
+    localStorage.removeItem("adminData");
     localStorage.removeItem("role");
     localStorage.removeItem("username");
     localStorage.removeItem("webToken");
   }
 
   removeDriverData() {
-    localStorage.removeItem("driverdata");
+    localStorage.removeItem("driverData");
     localStorage.removeItem("role");
     localStorage.removeItem("username");
     localStorage.removeItem("webToken");
   }
 
   getItemRole() {
+    console.log("local role", localStorage.getItem("role"));
     return localStorage.getItem("role");
   }
 
   getItemUserName() {
+    console.log("local user name", localStorage.getItem("useranme"));
     return localStorage.getItem("username");
   }
 }
