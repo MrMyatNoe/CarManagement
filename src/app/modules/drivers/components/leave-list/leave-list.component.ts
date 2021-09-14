@@ -1,34 +1,23 @@
 import { HttpParams } from "@angular/common/http";
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
-import { LocalDataSource } from "ng2-smart-table";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
 
 @Component({
-  selector: "app-daily-transaction",
-  templateUrl: "./daily-transaction.component.html",
-  styleUrls: ["./daily-transaction.component.css"],
+  selector: "app-leave-list",
+  templateUrl: "./leave-list.component.html",
+  styleUrls: ["./leave-list.component.css"],
 })
-export class DailyTransactionComponent implements OnInit {
+export class LeaveListComponent implements OnInit {
+  leaveForm: FormGroup;
   carsData: any;
   carId: "";
   driversData: any;
   driverId: "";
-  dailyTransactionsData: any;
-  dailyForm: FormGroup;
-  totalAmount: number = 0;
-
-  modalDialogLabel: string = "";
-  modalButtonLabel: string = "";
-  closeResult: string;
-
-  @ViewChild("mymodal", { static: false }) editModalDlg: any;
-
-  dailyAmount: any;
+  leavesData: any;
   carsDataById: any;
   days: number = 0;
 
@@ -37,64 +26,33 @@ export class DailyTransactionComponent implements OnInit {
   size: any = 5;
   pageSizes = [5, 10, 15];
 
-  // ng2table
-  // public settings = {
-  //   actions: {
-  //     add: false,
-  //     edit: false,
-  //     delete: false,
-  //     position: 'right',
-  //     custom: [
-  //       {
-  //         name: 'view',
-  //         title: 'View ',
-  //       },
-  //     ]
-  //   },
-  //   columns: {
-  //     carNo: {
-  //       title: 'Car No',
-  //       filter: false,
-  //     },
-  //     driverName: {
-  //       title: 'Driver Name',
-  //       filter: false,
-  //     },
-  //     paid: {
-  //       title: 'Paid',
-  //       filter: false,
-  //     },
-  //     total: {
-  //       title: 'Total',
-  //       filter: false,
-  //     }
-  //   },
-  // };
+  modalDialogLabel: string = "";
+  modalButtonLabel: string = "";
+  closeResult: string;
+  @ViewChild("mymodal", { static: false }) editModalDlg: any;
 
-  //dailySource: LocalDataSource;
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal
   ) {
-    this.dailyForm = this.formBuilder.group({
+    this.leaveForm = this.formBuilder.group({
       id: null,
       driverId: ["", [Validators.required]],
       carId: ["", [Validators.required]],
       startedDate: [""],
       endDate: [""],
-      paid: [""],
-      remark: [""],
+      reason: [""],
     });
   }
 
   get f() {
-    return this.dailyForm.controls;
+    return this.leaveForm.controls;
   }
 
   ngOnInit() {
-    this.getDailyTransactionsByPageAndSize();
+    this.getLeavesByPageAndSize();
     this.getCars();
     this.getDrivers();
   }
@@ -113,7 +71,6 @@ export class DailyTransactionComponent implements OnInit {
             .then(
               (data) => {
                 this.carsDataById = data;
-                this.dailyAmount = this.carsDataById.dailyAmount;
               },
               (error) => {
                 this.toastService.error(error.error.message);
@@ -141,14 +98,7 @@ export class DailyTransactionComponent implements OnInit {
       );
   }
 
-  // getDailyTransactions() {
-  //   this.apiService.getRequest('dailyTransactions').subscribe((response:any) => {
-  //     console.log(response)
-  //     this.dailySource = new LocalDataSource(response);
-  //   });
-  // }
-
-  getDailyTransactionsByPageAndSize() {
+  getLeavesByPageAndSize() {
     let params = new HttpParams();
     if (this.page !== 0) {
       this.page -= 1;
@@ -160,23 +110,12 @@ export class DailyTransactionComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
-          this.dailyTransactionsData = data;
+          this.leavesData = data;
         },
         (error) => {
           this.toastService.error(error.error.message);
         }
       );
-  }
-
-  total() {
-    this.totalAmount = this.days * this.dailyAmount;
-  }
-
-  newDaily() {
-    this.modalDialogLabel = "New";
-    this.modalButtonLabel = "Save";
-    //this.dailyForm.reset();
-    this.open(this.editModalDlg);
   }
 
   open(content) {
@@ -214,7 +153,6 @@ export class DailyTransactionComponent implements OnInit {
       .then(
         (data) => {
           this.carsDataById = data;
-          this.dailyAmount = this.carsDataById.dailyAmount;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -225,23 +163,21 @@ export class DailyTransactionComponent implements OnInit {
   onSubmit() {
     let daily1 = {
       id: null,
-      driverId: this.dailyForm.controls["driverId"].value,
-      carId: this.dailyForm.controls["carId"].value,
-      startedDate: this.dailyForm.controls["startedDate"].value,
-      endDate: this.dailyForm.controls["endDate"].value,
-      paid: this.dailyForm.controls["paid"].value,
-      total: this.totalAmount,
+      driverId: this.leaveForm.controls["driverId"].value,
+      carId: this.leaveForm.controls["carId"].value,
+      startedDate: this.leaveForm.controls["startedDate"].value,
+      endDate: this.leaveForm.controls["endDate"].value,
       day: this.days,
-      remark: this.dailyForm.controls["remark"].value,
+      reason: this.leaveForm.controls["reason"].value,
     };
     if (daily1.id) {
       this.apiService
-        .putRequest("daily", daily1)
+        .putRequest("leaves", daily1)
         .toPromise()
         .then(
           (_data) => {
             this.page = 1;
-            this.getDailyTransactionsByPageAndSize();
+            this.getLeavesByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -249,18 +185,18 @@ export class DailyTransactionComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("dailyTransactions", daily1)
+        .postRequest("leaves", daily1)
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactionsByPageAndSize();
+            this.getLeavesByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
           }
         );
     }
-    this.dailyForm.reset();
+    this.leaveForm.reset();
     this.modalService.dismissAll();
   }
 
@@ -269,17 +205,16 @@ export class DailyTransactionComponent implements OnInit {
     var endDate = moment(this.f.endDate.value);
     this.days = endDate.diff(startDate, "days");
     this.days += 1;
-    this.total();
   }
 
   handlePageSizeChange(event: any) {
     this.size = event.target.value;
     this.page = 1;
-    this.getDailyTransactionsByPageAndSize();
+    this.getLeavesByPageAndSize();
   }
 
   handlePageChange(event: number): void {
     this.page = event;
-    this.getDailyTransactionsByPageAndSize();
+    this.getLeavesByPageAndSize();
   }
 }

@@ -34,6 +34,8 @@ import { CarEditComponent } from "./modules/admins/components/car-edit/car-edit.
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NavbarComponent } from "./core/navbar/navbar.component";
+import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
+import { MaintanenceComponent } from './modules/admins/components/maintanence/maintanence.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -58,6 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CarListComponent,
     CarEditComponent,
     NavbarComponent,
+    LeaveListComponent,
+    MaintanenceComponent,
   ],
   imports: [
     BrowserModule,

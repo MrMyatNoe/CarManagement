@@ -1,26 +1,23 @@
 import { HttpParams } from "@angular/common/http";
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
-import { LocalDataSource } from "ng2-smart-table";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
+import { Maintenance } from "../../models/maintenance.model";
 
 @Component({
-  selector: "app-daily-transaction",
-  templateUrl: "./daily-transaction.component.html",
-  styleUrls: ["./daily-transaction.component.css"],
+  selector: "app-maintanence",
+  templateUrl: "./maintanence.component.html",
+  styleUrls: ["./maintanence.component.css"],
 })
-export class DailyTransactionComponent implements OnInit {
+export class MaintanenceComponent implements OnInit {
   carsData: any;
   carId: "";
-  driversData: any;
-  driverId: "";
-  dailyTransactionsData: any;
-  dailyForm: FormGroup;
-  totalAmount: number = 0;
+  maintenanceData: any;
+  maintenanceForm: FormGroup;
+  total: number = 0;
 
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
@@ -36,67 +33,29 @@ export class DailyTransactionComponent implements OnInit {
   page: any = 1;
   size: any = 5;
   pageSizes = [5, 10, 15];
-
-  // ng2table
-  // public settings = {
-  //   actions: {
-  //     add: false,
-  //     edit: false,
-  //     delete: false,
-  //     position: 'right',
-  //     custom: [
-  //       {
-  //         name: 'view',
-  //         title: 'View ',
-  //       },
-  //     ]
-  //   },
-  //   columns: {
-  //     carNo: {
-  //       title: 'Car No',
-  //       filter: false,
-  //     },
-  //     driverName: {
-  //       title: 'Driver Name',
-  //       filter: false,
-  //     },
-  //     paid: {
-  //       title: 'Paid',
-  //       filter: false,
-  //     },
-  //     total: {
-  //       title: 'Total',
-  //       filter: false,
-  //     }
-  //   },
-  // };
-
-  //dailySource: LocalDataSource;
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal
   ) {
-    this.dailyForm = this.formBuilder.group({
+    this.maintenanceForm = this.formBuilder.group({
       id: null,
-      driverId: ["", [Validators.required]],
       carId: ["", [Validators.required]],
+      shop: [""],
       startedDate: [""],
       endDate: [""],
-      paid: [""],
-      remark: [""],
+      total: [""],
     });
   }
 
-  get f() {
-    return this.dailyForm.controls;
+  ngOnInit() {
+    this.getMaintenancesByPageAndSize();
+    this.getCars();
   }
 
-  ngOnInit() {
-    this.getDailyTransactionsByPageAndSize();
-    this.getCars();
-    this.getDrivers();
+  get f() {
+    return this.maintenanceForm.controls;
   }
 
   getCars() {
@@ -126,29 +85,7 @@ export class DailyTransactionComponent implements OnInit {
       );
   }
 
-  getDrivers() {
-    this.apiService
-      .getRequest("drivers")
-      .toPromise()
-      .then(
-        (data) => {
-          this.driversData = data;
-          this.driverId = this.driverId || data[0].id;
-        },
-        (error) => {
-          this.toastService.error(error.error.message);
-        }
-      );
-  }
-
-  // getDailyTransactions() {
-  //   this.apiService.getRequest('dailyTransactions').subscribe((response:any) => {
-  //     console.log(response)
-  //     this.dailySource = new LocalDataSource(response);
-  //   });
-  // }
-
-  getDailyTransactionsByPageAndSize() {
+  getMaintenancesByPageAndSize() {
     let params = new HttpParams();
     if (this.page !== 0) {
       this.page -= 1;
@@ -156,11 +93,11 @@ export class DailyTransactionComponent implements OnInit {
     params = params.append("page", this.page);
     params = params.append("size", this.size);
     this.apiService
-      .getRequestWithParams("dailyTransactions", params)
+      .getRequestWithParams("maintenances", params)
       .toPromise()
       .then(
         (data) => {
-          this.dailyTransactionsData = data;
+          this.maintenanceData = data;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -168,11 +105,7 @@ export class DailyTransactionComponent implements OnInit {
       );
   }
 
-  total() {
-    this.totalAmount = this.days * this.dailyAmount;
-  }
-
-  newDaily() {
+  newMaintenance() {
     this.modalDialogLabel = "New";
     this.modalButtonLabel = "Save";
     //this.dailyForm.reset();
@@ -202,10 +135,6 @@ export class DailyTransactionComponent implements OnInit {
     }
   }
 
-  driver_change(id) {
-    this.driverId = id;
-  }
-
   car_change(id) {
     this.carId = id;
     this.apiService
@@ -223,25 +152,23 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   onSubmit() {
-    let daily1 = {
+    let maintain1 = {
       id: null,
-      driverId: this.dailyForm.controls["driverId"].value,
-      carId: this.dailyForm.controls["carId"].value,
-      startedDate: this.dailyForm.controls["startedDate"].value,
-      endDate: this.dailyForm.controls["endDate"].value,
-      paid: this.dailyForm.controls["paid"].value,
-      total: this.totalAmount,
-      day: this.days,
-      remark: this.dailyForm.controls["remark"].value,
+      carId: this.maintenanceForm.controls["carId"].value,
+      startedDate: this.maintenanceForm.controls["startedDate"].value,
+      endDate: this.maintenanceForm.controls["endDate"].value,
+      total: this.maintenanceForm.controls["total"].value,
+      days: this.days,
+      shop: this.maintenanceForm.controls["shop"].value,
     };
-    if (daily1.id) {
+    if (maintain1.id) {
       this.apiService
-        .putRequest("daily", daily1)
+        .putRequest("maintenances", maintain1)
         .toPromise()
         .then(
           (_data) => {
             this.page = 1;
-            this.getDailyTransactionsByPageAndSize();
+            this.getMaintenancesByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -249,18 +176,18 @@ export class DailyTransactionComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("dailyTransactions", daily1)
+        .postRequest("maintenances", maintain1)
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactionsByPageAndSize();
+            this.getMaintenancesByPageAndSize();
           },
           (error) => {
             this.toastService.error(error.error.message);
           }
         );
     }
-    this.dailyForm.reset();
+    this.maintenanceForm.reset();
     this.modalService.dismissAll();
   }
 
@@ -269,17 +196,25 @@ export class DailyTransactionComponent implements OnInit {
     var endDate = moment(this.f.endDate.value);
     this.days = endDate.diff(startDate, "days");
     this.days += 1;
-    this.total();
   }
 
   handlePageSizeChange(event: any) {
     this.size = event.target.value;
     this.page = 1;
-    this.getDailyTransactionsByPageAndSize();
+    this.getMaintenancesByPageAndSize();
   }
 
   handlePageChange(event: number): void {
     this.page = event;
-    this.getDailyTransactionsByPageAndSize();
+    this.getMaintenancesByPageAndSize();
+  }
+
+  editMaintenance(maintenance: Maintenance) {
+    this.modalDialogLabel = "Edit";
+    this.modalButtonLabel = "Update";
+    let model = { ...maintenance };
+    console.log(model);
+    this.maintenanceForm.patchValue(model);
+    this.open(this.editModalDlg);
   }
 }

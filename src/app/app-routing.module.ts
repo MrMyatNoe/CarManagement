@@ -15,6 +15,8 @@ import { DailyTransactionComponent } from "src/app/modules/admins/components/dai
 import { CarComponent } from "./modules/admins/components/car/car.component";
 import { CarListComponent } from "./modules/admins/components/car-list/car-list.component";
 import { CarEditComponent } from "./modules/admins/components/car-edit/car-edit.component";
+import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
+import { MaintanenceComponent } from "./modules/admins/components/maintanence/maintanence.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -33,6 +35,8 @@ const routes: Routes = [
   { path: "car", component: CarComponent },
   { path: "cars", component: CarListComponent },
   { path: "cars/:id", component: CarEditComponent },
+  { path: "leaves", component: LeaveListComponent },
+  { path: "maintain", component: MaintanenceComponent },
 ];
 
 @NgModule({
