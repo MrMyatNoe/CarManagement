@@ -1,7 +1,7 @@
 <ng-template #mymodal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">
-      {{ modalDialogLabel }} Daily Transaction
+      {{ modalDialogLabel }} Leave
     </h4>
     <button
       type="button"
@@ -14,8 +14,8 @@
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="dailyForm" (ngSubmit)="onSubmit()">
-      <h1>Daily Form</h1>
+    <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+      <h1>Leave Form</h1>
 
       <div class="row from-row">
         <input
@@ -74,12 +74,6 @@
         >
           <div *ngIf="f.carId.errors">Car is required.</div>
         </div>
-      </div>
-      <br />
-
-      <div class="row from-row">
-        <label class="col-sm-4">Daily Amount</label>
-        <p>{{ dailyAmount }}</p>
       </div>
       <br />
 
@@ -167,9 +161,6 @@
     </td>
     <td>
       {{ leave.endDate }}
-    </td>
-    <td>
-      {{ leave.daily }}
     </td>
     <td>
       {{ leave.days }}

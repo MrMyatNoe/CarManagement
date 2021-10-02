@@ -106,7 +106,7 @@ export class LeaveListComponent implements OnInit {
     params = params.append("page", this.page);
     params = params.append("size", this.size);
     this.apiService
-      .getRequestWithParams("dailyTransactions", params)
+      .getRequestWithParams("leaves", params)
       .toPromise()
       .then(
         (data) => {
@@ -161,18 +161,18 @@ export class LeaveListComponent implements OnInit {
   }
 
   onSubmit() {
-    let daily1 = {
+    let leave1 = {
       id: null,
       driverId: this.leaveForm.controls["driverId"].value,
       carId: this.leaveForm.controls["carId"].value,
       startedDate: this.leaveForm.controls["startedDate"].value,
       endDate: this.leaveForm.controls["endDate"].value,
-      day: this.days,
+      days: this.days,
       reason: this.leaveForm.controls["reason"].value,
     };
-    if (daily1.id) {
+    if (leave1.id) {
       this.apiService
-        .putRequest("leaves", daily1)
+        .putRequest("leaves", leave1)
         .toPromise()
         .then(
           (_data) => {
@@ -185,7 +185,7 @@ export class LeaveListComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("leaves", daily1)
+        .postRequest("leaves", leave1)
         .toPromise()
         .then(
           (_data) => {
@@ -216,5 +216,12 @@ export class LeaveListComponent implements OnInit {
   handlePageChange(event: number): void {
     this.page = event;
     this.getLeavesByPageAndSize();
+  }
+
+  newLeave() {
+    this.modalDialogLabel = "New";
+    this.modalButtonLabel = "Save";
+    //this.dailyForm.reset();
+    this.open(this.editModalDlg);
   }
 }
