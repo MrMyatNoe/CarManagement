@@ -1,6 +1,7 @@
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
@@ -25,14 +26,15 @@ export class MaintanenceComponent implements OnInit {
 
   @ViewChild("mymodal", { static: false }) editModalDlg: any;
 
-  dailyAmount: any;
   carsDataById: any;
   days: number = 0;
 
-  // pagination
-  page: any = 1;
-  size: any = 5;
-  pageSizes = [5, 10, 15];
+  private url: string = "maintenances";
+
+  dataSource: MatTableDataSource<any>;
+  displayedColumns = ["car", "start", "end", "days", "total", "actions"];
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
@@ -50,8 +52,25 @@ export class MaintanenceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMaintenancesByPageAndSize();
+    this.getMaintenances();
     this.getCars();
+  }
+
+  getMaintenances() {
+    this.apiService
+      .getRequest(this.url)
+      .toPromise()
+      .then(
+        (data) => {
+          this.maintenanceData = data;
+          this.dataSource = new MatTableDataSource(this.maintenanceData);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   get f() {
@@ -72,32 +91,11 @@ export class MaintanenceComponent implements OnInit {
             .then(
               (data) => {
                 this.carsDataById = data;
-                this.dailyAmount = this.carsDataById.dailyAmount;
               },
               (error) => {
                 this.toastService.error(error.error.message);
               }
             );
-        },
-        (error) => {
-          this.toastService.error(error.error.message);
-        }
-      );
-  }
-
-  getMaintenancesByPageAndSize() {
-    let params = new HttpParams();
-    if (this.page !== 0) {
-      this.page -= 1;
-    }
-    params = params.append("page", this.page);
-    params = params.append("size", this.size);
-    this.apiService
-      .getRequestWithParams("maintenances", params)
-      .toPromise()
-      .then(
-        (data) => {
-          this.maintenanceData = data;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -143,7 +141,6 @@ export class MaintanenceComponent implements OnInit {
       .then(
         (data) => {
           this.carsDataById = data;
-          this.dailyAmount = this.carsDataById.dailyAmount;
         },
         (error) => {
           this.toastService.error(error.error.message);
@@ -167,8 +164,7 @@ export class MaintanenceComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.page = 1;
-            this.getMaintenancesByPageAndSize();
+            this.getMaintenances();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -180,7 +176,7 @@ export class MaintanenceComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getMaintenancesByPageAndSize();
+            this.getMaintenances();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -198,17 +194,6 @@ export class MaintanenceComponent implements OnInit {
     this.days += 1;
   }
 
-  handlePageSizeChange(event: any) {
-    this.size = event.target.value;
-    this.page = 1;
-    this.getMaintenancesByPageAndSize();
-  }
-
-  handlePageChange(event: number): void {
-    this.page = event;
-    this.getMaintenancesByPageAndSize();
-  }
-
   editMaintenance(maintenance: Maintenance) {
     this.modalDialogLabel = "Edit";
     this.modalButtonLabel = "Update";
@@ -216,5 +201,14 @@ export class MaintanenceComponent implements OnInit {
     console.log(model);
     this.maintenanceForm.patchValue(model);
     this.open(this.editModalDlg);
+  }
+
+  onEditClicked(row) {
+    console.log("Edit clicked ", row.id);
+  }
+
+  applyFilter(event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 }

@@ -14,7 +14,7 @@ import { ApiService } from "src/app/core/services/api/api.service";
 })
 export class DailyTransactionComponent implements OnInit {
   private url: string = "dailyTransactions";
-  rolesData: any;
+  dailysData: any;
 
   dataSource: MatTableDataSource<any>;
   displayedColumns = [
@@ -66,7 +66,7 @@ export class DailyTransactionComponent implements OnInit {
       paid: [""],
       remark: [""],
     });
-    this.getRoles();
+    this.getDailys();
     this.getCars();
     this.getDrivers();
   }
@@ -77,14 +77,14 @@ export class DailyTransactionComponent implements OnInit {
     return this.dailyForm.controls;
   }
 
-  getRoles() {
+  getDailys() {
     this.apiService
       .getRequest(this.url)
       .toPromise()
       .then(
         (data) => {
-          this.rolesData = data;
-          this.dataSource = new MatTableDataSource(this.rolesData);
+          this.dailysData = data;
+          this.dataSource = new MatTableDataSource(this.dailysData);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         },
@@ -204,7 +204,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getRoles();
+            this.getDailys();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -216,7 +216,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getRoles();
+            this.getDailys();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -244,7 +244,6 @@ export class DailyTransactionComponent implements OnInit {
   }
 
   applyFilter(event) {
-    console.log("in filer", event);
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
