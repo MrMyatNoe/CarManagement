@@ -13,10 +13,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Tool | Usage
 ------------ | -------------
 UI | HTML,CSS,
-Rounting | Anuglar Routing
+Routing | Anuglar Routing
 Template | Angular Template
 API | HttpClient
 Time | Moment.js
+Data Table | Angular Material
+Modal | NgbModal
 
 ## Development server
 
