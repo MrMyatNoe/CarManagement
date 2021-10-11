@@ -35,7 +35,20 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
-import { MaintanenceComponent } from './modules/admins/components/maintanence/maintanence.component';
+import { MaintanenceComponent } from "./modules/admins/components/maintanence/maintanence.component";
+import { TestPaginationComponent } from "./modules/admins/components/test-pagination/test-pagination.component";
+import { DataTablesModule } from "angular-datatables";
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from "@angular/material";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -62,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     LeaveListComponent,
     MaintanenceComponent,
+    TestPaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +100,15 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    DataTablesModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
   ],
   providers: [
     AuthServiceService,
@@ -93,6 +116,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
       multi: true,
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: "fill" },
     },
   ],
   bootstrap: [AppComponent],
