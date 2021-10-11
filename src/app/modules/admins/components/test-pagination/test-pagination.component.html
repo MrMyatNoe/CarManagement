@@ -169,10 +169,6 @@
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-    </ng-container>
     <ng-container matColumnDef="driver">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ "Driver" | translate: param }}
@@ -180,52 +176,70 @@
       <td mat-cell *matCellDef="let row">{{ row.driverName }}</td>
     </ng-container>
     <ng-container matColumnDef="car">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Car</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Car" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.carNo }}</td>
     </ng-container>
     <ng-container matColumnDef="start">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Start Date" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.startedDate }}</td>
     </ng-container>
     <ng-container matColumnDef="end">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "End Date" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.endDate }}</td>
     </ng-container>
 
     <ng-container matColumnDef="daily">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Daily</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Daily" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.daily }}</td>
     </ng-container>
 
     <ng-container matColumnDef="days">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Days</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Days" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.days }}</td>
     </ng-container>
 
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Amount</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Total" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.total }}</td>
     </ng-container>
 
     <ng-container matColumnDef="paid">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Paid" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.paid }}</td>
     </ng-container>
 
     <ng-container matColumnDef="remain">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Remain</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Remain" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.remain }}</td>
     </ng-container>
 
     <ng-container matColumnDef="remark">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Remark</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ "Remark" | translate: param }}
+      </th>
       <td mat-cell *matCellDef="let row">{{ row.remark }}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="onEditClicked(row)">Edit</button>
+        <button mat-button (click)="onEditClicked(row)">Edit</button>
       </td>
     </ng-container>
 

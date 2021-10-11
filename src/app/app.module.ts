@@ -25,7 +25,6 @@ import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forg
 import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
 import { ResetPasswordComponent } from "src/app/modules/admins/components/reset-password/reset-password.component";
 import { DailyTransactionComponent } from "src/app/modules/admins/components/daily-transaction/daily-transaction.component";
-import { Ng2SmartTableModule } from "ng2-smart-table";
 import { CarComponent } from "./modules/admins/components/car/car.component";
 import { CarListComponent } from "./modules/admins/components/car-list/car-list.component";
 import { HttpConfigInterceptor } from "./core/services/httpConfig.interceptor";
@@ -37,7 +36,6 @@ import { NavbarComponent } from "./core/navbar/navbar.component";
 import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
 import { MaintanenceComponent } from "./modules/admins/components/maintanence/maintanence.component";
 import { TestPaginationComponent } from "./modules/admins/components/test-pagination/test-pagination.component";
-import { DataTablesModule } from "angular-datatables";
 import {
   MatButtonModule,
   MatIconModule,
@@ -87,7 +85,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     CommonModule,
     BrowserAnimationsModule,
-    Ng2SmartTableModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: false,
@@ -100,7 +97,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    DataTablesModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
@@ -116,10 +112,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
       multi: true,
-    },
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: "fill" },
     },
   ],
   bootstrap: [AppComponent],

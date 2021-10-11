@@ -18,7 +18,6 @@ export class TestPaginationComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   columns = [
-    "id",
     "driver",
     "car",
     "start",
