@@ -35,7 +35,6 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
 import { MaintanenceComponent } from "./modules/admins/components/maintanence/maintanence.component";
-import { TestPaginationComponent } from "./modules/admins/components/test-pagination/test-pagination.component";
 import {
   MatButtonModule,
   MatIconModule,
@@ -45,7 +44,6 @@ import {
   MatProgressSpinnerModule,
   MatSortModule,
   MatTableModule,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from "@angular/material";
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -73,7 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     LeaveListComponent,
     MaintanenceComponent,
-    TestPaginationComponent,
   ],
   imports: [
     BrowserModule,
