@@ -25,7 +25,6 @@ import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forg
 import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
 import { ResetPasswordComponent } from "src/app/modules/admins/components/reset-password/reset-password.component";
 import { DailyTransactionComponent } from "src/app/modules/admins/components/daily-transaction/daily-transaction.component";
-import { Ng2SmartTableModule } from "ng2-smart-table";
 import { CarComponent } from "./modules/admins/components/car/car.component";
 import { CarListComponent } from "./modules/admins/components/car-list/car-list.component";
 import { HttpConfigInterceptor } from "./core/services/httpConfig.interceptor";
@@ -35,7 +34,19 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NavbarComponent } from "./core/navbar/navbar.component";
 import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
-import { MaintanenceComponent } from './modules/admins/components/maintanence/maintanence.component';
+import { MaintanenceComponent } from "./modules/admins/components/maintanence/maintanence.component";
+import { TestPaginationComponent } from "./modules/admins/components/test-pagination/test-pagination.component";
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from "@angular/material";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -62,6 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     LeaveListComponent,
     MaintanenceComponent,
+    TestPaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +85,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     CommonModule,
     BrowserAnimationsModule,
-    Ng2SmartTableModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: false,
@@ -86,6 +97,14 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
   ],
   providers: [
     AuthServiceService,
