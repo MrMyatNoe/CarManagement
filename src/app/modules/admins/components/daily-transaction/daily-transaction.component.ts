@@ -1,6 +1,7 @@
 import { HttpParams } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
@@ -12,6 +13,26 @@ import { ApiService } from "src/app/core/services/api/api.service";
   styleUrls: ["./daily-transaction.component.css"],
 })
 export class DailyTransactionComponent implements OnInit {
+  private url: string = "dailyTransactions";
+  dailysData: any;
+
+  dataSource: MatTableDataSource<any>;
+  displayedColumns = [
+    "driver",
+    "car",
+    "start",
+    "end",
+    "daily",
+    "days",
+    "total",
+    "paid",
+    "remain",
+    "remark",
+    "actions",
+  ];
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
   carsData: any;
   carId: "";
   driversData: any;
@@ -30,46 +51,6 @@ export class DailyTransactionComponent implements OnInit {
   carsDataById: any;
   days: number = 0;
 
-  // pagination
-  page: any = 1;
-  size: any = 5;
-  pageSizes = [5, 10, 15];
-
-  // ng2table
-  // public settings = {
-  //   actions: {
-  //     add: false,
-  //     edit: false,
-  //     delete: false,
-  //     position: 'right',
-  //     custom: [
-  //       {
-  //         name: 'view',
-  //         title: 'View ',
-  //       },
-  //     ]
-  //   },
-  //   columns: {
-  //     carNo: {
-  //       title: 'Car No',
-  //       filter: false,
-  //     },
-  //     driverName: {
-  //       title: 'Driver Name',
-  //       filter: false,
-  //     },
-  //     paid: {
-  //       title: 'Paid',
-  //       filter: false,
-  //     },
-  //     total: {
-  //       title: 'Total',
-  //       filter: false,
-  //     }
-  //   },
-  // };
-
-  //dailySource: LocalDataSource;
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService,
@@ -85,16 +66,32 @@ export class DailyTransactionComponent implements OnInit {
       paid: [""],
       remark: [""],
     });
+    this.getDailys();
+    this.getCars();
+    this.getDrivers();
   }
+
+  ngOnInit(): void {}
 
   get f() {
     return this.dailyForm.controls;
   }
 
-  ngOnInit() {
-    this.getDailyTransactionsByPageAndSize();
-    this.getCars();
-    this.getDrivers();
+  getDailys() {
+    this.apiService
+      .getRequest(this.url)
+      .toPromise()
+      .then(
+        (data) => {
+          this.dailysData = data;
+          this.dataSource = new MatTableDataSource(this.dailysData);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   getCars() {
@@ -137,37 +134,6 @@ export class DailyTransactionComponent implements OnInit {
           this.toastService.error(error.error.message);
         }
       );
-  }
-
-  // getDailyTransactions() {
-  //   this.apiService.getRequest('dailyTransactions').subscribe((response:any) => {
-  //     console.log(response)
-  //     this.dailySource = new LocalDataSource(response);
-  //   });
-  // }
-
-  getDailyTransactionsByPageAndSize() {
-    let params = new HttpParams();
-    if (this.page !== 0) {
-      this.page -= 1;
-    }
-    params = params.append("page", this.page);
-    params = params.append("size", this.size);
-    this.apiService
-      .getRequestWithParams("dailyTransactions", params)
-      .toPromise()
-      .then(
-        (data) => {
-          this.dailyTransactionsData = data;
-        },
-        (error) => {
-          this.toastService.error(error.error.message);
-        }
-      );
-  }
-
-  total() {
-    this.totalAmount = this.days * this.dailyAmount;
   }
 
   newDaily() {
@@ -234,12 +200,11 @@ export class DailyTransactionComponent implements OnInit {
     };
     if (daily1.id) {
       this.apiService
-        .putRequest("daily", daily1)
+        .putRequest("dailyTransactions", daily1)
         .toPromise()
         .then(
           (_data) => {
-            this.page = 1;
-            this.getDailyTransactionsByPageAndSize();
+            this.getDailys();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -251,7 +216,7 @@ export class DailyTransactionComponent implements OnInit {
         .toPromise()
         .then(
           (_data) => {
-            this.getDailyTransactionsByPageAndSize();
+            this.getDailys();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -262,6 +227,10 @@ export class DailyTransactionComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  total() {
+    this.totalAmount = this.days * this.dailyAmount;
+  }
+
   getDateDifference() {
     var startDate = moment(this.f.startedDate.value);
     var endDate = moment(this.f.endDate.value);
@@ -270,14 +239,12 @@ export class DailyTransactionComponent implements OnInit {
     this.total();
   }
 
-  handlePageSizeChange(event: any) {
-    this.size = event.target.value;
-    this.page = 1;
-    this.getDailyTransactionsByPageAndSize();
+  onEditClicked(row) {
+    console.log("Edit clicked ", row.id);
   }
 
-  handlePageChange(event: number): void {
-    this.page = event;
-    this.getDailyTransactionsByPageAndSize();
+  applyFilter(event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 }
