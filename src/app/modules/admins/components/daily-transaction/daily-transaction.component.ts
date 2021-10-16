@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-daily-transaction",
@@ -13,7 +14,9 @@ import { ApiService } from "src/app/core/services/api/api.service";
   styleUrls: ["./daily-transaction.component.css"],
 })
 export class DailyTransactionComponent implements OnInit {
-  private url: string = "dailyTransactions";
+  private DAILYS_ROUTE = environment.DAILYS;
+  private CARS_ROUTE = environment.CARS;
+  private DRIVERS_ROUTE = environment.DRIVERS;
   dailysData: any;
 
   dataSource: MatTableDataSource<any>;
@@ -79,7 +82,7 @@ export class DailyTransactionComponent implements OnInit {
 
   getDailys() {
     this.apiService
-      .getRequest(this.url)
+      .getRequest(this.DAILYS_ROUTE)
       .toPromise()
       .then(
         (data) => {
@@ -96,14 +99,14 @@ export class DailyTransactionComponent implements OnInit {
 
   getCars() {
     this.apiService
-      .getRequest("cars")
+      .getRequest(this.CARS_ROUTE)
       .toPromise()
       .then(
         (data) => {
           this.carsData = data;
           this.carId = this.carId || data[0].id;
           this.apiService
-            .getRequest("cars/" + this.carId)
+            .getRequest(this.CARS_ROUTE + this.carId)
             .toPromise()
             .then(
               (data) => {
@@ -123,7 +126,7 @@ export class DailyTransactionComponent implements OnInit {
 
   getDrivers() {
     this.apiService
-      .getRequest("drivers")
+      .getRequest(this.DRIVERS_ROUTE)
       .toPromise()
       .then(
         (data) => {
@@ -173,7 +176,7 @@ export class DailyTransactionComponent implements OnInit {
   car_change(id) {
     this.carId = id;
     this.apiService
-      .getRequest("cars/" + id)
+      .getRequest(this.CARS_ROUTE + id)
       .toPromise()
       .then(
         (data) => {
@@ -200,7 +203,7 @@ export class DailyTransactionComponent implements OnInit {
     };
     if (daily1.id) {
       this.apiService
-        .putRequest("dailyTransactions", daily1)
+        .putRequest(this.DAILYS_ROUTE, daily1)
         .toPromise()
         .then(
           (_data) => {
@@ -212,7 +215,7 @@ export class DailyTransactionComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("dailyTransactions", daily1)
+        .postRequest(this.DAILYS_ROUTE, daily1)
         .toPromise()
         .then(
           (_data) => {

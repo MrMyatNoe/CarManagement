@@ -161,7 +161,7 @@
 </div>
 
 <div style="margin-top: 20px">
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" />
   </mat-form-field>
@@ -248,7 +248,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
   <mat-paginator
-    [pageSizeOptions]="[3, 6, 9]"
+    [pageSizeOptions]="[5, 10, 15]"
     showFirstLastButtons
     aria-label="Select page of periodic elements"
   ></mat-paginator>

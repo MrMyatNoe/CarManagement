@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
+import { environment } from "src/environments/environment";
 import { Maintenance } from "../../models/maintenance.model";
 
 @Component({
@@ -14,6 +15,9 @@ import { Maintenance } from "../../models/maintenance.model";
   styleUrls: ["./maintanence.component.css"],
 })
 export class MaintanenceComponent implements OnInit {
+  private CARS_ROUTE = environment.CARS;
+  private MAINTENANCES_ROUTE = environment.MAINTENANCES;
+
   carsData: any;
   carId: "";
   maintenanceData: any;
@@ -28,8 +32,6 @@ export class MaintanenceComponent implements OnInit {
 
   carsDataById: any;
   days: number = 0;
-
-  private url: string = "maintenances";
 
   dataSource: MatTableDataSource<any>;
   displayedColumns = ["car", "start", "end", "days", "total", "actions"];
@@ -58,7 +60,7 @@ export class MaintanenceComponent implements OnInit {
 
   getMaintenances() {
     this.apiService
-      .getRequest(this.url)
+      .getRequest(this.MAINTENANCES_ROUTE)
       .toPromise()
       .then(
         (data) => {
@@ -79,14 +81,14 @@ export class MaintanenceComponent implements OnInit {
 
   getCars() {
     this.apiService
-      .getRequest("cars")
+      .getRequest(this.CARS_ROUTE)
       .toPromise()
       .then(
         (data) => {
           this.carsData = data;
           this.carId = this.carId || data[0].id;
           this.apiService
-            .getRequest("cars/" + this.carId)
+            .getRequest(this.CARS_ROUTE + this.carId)
             .toPromise()
             .then(
               (data) => {
@@ -136,7 +138,7 @@ export class MaintanenceComponent implements OnInit {
   car_change(id) {
     this.carId = id;
     this.apiService
-      .getRequest("cars/" + id)
+      .getRequest(this.CARS_ROUTE + id)
       .toPromise()
       .then(
         (data) => {
@@ -160,7 +162,7 @@ export class MaintanenceComponent implements OnInit {
     };
     if (maintain1.id) {
       this.apiService
-        .putRequest("maintenances", maintain1)
+        .putRequest(this.MAINTENANCES_ROUTE, maintain1)
         .toPromise()
         .then(
           (_data) => {
@@ -172,7 +174,7 @@ export class MaintanenceComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("maintenances", maintain1)
+        .postRequest(this.MAINTENANCES_ROUTE, maintain1)
         .toPromise()
         .then(
           (_data) => {

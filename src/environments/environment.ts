@@ -5,6 +5,11 @@
 export const environment = {
   production: false,
   BASE_URL: "http://localhost:8080/api/v1/",
+  DAILYS: "dailys",
+  CARS: "cars",
+  DRIVERS: "drivers",
+  MAINTENANCES: "maintenances",
+  LEAVES: "leaves",
 };
 
 /*

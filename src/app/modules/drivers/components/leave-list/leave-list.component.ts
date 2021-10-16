@@ -1,10 +1,12 @@
 import { HttpParams } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-leave-list",
@@ -12,6 +14,24 @@ import { ApiService } from "src/app/core/services/api/api.service";
   styleUrls: ["./leave-list.component.css"],
 })
 export class LeaveListComponent implements OnInit {
+  private CARS_ROUTE = environment.CARS;
+  private DRIVERS_ROUTE = environment.DRIVERS;
+  private LEAVES_ROUTE = environment.LEAVES;
+
+  dailysData: any;
+
+  dataSource: MatTableDataSource<any>;
+  displayedColumns = [
+    "driver",
+    "car",
+    "start",
+    "end",
+    "days",
+    "reason",
+    "actions",
+  ];
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   leaveForm: FormGroup;
   carsData: any;
   carId: "";
@@ -20,11 +40,6 @@ export class LeaveListComponent implements OnInit {
   leavesData: any;
   carsDataById: any;
   days: number = 0;
-
-  // pagination
-  page: any = 1;
-  size: any = 5;
-  pageSizes = [5, 10, 15];
 
   modalDialogLabel: string = "";
   modalButtonLabel: string = "";
@@ -52,21 +67,21 @@ export class LeaveListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getLeavesByPageAndSize();
+    this.getLeaves();
     this.getCars();
     this.getDrivers();
   }
 
   getCars() {
     this.apiService
-      .getRequest("cars")
+      .getRequest(this.CARS_ROUTE)
       .toPromise()
       .then(
         (data) => {
           this.carsData = data;
           this.carId = this.carId || data[0].id;
           this.apiService
-            .getRequest("cars/" + this.carId)
+            .getRequest(this.CARS_ROUTE + this.carId)
             .toPromise()
             .then(
               (data) => {
@@ -85,7 +100,7 @@ export class LeaveListComponent implements OnInit {
 
   getDrivers() {
     this.apiService
-      .getRequest("drivers")
+      .getRequest(this.DRIVERS_ROUTE)
       .toPromise()
       .then(
         (data) => {
@@ -98,22 +113,19 @@ export class LeaveListComponent implements OnInit {
       );
   }
 
-  getLeavesByPageAndSize() {
-    let params = new HttpParams();
-    if (this.page !== 0) {
-      this.page -= 1;
-    }
-    params = params.append("page", this.page);
-    params = params.append("size", this.size);
+  getLeaves() {
     this.apiService
-      .getRequestWithParams("leaves", params)
+      .getRequest(this.LEAVES_ROUTE)
       .toPromise()
       .then(
         (data) => {
-          this.leavesData = data;
+          this.dailysData = data;
+          this.dataSource = new MatTableDataSource(this.dailysData);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
         },
         (error) => {
-          this.toastService.error(error.error.message);
+          console.log(error);
         }
       );
   }
@@ -148,7 +160,7 @@ export class LeaveListComponent implements OnInit {
   car_change(id) {
     this.carId = id;
     this.apiService
-      .getRequest("cars/" + id)
+      .getRequest(this.CARS_ROUTE + id)
       .toPromise()
       .then(
         (data) => {
@@ -172,12 +184,11 @@ export class LeaveListComponent implements OnInit {
     };
     if (leave1.id) {
       this.apiService
-        .putRequest("leaves", leave1)
+        .putRequest(this.LEAVES_ROUTE, leave1)
         .toPromise()
         .then(
           (_data) => {
-            this.page = 1;
-            this.getLeavesByPageAndSize();
+            this.getLeaves();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -185,11 +196,11 @@ export class LeaveListComponent implements OnInit {
         );
     } else {
       this.apiService
-        .postRequest("leaves", leave1)
+        .postRequest(this.LEAVES_ROUTE, leave1)
         .toPromise()
         .then(
           (_data) => {
-            this.getLeavesByPageAndSize();
+            this.getLeaves();
           },
           (error) => {
             this.toastService.error(error.error.message);
@@ -207,21 +218,19 @@ export class LeaveListComponent implements OnInit {
     this.days += 1;
   }
 
-  handlePageSizeChange(event: any) {
-    this.size = event.target.value;
-    this.page = 1;
-    this.getLeavesByPageAndSize();
-  }
-
-  handlePageChange(event: number): void {
-    this.page = event;
-    this.getLeavesByPageAndSize();
-  }
-
   newLeave() {
     this.modalDialogLabel = "New";
     this.modalButtonLabel = "Save";
-    //this.dailyForm.reset();
+    this.leaveForm.reset();
     this.open(this.editModalDlg);
+  }
+
+  onEditClicked(row) {
+    console.log("Edit clicked ", row.id);
+  }
+
+  applyFilter(event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 }
