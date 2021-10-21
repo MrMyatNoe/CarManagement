@@ -45,6 +45,7 @@ import {
   MatSortModule,
   MatTableModule,
 } from "@angular/material";
+import { ChartsModule } from "ng2-charts";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -102,6 +103,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    ChartsModule,
   ],
   providers: [
     AuthServiceService,

@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
+import { routes } from "src/app/core/services/routes";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -14,9 +15,9 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./daily-transaction.component.css"],
 })
 export class DailyTransactionComponent implements OnInit {
-  private DAILYS_ROUTE = environment.DAILYS;
-  private CARS_ROUTE = environment.CARS;
-  private DRIVERS_ROUTE = environment.DRIVERS;
+  private DAILYS_ROUTE = routes.DAILYS;
+  private CARS_ROUTE = routes.CARS;
+  private DRIVERS_ROUTE = routes.DRIVERS;
   dailysData: any;
 
   dataSource: MatTableDataSource<any>;

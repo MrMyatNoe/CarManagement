@@ -6,7 +6,7 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "src/app/core/services/api/api.service";
-import { environment } from "src/environments/environment";
+import { routes } from "src/app/core/services/routes";
 
 @Component({
   selector: "app-leave-list",
@@ -14,9 +14,9 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./leave-list.component.css"],
 })
 export class LeaveListComponent implements OnInit {
-  private CARS_ROUTE = environment.CARS;
-  private DRIVERS_ROUTE = environment.DRIVERS;
-  private LEAVES_ROUTE = environment.LEAVES;
+  private CARS_ROUTE = routes.CARS;
+  private DRIVERS_ROUTE = routes.DRIVERS;
+  private LEAVES_ROUTE = routes.LEAVES;
 
   dailysData: any;
 
