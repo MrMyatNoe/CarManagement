@@ -17,6 +17,7 @@ import { CarListComponent } from "./modules/admins/components/car-list/car-list.
 import { CarEditComponent } from "./modules/admins/components/car-edit/car-edit.component";
 import { LeaveListComponent } from "./modules/drivers/components/leave-list/leave-list.component";
 import { MaintanenceComponent } from "./modules/admins/components/maintanence/maintanence.component";
+import { TestChartComponent } from "./modules/admins/components/test-chart/test-chart.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: "cars/:id", component: CarEditComponent },
   { path: "leaves", component: LeaveListComponent },
   { path: "maintain", component: MaintanenceComponent },
+  { path: "charts", component: TestChartComponent },
 ];
 
 @NgModule({

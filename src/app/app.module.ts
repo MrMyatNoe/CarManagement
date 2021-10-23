@@ -19,7 +19,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AdminComponent } from "src/app/modules/admins/components/admin/admin.component";
 import { DriverListComponent } from "src/app/modules/drivers/components/driver-list/driver-list.component";
 import { ToastrModule } from "ngx-toastr";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ForgetPasswordComponent } from "src/app/modules/drivers/components/forgetPassword/forget-password.component";
 import { EditDriverComponent } from "src/app/modules/drivers/components/edit-driver/edit-driver.component";
@@ -45,7 +45,7 @@ import {
   MatSortModule,
   MatTableModule,
 } from "@angular/material";
-import { ChartsModule } from "ng2-charts";
+import { TestChartComponent } from "./modules/admins/components/test-chart/test-chart.component";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -72,6 +72,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     LeaveListComponent,
     MaintanenceComponent,
+    TestChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +104,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    ChartsModule,
   ],
   providers: [
     AuthServiceService,
@@ -112,6 +112,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: HttpConfigInterceptor,
       multi: true,
     },
+    [DatePipe],
   ],
   bootstrap: [AppComponent],
 })

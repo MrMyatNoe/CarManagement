@@ -143,7 +143,7 @@ export class DailyTransactionComponent implements OnInit {
   newDaily() {
     this.modalDialogLabel = "New";
     this.modalButtonLabel = "Save";
-    //this.dailyForm.reset();
+    this.dailyForm.reset();
     this.open(this.editModalDlg);
   }
 
@@ -221,14 +221,14 @@ export class DailyTransactionComponent implements OnInit {
         .then(
           (_data) => {
             this.getDailys();
+            this.dailyForm.reset();
+            this.modalService.dismissAll();
           },
           (error) => {
             this.toastService.error(error.error.message);
           }
         );
     }
-    this.dailyForm.reset();
-    this.modalService.dismissAll();
   }
 
   total() {

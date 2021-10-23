@@ -18,8 +18,6 @@ export class LeaveListComponent implements OnInit {
   private DRIVERS_ROUTE = routes.DRIVERS;
   private LEAVES_ROUTE = routes.LEAVES;
 
-  dailysData: any;
-
   dataSource: MatTableDataSource<any>;
   displayedColumns = [
     "driver",
@@ -119,8 +117,8 @@ export class LeaveListComponent implements OnInit {
       .toPromise()
       .then(
         (data) => {
-          this.dailysData = data;
-          this.dataSource = new MatTableDataSource(this.dailysData);
+          this.leavesData = data;
+          this.dataSource = new MatTableDataSource(this.leavesData);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         },
